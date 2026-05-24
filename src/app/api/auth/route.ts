@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 const JWT_SECRET = process.env.JWT_SECRET || "royal-horse-secret-key-2026";
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
 // Pre-hashed password for: "royalhorse2026"
-const DEFAULT_HASH = "$2a$10$T8Pq4V7x55N9mU1tM6hR7.uG.7F7p65.fL/zV8m0ZtYm2y5W6C3hO"; // hashed "royalhorse2026"
+const DEFAULT_HASH = "$2b$10$EuOVfTj6OossQ5okcpBYguVAtuEcXtPXBznHeH0VuX8SXCGIbIBzi"; // hashed "royalhorse2026"
 const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH || DEFAULT_HASH;
 
 export async function POST(request: Request) {
