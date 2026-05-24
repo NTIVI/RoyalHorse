@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { query, initDb } from "@/lib/db";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET || "royal-horse-secret-key-2026";
+const JWT_SECRET = process.env.JWT_SECRET || "royal-horse-secret-key-2026-auth";
 
 function checkAuth(request: Request): boolean {
   try {
@@ -26,30 +26,22 @@ export async function GET(request: Request) {
   }
 
   try {
-    // Ensure table exists
     await initDb();
-    
-    // Fetch inquiries sorted by created_at descending
     const result = await query(
-      "SELECT id, name, phone, email, created_at, status, notes FROM royal_horse_inquiries ORDER BY created_at DESC"
+      "SELECT id, name, phone, email, message, created_at, status, notes FROM royal_horse_inquiries ORDER BY created_at DESC"
     );
-    
     return NextResponse.json(result);
   } catch (error) {
     console.error("Fetch inquiries error:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch inquiries" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch inquiries" }, { status: 500 });
   }
 }
 
 // POST: Submit a new inquiry (public)
 export async function POST(request: Request) {
   try {
-    const { name, phone, email } = await request.json();
+    const { name, phone, email, message } = await request.json();
 
-    // Basic validation
     if (!name || !phone || !email) {
       return NextResponse.json(
         { error: "Name, phone, and email are required fields" },
@@ -57,25 +49,21 @@ export async function POST(request: Request) {
       );
     }
 
-    // Phone and Email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return NextResponse.json({ error: "Invalid email format" }, { status: 400 });
     }
 
-    // Minimal phone validation (digits, spaces, plus, dashes, parentheses)
     const phoneRegex = /^[\d\s+\-()]{6,20}$/;
     if (!phoneRegex.test(phone)) {
       return NextResponse.json({ error: "Invalid phone number format" }, { status: 400 });
     }
 
-    // Ensure database is initialized
     await initDb();
 
-    // Insert into DB
     const result = await query(
-      "INSERT INTO royal_horse_inquiries (name, phone, email, status) VALUES ($1, $2, $3, $4) RETURNING id",
-      [name.trim(), phone.trim(), email.trim(), "New"]
+      "INSERT INTO royal_horse_inquiries (name, phone, email, message, status) VALUES ($1, $2, $3, $4, $5) RETURNING id",
+      [name.trim(), phone.trim(), email.trim(), (message || "").trim(), "New"]
     );
 
     return NextResponse.json({
@@ -85,9 +73,6 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("Submit inquiry error:", error);
-    return NextResponse.json(
-      { error: "Failed to submit inquiry" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to submit inquiry" }, { status: 500 });
   }
 }

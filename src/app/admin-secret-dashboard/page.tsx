@@ -1,22 +1,23 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { 
-  Lock, 
-  User, 
-  LogOut, 
-  Trash2, 
-  Edit3, 
-  CheckCircle, 
-  Clock, 
-  AlertCircle, 
-  RefreshCw, 
-  Phone, 
-  Mail, 
+import {
+  Lock,
+  User,
+  LogOut,
+  Trash2,
+  CheckCircle,
+  Clock,
+  RefreshCw,
+  Phone,
+  Mail,
   Calendar,
   Layers,
   Inbox,
-  CheckSquare
+  CheckSquare,
+  MessageSquare,
+  XCircle,
+  AlertCircle,
 } from "lucide-react";
 
 interface Inquiry {
@@ -24,6 +25,7 @@ interface Inquiry {
   name: string;
   phone: string;
   email: string;
+  message: string;
   created_at: string;
   status: string;
   notes: string;
@@ -36,11 +38,10 @@ export default function AdminDashboard() {
   const [loginError, setLoginError] = useState("");
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [loading, setLoading] = useState(false);
-  const [editingNotesId, setEditingNotesId] = useState<number | null>(null);
-  const [notesContent, setNotesContent] = useState("");
   const [filterStatus, setFilterStatus] = useState<string>("All");
+  const [expandedId, setExpandedId] = useState<number | null>(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
 
-  // Check auth on load
   useEffect(() => {
     checkAuthStatus();
   }, []);
@@ -73,21 +74,17 @@ export default function AdminDashboard() {
         setIsAuthenticated(true);
         fetchInquiries();
       } else {
-        setLoginError(data.error || "Login failed");
+        setLoginError(data.error || "Неверный логин или пароль");
       }
     } catch {
-      setLoginError("An error occurred during login.");
+      setLoginError("Ошибка соединения с сервером");
     }
   };
 
   const handleLogout = async () => {
-    try {
-      await fetch("/api/auth", { method: "DELETE" });
-      setIsAuthenticated(false);
-      setInquiries([]);
-    } catch {
-      alert("Failed to log out");
-    }
+    await fetch("/api/auth", { method: "DELETE" });
+    setIsAuthenticated(false);
+    setInquiries([]);
   };
 
   const fetchInquiries = async () => {
@@ -107,43 +104,34 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleStatusChange = async (id: number, newStatus: string) => {
+  const handleConfirm = async (id: number) => {
     try {
       const res = await fetch(`/api/inquiries/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: newStatus }),
+        body: JSON.stringify({ status: "Completed" }),
       });
       if (res.ok) {
-        setInquiries(
-          inquiries.map((inq) =>
-            inq.id === id ? { ...inq, status: newStatus } : inq
-          )
-        );
-      } else {
-        alert("Failed to update status");
+        setInquiries(inquiries.map((inq) =>
+          inq.id === id ? { ...inq, status: "Completed" } : inq
+        ));
       }
     } catch (err) {
       console.error(err);
     }
   };
 
-  const handleSaveNotes = async (id: number) => {
+  const handleSetInProgress = async (id: number) => {
     try {
       const res = await fetch(`/api/inquiries/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ notes: notesContent }),
+        body: JSON.stringify({ status: "In Progress" }),
       });
       if (res.ok) {
-        setInquiries(
-          inquiries.map((inq) =>
-            inq.id === id ? { ...inq, notes: notesContent } : inq
-          )
-        );
-        setEditingNotesId(null);
-      } else {
-        alert("Failed to save notes");
+        setInquiries(inquiries.map((inq) =>
+          inq.id === id ? { ...inq, status: "In Progress" } : inq
+        ));
       }
     } catch (err) {
       console.error(err);
@@ -151,22 +139,17 @@ export default function AdminDashboard() {
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm("Are you sure you want to delete this inquiry?")) return;
     try {
-      const res = await fetch(`/api/inquiries/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(`/api/inquiries/${id}`, { method: "DELETE" });
       if (res.ok) {
         setInquiries(inquiries.filter((inq) => inq.id !== id));
-      } else {
-        alert("Failed to delete inquiry");
+        setConfirmDeleteId(null);
       }
     } catch (err) {
       console.error(err);
     }
   };
 
-  // Stats helpers
   const totalCount = inquiries.length;
   const newCount = inquiries.filter((i) => i.status === "New").length;
   const activeCount = inquiries.filter((i) => i.status === "In Progress").length;
@@ -177,75 +160,87 @@ export default function AdminDashboard() {
     return inq.status === filterStatus;
   });
 
+  const statusLabel: Record<string, string> = {
+    "New": "Новый",
+    "In Progress": "В обработке",
+    "Completed": "Подтверждён",
+  };
+
+  const statusStyle: Record<string, string> = {
+    "New": "bg-red-100 text-red-600 border-red-200",
+    "In Progress": "bg-blue-100 text-blue-600 border-blue-200",
+    "Completed": "bg-emerald-100 text-emerald-700 border-emerald-200",
+  };
+
+  // ─── LOADING STATE ───────────────────────────────────
   if (isAuthenticated === null) {
     return (
-      <div className="min-h-screen bg-[#FDFCF7] flex items-center justify-center">
+      <div className="min-h-screen bg-[#111111] flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <RefreshCw className="w-8 h-8 text-[#c5a059] animate-spin" />
-          <p className="text-gray-600 font-medium">Loading session...</p>
+          <RefreshCw className="w-8 h-8 text-[#D4AF37] animate-spin" />
+          <p className="text-gray-400 text-sm">Загрузка...</p>
         </div>
       </div>
     );
   }
 
-  // 1. LOGIN SCREEN
+  // ─── LOGIN SCREEN ────────────────────────────────────
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-[#111111] flex items-center justify-center px-4 relative overflow-hidden">
-        {/* Abstract luxury background lines */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-amber-900/10 via-black to-black pointer-events-none" />
         <div className="absolute w-[500px] h-[500px] rounded-full bg-amber-500/5 blur-[120px] -top-40 -left-40 pointer-events-none" />
 
-        <div className="relative w-full max-w-md bg-[#1c1c1c] border border-white/5 p-8 rounded-2xl shadow-2xl backdrop-blur-md">
+        <div className="relative w-full max-w-md bg-[#1a1a1a] border border-[#D4AF37]/20 p-8 rounded-2xl shadow-2xl">
           <div className="text-center mb-8">
-            <div className="inline-flex p-3 rounded-full bg-[#262626] border border-white/5 text-[#c5a059] mb-4">
+            <div className="inline-flex p-3 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] mb-4">
               <Lock className="w-6 h-6" />
             </div>
-            <h1 className="text-2xl font-serif text-white tracking-wider">ROYAL HORSE</h1>
-            <p className="text-sm text-gray-400 mt-1">Administrative Access Portal</p>
+            <h1 className="text-2xl font-serif text-white tracking-[0.15em]">ROYAL HORSE</h1>
+            <p className="text-xs text-gray-500 mt-1 tracking-widest uppercase">Панель администратора</p>
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-6">
+          <form onSubmit={handleLogin} className="space-y-5">
             <div>
-              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
-                Administrator Username
+              <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
+                Логин
               </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
-                  <User className="w-5 h-5" />
+                  <User className="w-4 h-4" />
                 </span>
                 <input
                   type="text"
                   required
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Enter login..."
-                  className="w-full bg-[#262626] border border-white/10 text-white placeholder-gray-500 pl-10 pr-4 py-3 rounded-xl focus:outline-none focus:border-[#c5a059] focus:ring-1 focus:ring-[#c5a059]/20 transition-all text-sm"
+                  placeholder="Введите логин..."
+                  className="w-full bg-[#262626] border border-white/10 text-white placeholder-gray-600 pl-10 pr-4 py-3 rounded-xl focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20 transition-all text-sm"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
-                Secure Password
+              <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
+                Пароль
               </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
-                  <Lock className="w-5 h-5" />
+                  <Lock className="w-4 h-4" />
                 </span>
                 <input
                   type="password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter password..."
-                  className="w-full bg-[#262626] border border-white/10 text-white placeholder-gray-500 pl-10 pr-4 py-3 rounded-xl focus:outline-none focus:border-[#c5a059] focus:ring-1 focus:ring-[#c5a059]/20 transition-all text-sm"
+                  placeholder="Введите пароль..."
+                  className="w-full bg-[#262626] border border-white/10 text-white placeholder-gray-600 pl-10 pr-4 py-3 rounded-xl focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20 transition-all text-sm"
                 />
               </div>
             </div>
 
             {loginError && (
-              <div className="flex items-center gap-2 bg-red-950/30 border border-red-500/20 text-red-400 p-3 rounded-xl text-sm">
+              <div className="flex items-center gap-2 bg-red-950/30 border border-red-500/20 text-red-400 p-3 rounded-xl text-xs">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{loginError}</span>
               </div>
@@ -253,9 +248,9 @@ export default function AdminDashboard() {
 
             <button
               type="submit"
-              className="w-full bg-[#c5a059] hover:bg-[#aa820a] active:bg-[#c5a059] text-black font-semibold py-3 px-4 rounded-xl shadow-lg shadow-amber-500/10 hover:shadow-amber-500/20 transition-all text-sm tracking-wide"
+              className="w-full bg-gradient-to-r from-[#AA820A] via-[#D4AF37] to-[#F3E5AB] hover:from-[#D4AF37] hover:to-[#F3E5AB] text-black font-bold py-3.5 px-4 rounded-xl transition-all text-sm tracking-widest uppercase shadow-lg shadow-amber-500/10"
             >
-              Sign In to System
+              Войти
             </button>
           </form>
         </div>
@@ -263,236 +258,225 @@ export default function AdminDashboard() {
     );
   }
 
-  // 2. DASHBOARD MAIN VIEW
+  // ─── DASHBOARD ───────────────────────────────────────
   return (
-    <div className="min-h-screen bg-[#FDFCF7] text-gray-800 font-sans">
-      {/* Header bar */}
-      <header className="sticky top-0 z-40 bg-white border-b border-gray-200/80 shadow-sm backdrop-blur-md">
+    <div className="min-h-screen bg-[#F7F6F2] text-gray-800 font-sans">
+
+      {/* Header */}
+      <header className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="bg-[#111111] text-[#c5a059] p-2 rounded-lg font-serif font-semibold tracking-wider text-xs">
+            <div className="bg-[#111111] text-[#D4AF37] p-2 rounded-lg font-serif font-bold tracking-wider text-xs">
               RH
             </div>
             <div>
-              <h1 className="text-lg font-serif font-bold text-gray-900 tracking-wide">
-                RoyalHorse Club
-              </h1>
-              <p className="text-xs text-[#c5a059] font-medium tracking-wide">ADMINISTRATOR CONTROL PANEL</p>
+              <h1 className="text-base font-serif font-bold text-gray-900 tracking-wide">RoyalHorse</h1>
+              <p className="text-[10px] text-[#D4AF37] font-bold tracking-[0.15em] uppercase">Панель управления</p>
             </div>
           </div>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 text-xs font-semibold text-red-600 hover:text-red-800 bg-red-50 hover:bg-red-100/80 px-3.5 py-2 rounded-xl transition-all"
+            className="flex items-center gap-2 text-xs font-semibold text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 px-4 py-2 rounded-xl transition-all border border-red-100"
           >
             <LogOut className="w-4 h-4" />
-            <span>Sign Out</span>
+            <span>Выйти</span>
           </button>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        {/* Section Title */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+
+        {/* Page Title + Refresh */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-serif font-semibold text-gray-900">Lead Generation Inquiries</h2>
-            <p className="text-sm text-gray-500">Monitor and manage booking requests in real time.</p>
+            <h2 className="text-2xl font-serif font-bold text-gray-900">Заявки клиентов</h2>
+            <p className="text-sm text-gray-500 mt-0.5">Управляйте входящими запросами на бронирование</p>
           </div>
           <button
             onClick={fetchInquiries}
-            className="inline-flex items-center gap-2 text-xs font-semibold text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 px-4 py-2.5 rounded-xl shadow-sm transition-all"
+            className="inline-flex items-center gap-2 text-xs font-bold text-gray-700 bg-white border border-gray-200 hover:bg-gray-50 px-4 py-2.5 rounded-xl shadow-sm transition-all"
           >
-            <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin text-[#c5a059]" : ""}`} />
-            <span>Refresh Data</span>
+            <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin text-[#D4AF37]" : ""}`} />
+            <span>Обновить</span>
           </button>
         </div>
 
-        {/* Stats Cards Row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          <div className="bg-white border border-gray-200/80 rounded-2xl p-5 shadow-sm flex items-center gap-4">
-            <div className="p-3 bg-amber-50 text-[#c5a059] rounded-xl">
-              <Layers className="w-6 h-6" />
+        {/* Stats */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { label: "Всего заявок", value: totalCount, icon: <Layers className="w-5 h-5" />, color: "bg-amber-50 text-[#D4AF37]" },
+            { label: "Новых", value: newCount, icon: <Inbox className="w-5 h-5" />, color: "bg-red-50 text-red-500" },
+            { label: "В обработке", value: activeCount, icon: <Clock className="w-5 h-5" />, color: "bg-blue-50 text-blue-500" },
+            { label: "Подтверждённых", value: completedCount, icon: <CheckSquare className="w-5 h-5" />, color: "bg-emerald-50 text-emerald-600" },
+          ].map((stat) => (
+            <div key={stat.label} className="bg-white border border-gray-200/80 rounded-2xl p-5 shadow-sm flex items-center gap-4">
+              <div className={`p-2.5 rounded-xl ${stat.color}`}>{stat.icon}</div>
+              <div>
+                <p className="text-xs text-gray-400 font-medium">{stat.label}</p>
+                <p className="text-2xl font-bold text-gray-900 mt-0.5">{stat.value}</p>
+              </div>
             </div>
-            <div>
-              <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">Total Leads</span>
-              <h3 className="text-2xl font-bold text-gray-900 mt-0.5">{totalCount}</h3>
-            </div>
-          </div>
-
-          <div className="bg-white border border-gray-200/80 rounded-2xl p-5 shadow-sm flex items-center gap-4">
-            <div className="p-3 bg-red-50 text-red-500 rounded-xl">
-              <Inbox className="w-6 h-6" />
-            </div>
-            <div>
-              <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">New</span>
-              <h3 className="text-2xl font-bold text-red-500 mt-0.5">{newCount}</h3>
-            </div>
-          </div>
-
-          <div className="bg-white border border-gray-200/80 rounded-2xl p-5 shadow-sm flex items-center gap-4">
-            <div className="p-3 bg-blue-50 text-blue-500 rounded-xl">
-              <Clock className="w-6 h-6" />
-            </div>
-            <div>
-              <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">In Progress</span>
-              <h3 className="text-2xl font-bold text-blue-500 mt-0.5">{activeCount}</h3>
-            </div>
-          </div>
-
-          <div className="bg-white border border-gray-200/80 rounded-2xl p-5 shadow-sm flex items-center gap-4">
-            <div className="p-3 bg-emerald-50 text-emerald-500 rounded-xl">
-              <CheckSquare className="w-6 h-6" />
-            </div>
-            <div>
-              <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">Completed</span>
-              <h3 className="text-2xl font-bold text-emerald-500 mt-0.5">{completedCount}</h3>
-            </div>
-          </div>
+          ))}
         </div>
 
-        {/* Filter Toolbar */}
-        <div className="bg-white border border-gray-200/80 rounded-2xl p-4 shadow-sm flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider mr-2">Filter status:</span>
-            {["All", "New", "In Progress", "Completed"].map((status) => (
-              <button
-                key={status}
-                onClick={() => setFilterStatus(status)}
-                className={`text-xs font-semibold px-3 py-1.5 rounded-lg transition-all ${
-                  filterStatus === status
-                    ? "bg-[#111111] text-[#c5a059]"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200/80"
+        {/* Filter Tabs */}
+        <div className="flex flex-wrap gap-2">
+          {[
+            { key: "All", label: "Все" },
+            { key: "New", label: "Новые" },
+            { key: "In Progress", label: "В обработке" },
+            { key: "Completed", label: "Подтверждённые" },
+          ].map((f) => (
+            <button
+              key={f.key}
+              onClick={() => setFilterStatus(f.key)}
+              className={`text-xs font-bold px-4 py-2 rounded-full transition-all duration-200 border ${
+                filterStatus === f.key
+                  ? "bg-[#111111] text-[#D4AF37] border-[#111111]"
+                  : "bg-white text-gray-500 border-gray-200 hover:border-gray-400"
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
+          <span className="ml-auto text-xs text-gray-400 self-center">
+            {filteredInquiries.length} из {totalCount}
+          </span>
+        </div>
+
+        {/* Inquiry Cards */}
+        {filteredInquiries.length === 0 ? (
+          <div className="bg-white rounded-2xl border border-gray-200 py-20 text-center shadow-sm">
+            <Inbox className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+            <p className="text-gray-500 font-medium">Заявок не найдено</p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {filteredInquiries.map((inq) => (
+              <div
+                key={inq.id}
+                className={`bg-white border rounded-2xl shadow-sm overflow-hidden transition-all duration-300 ${
+                  inq.status === "New"
+                    ? "border-red-200"
+                    : inq.status === "In Progress"
+                    ? "border-blue-200"
+                    : "border-emerald-200"
                 }`}
               >
-                {status}
-              </button>
-            ))}
-          </div>
-          <div className="text-xs text-gray-400 font-medium">
-            Showing {filteredInquiries.length} of {totalCount} records
-          </div>
-        </div>
+                {/* Card Header */}
+                <div className="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="flex items-start gap-4">
+                    {/* Avatar */}
+                    <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#D4AF37]/20 to-[#AA820A]/30 flex items-center justify-center text-[#AA820A] font-bold text-lg font-serif shrink-0">
+                      {inq.name.charAt(0).toUpperCase()}
+                    </div>
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className="font-bold text-gray-900 text-sm">{inq.name}</h3>
+                        <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${statusStyle[inq.status] || "bg-gray-100 text-gray-600"}`}>
+                          {statusLabel[inq.status] || inq.status}
+                        </span>
+                        <span className="text-[10px] text-gray-400 font-mono">#{inq.id}</span>
+                      </div>
+                      <div className="flex flex-wrap gap-4 text-xs text-gray-500">
+                        <a href={`tel:${inq.phone}`} className="flex items-center gap-1.5 hover:text-[#D4AF37] transition-colors">
+                          <Phone className="w-3.5 h-3.5" /> {inq.phone}
+                        </a>
+                        <a href={`mailto:${inq.email}`} className="flex items-center gap-1.5 hover:text-[#D4AF37] transition-colors">
+                          <Mail className="w-3.5 h-3.5" /> {inq.email}
+                        </a>
+                        <span className="flex items-center gap-1.5">
+                          <Calendar className="w-3.5 h-3.5" />
+                          {new Date(inq.created_at).toLocaleString("ru-RU")}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
 
-        {/* Table Container */}
-        <div className="bg-white border border-gray-200/80 rounded-2xl shadow-sm overflow-hidden">
-          {filteredInquiries.length === 0 ? (
-            <div className="py-16 text-center">
-              <Layers className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-              <p className="text-gray-500 font-medium">No inquiries found matching this status.</p>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="bg-gray-50/70 border-b border-gray-200/80 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                    <th className="px-6 py-4 font-semibold">ID</th>
-                    <th className="px-6 py-4 font-semibold">Client Info</th>
-                    <th className="px-6 py-4 font-semibold">Received At</th>
-                    <th className="px-6 py-4 font-semibold">Status</th>
-                    <th className="px-6 py-4 font-semibold">Internal Notes</th>
-                    <th className="px-6 py-4 font-semibold text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100 text-sm">
-                  {filteredInquiries.map((inq) => (
-                    <tr key={inq.id} className="hover:bg-gray-50/40 transition-colors">
-                      <td className="px-6 py-5 font-mono text-xs text-gray-400 font-bold">
-                        #{inq.id}
-                      </td>
-                      <td className="px-6 py-5 space-y-1">
-                        <div className="font-semibold text-gray-900">{inq.name}</div>
-                        <div className="flex flex-col gap-0.5 text-xs text-gray-500">
-                          <a href={`tel:${inq.phone}`} className="flex items-center gap-1.5 hover:text-[#c5a059]">
-                            <Phone className="w-3.5 h-3.5 shrink-0" />
-                            <span>{inq.phone}</span>
-                          </a>
-                          <a href={`mailto:${inq.email}`} className="flex items-center gap-1.5 hover:text-[#c5a059]">
-                            <Mail className="w-3.5 h-3.5 shrink-0" />
-                            <span>{inq.email}</span>
-                          </a>
-                        </div>
-                      </td>
-                      <td className="px-6 py-5 text-gray-500">
-                        <div className="flex items-center gap-1.5 text-xs font-medium">
-                          <Calendar className="w-3.5 h-3.5 text-gray-400" />
-                          <span>{new Date(inq.created_at).toLocaleString("bg-BG")}</span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-5">
-                        <select
-                          value={inq.status}
-                          onChange={(e) => handleStatusChange(inq.id, e.target.value)}
-                          className={`text-xs font-semibold px-2.5 py-1.5 rounded-lg border focus:outline-none focus:ring-1 focus:ring-[#c5a059]/30 transition-all ${
-                            inq.status === "New"
-                              ? "bg-red-50 border-red-200 text-red-600"
-                              : inq.status === "In Progress"
-                              ? "bg-blue-50 border-blue-200 text-blue-600"
-                              : "bg-emerald-50 border-emerald-200 text-emerald-600"
-                          }`}
-                        >
-                          <option value="New" className="bg-white text-red-600 font-semibold">New</option>
-                          <option value="In Progress" className="bg-white text-blue-600 font-semibold">In Progress</option>
-                          <option value="Completed" className="bg-white text-emerald-600 font-semibold">Completed</option>
-                        </select>
-                      </td>
-                      <td className="px-6 py-5 w-80">
-                        {editingNotesId === inq.id ? (
-                          <div className="space-y-2">
-                            <textarea
-                              value={notesContent}
-                              onChange={(e) => setNotesContent(e.target.value)}
-                              rows={2}
-                              className="w-full text-xs p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#c5a059] focus:ring-1 focus:ring-[#c5a059]/20"
-                              placeholder="Write admin note..."
-                            />
-                            <div className="flex gap-2">
-                              <button
-                                onClick={() => handleSaveNotes(inq.id)}
-                                className="text-xs font-semibold bg-gray-900 text-white px-2.5 py-1 rounded-md hover:bg-gray-800 transition-all"
-                              >
-                                Save
-                              </button>
-                              <button
-                                onClick={() => setEditingNotesId(null)}
-                                className="text-xs font-semibold bg-gray-100 text-gray-500 px-2.5 py-1 rounded-md hover:bg-gray-200 transition-all"
-                              >
-                                Cancel
-                              </button>
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="group relative flex items-start justify-between gap-2 max-w-xs">
-                            <div className="text-xs text-gray-600 italic line-clamp-2">
-                              {inq.notes ? inq.notes : <span className="text-gray-300">No notes written...</span>}
-                            </div>
-                            <button
-                              onClick={() => {
-                                setEditingNotesId(inq.id);
-                                setNotesContent(inq.notes || "");
-                              }}
-                              className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-gray-900 p-1 rounded-md transition-all shrink-0"
-                              title="Edit notes"
-                            >
-                              <Edit3 className="w-3.5 h-3.5" />
-                            </button>
-                          </div>
+                  {/* Action Buttons */}
+                  <div className="flex items-center gap-2 shrink-0">
+                    {inq.status !== "Completed" && (
+                      <>
+                        {inq.status === "New" && (
+                          <button
+                            onClick={() => handleSetInProgress(inq.id)}
+                            className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 transition-all"
+                          >
+                            <Clock className="w-3.5 h-3.5" />
+                            В работу
+                          </button>
                         )}
-                      </td>
-                      <td className="px-6 py-5 text-right">
+                        <button
+                          onClick={() => handleConfirm(inq.id)}
+                          className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 transition-all"
+                        >
+                          <CheckCircle className="w-3.5 h-3.5" />
+                          Подтвердить
+                        </button>
+                      </>
+                    )}
+                    {inq.status === "Completed" && (
+                      <button
+                        onClick={() => handleSetInProgress(inq.id)}
+                        className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-600 border border-gray-200 transition-all"
+                      >
+                        <XCircle className="w-3.5 h-3.5" />
+                        Вернуть
+                      </button>
+                    )}
+
+                    {/* Expand message */}
+                    {inq.message && (
+                      <button
+                        onClick={() => setExpandedId(expandedId === inq.id ? null : inq.id)}
+                        className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-[#AA820A] border border-amber-200 transition-all"
+                      >
+                        <MessageSquare className="w-3.5 h-3.5" />
+                        Сообщение
+                      </button>
+                    )}
+
+                    {/* Delete */}
+                    {confirmDeleteId === inq.id ? (
+                      <div className="flex items-center gap-1">
                         <button
                           onClick={() => handleDelete(inq.id)}
-                          className="p-2 text-red-500 hover:bg-red-50 rounded-xl transition-all"
-                          title="Delete entry"
+                          className="text-xs font-bold px-3 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white transition-all"
                         >
-                          <Trash2 className="w-4.5 h-4.5" />
+                          Удалить
                         </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
+                        <button
+                          onClick={() => setConfirmDeleteId(null)}
+                          className="text-xs font-bold px-3 py-2 rounded-xl bg-gray-100 text-gray-600 hover:bg-gray-200 transition-all"
+                        >
+                          Отмена
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => setConfirmDeleteId(inq.id)}
+                        className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 transition-all"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        Удалить
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Expanded Message */}
+                {expandedId === inq.id && inq.message && (
+                  <div className="px-5 pb-5">
+                    <div className="bg-amber-50/50 border border-amber-200/60 rounded-xl p-4">
+                      <p className="text-[10px] font-bold text-[#AA820A] uppercase tracking-widest mb-2">Сообщение клиента</p>
+                      <p className="text-sm text-gray-700 leading-relaxed">{inq.message}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
       </main>
     </div>
   );
