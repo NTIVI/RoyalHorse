@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
-import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET || "royal-horse-secret-key-2026";
-const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "ADMIN";
-// Pre-hashed password for: "ADMIN"
-const DEFAULT_HASH = "$2b$10$VXb0H6NFnPy14IbAkgauHOVdmeBCAR2bFM9AxdCnnRnUU0J/tIlWq"; // hashed "ADMIN"
-const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH || DEFAULT_HASH;
+const JWT_SECRET = process.env.JWT_SECRET || "royal-horse-secret-key-2026-auth";
+
+// Credentials — hardcoded directly to avoid env variable issues on Vercel
+const ADMIN_USERNAME = "ADMIN";
+const ADMIN_PASSWORD = "ADMIN";
 
 export async function POST(request: Request) {
   try {
@@ -19,15 +18,8 @@ export async function POST(request: Request) {
       );
     }
 
-    if (username !== ADMIN_USERNAME) {
-      return NextResponse.json(
-        { error: "Invalid credentials" },
-        { status: 401 }
-      );
-    }
-
-    const passwordMatch = await bcrypt.compare(password, ADMIN_PASSWORD_HASH);
-    if (!passwordMatch) {
+    // Direct comparison — no bcrypt, no env vars
+    if (username !== ADMIN_USERNAME || password !== ADMIN_PASSWORD) {
       return NextResponse.json(
         { error: "Invalid credentials" },
         { status: 401 }
@@ -37,8 +29,7 @@ export async function POST(request: Request) {
     const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: "1d" });
 
     const response = NextResponse.json({ success: true, message: "Logged in successfully" });
-    
-    // Set secure HTTP-only cookie
+
     response.cookies.set({
       name: "royal_horse_admin_token",
       value: token,
@@ -61,7 +52,6 @@ export async function POST(request: Request) {
 
 export async function GET(request: Request) {
   try {
-    // Read the token cookie
     const token = request.headers.get("cookie")
       ?.split(";")
       .find((c) => c.trim().startsWith("royal_horse_admin_token="))
@@ -91,7 +81,7 @@ export async function DELETE() {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
-    maxAge: 0, // expire immediately
+    maxAge: 0,
     path: "/",
   });
   return response;
