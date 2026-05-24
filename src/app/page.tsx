@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import gsap from "gsap";
 import Lenis from "lenis";
+import HorseIntro from "./components/HorseIntro";
 
 // Type definitions
 type Lang = "bg" | "en";
@@ -51,9 +52,7 @@ export default function HomeView() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  // Refs for animations
-  const introRef = useRef<HTMLDivElement>(null);
-  const introVideoRef = useRef<HTMLVideoElement>(null);
+  // Refs for animations (legacy — kept for future use)
   const logoTextRef = useRef<HTMLHeadingElement>(null);
 
   // Dictionary translations
@@ -315,61 +314,10 @@ export default function HomeView() {
     };
   }, [introFinished]);
 
-  // Intro Animation trigger
-  useEffect(() => {
-    if (introFinished) return;
-
-    // GSAP Intro Sequence
-    const tl = gsap.timeline({
-      onComplete: () => {
-        // Slide up the overlay
-        gsap.to(introRef.current, {
-          yPercent: -100,
-          duration: 0.8,
-          ease: "power3.inOut",
-          onComplete: () => {
-            setIntroFinished(true);
-            sessionStorage.setItem("royal_horse_intro_seen", "true");
-          }
-        });
-      }
-    });
-
-    // 1. Video fades in and plays
-    tl.to(introVideoRef.current, {
-      opacity: 1,
-      duration: 1.2,
-      ease: "power2.out",
-    });
-
-    // 2. Play video, wait for horse to 'stop' (simulated by sequence timing)
-    tl.to({}, { duration: 2.5 }); // Wait 2.5 seconds of horse running
-
-    // 3. Logo text appears with blur and fade-in
-    tl.fromTo(
-      logoTextRef.current,
-      { opacity: 0, filter: "blur(20px)", scale: 0.85 },
-      { opacity: 1, filter: "blur(0px)", scale: 1, duration: 1.0, ease: "back.out(1.5)" }
-    );
-
-    // 4. Hold the screen for a moment
-    tl.to({}, { duration: 1.5 });
-
-  }, [introFinished]);
-
-  // Skip Intro Handler
-  const skipIntro = () => {
-    if (introRef.current) {
-      gsap.to(introRef.current, {
-        opacity: 0,
-        duration: 0.5,
-        ease: "power2.out",
-        onComplete: () => {
-          setIntroFinished(true);
-          sessionStorage.setItem("royal_horse_intro_seen", "true");
-        }
-      });
-    }
+  // Horse intro finish handler
+  const handleIntroFinished = () => {
+    setIntroFinished(true);
+    sessionStorage.setItem("royal_horse_intro_seen", "true");
   };
 
   // Custom phone number formatting / masking
@@ -528,57 +476,19 @@ export default function HomeView() {
       
       {/* 1. INTRO ANIMATION SCREEN */}
       {!introFinished && (
-        <div 
-          ref={introRef}
-          className="fixed inset-0 z-50 bg-[#111111] flex flex-col items-center justify-center overflow-hidden"
-        >
-          {/* Running Horse Video Backdrop with blend overlay */}
-          <video
-            ref={introVideoRef}
-            src="https://assets.mixkit.co/videos/preview/mixkit-wild-horse-running-in-nature-41584-large.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none mix-blend-screen scale-105"
-          />
-          
-          {/* Subtle gold gradient mask */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none" />
-
-          {/* Reveal Content */}
-          <div className="relative z-10 text-center px-4 max-w-2xl">
-            <h1 
-              ref={logoTextRef}
-              className="text-5xl md:text-7xl font-serif text-white tracking-[0.2em] font-semibold drop-shadow-[0_0_30px_rgba(212,175,55,0.3)] opacity-0"
-            >
-              ROYAL<span className="text-gold">HORSE</span>
-            </h1>
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mt-4 font-sans font-light">
-              {lang === "bg" ? "ЕЛИ ТЕН  К О Н Е Н  К Л У Б" : "E L I T E  E Q U E S T R I A N  C L U B"}
-            </p>
-          </div>
-
-          {/* Skip button */}
-          <button 
-            onClick={skipIntro}
-            className="absolute bottom-8 right-8 z-20 text-xs font-semibold uppercase tracking-widest text-gray-500 hover:text-white border border-gray-800 hover:border-gray-500 px-4 py-2.5 rounded-full transition-all"
-          >
-            {lang === "bg" ? "Пропусни" : "Skip Intro"}
-          </button>
-        </div>
+        <HorseIntro lang={lang} onFinished={handleIntroFinished} />
       )}
 
       {/* 2. MAIN WEBSITE CONTENT */}
       <div className={`${!introFinished ? "h-screen overflow-hidden" : ""}`}>
         
         {/* Navigation Bar */}
-        <nav className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-100 py-4 px-4 sm:px-6 lg:px-8">
+        <nav className="sticky top-0 z-40 bg-[#FCFBF9]/80 backdrop-blur-lg border-b border-[#D4AF37]/15 py-4 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             {/* Logo */}
             <a href="#" className="flex items-center gap-2 group">
-              <span className="font-serif text-2xl font-bold tracking-wider text-black group-hover:text-gold transition-colors">
-                ROYAL<span className="text-gold group-hover:text-black transition-colors">HORSE</span>
+              <span className="font-serif text-2xl font-bold tracking-[0.15em] text-[#111111] group-hover:text-gold transition-colors duration-300">
+                ROYAL<span className="text-[#D4AF37] group-hover:text-black transition-colors duration-300">HORSE</span>
               </span>
             </a>
 
@@ -593,13 +503,13 @@ export default function HomeView() {
             </div>
 
             {/* Right side controls (Language & CTA) */}
-            <div className="hidden md:flex items-center gap-4">
+            <div className="hidden md:flex items-center gap-6">
               {/* Language Switcher */}
-              <div className="flex bg-gray-100 p-1 rounded-full text-xs font-bold border border-gray-200">
+              <div className="flex bg-[#111111]/5 p-1 rounded-full text-xs font-bold border border-[#D4AF37]/10">
                 <button
                   onClick={() => setLang("bg")}
                   className={`px-3 py-1.5 rounded-full transition-all ${
-                    lang === "bg" ? "bg-white text-black shadow-sm" : "text-gray-500 hover:text-black"
+                    lang === "bg" ? "bg-[#111111] text-[#FCFBF9] shadow-sm" : "text-gray-500 hover:text-black"
                   }`}
                 >
                   BG
@@ -607,7 +517,7 @@ export default function HomeView() {
                 <button
                   onClick={() => setLang("en")}
                   className={`px-3 py-1.5 rounded-full transition-all ${
-                    lang === "en" ? "bg-white text-black shadow-sm" : "text-gray-500 hover:text-black"
+                    lang === "en" ? "bg-[#111111] text-[#FCFBF9] shadow-sm" : "text-gray-500 hover:text-black"
                   }`}
                 >
                   EN
@@ -617,7 +527,7 @@ export default function HomeView() {
               {/* CRM Booking CTA */}
               <a
                 href="#contacts"
-                className="bg-[#111111] hover:bg-gold hover:text-black text-[#FCFBF9] font-sans text-xs uppercase tracking-wider font-semibold px-5 py-3 rounded-full transition-all shadow-md shadow-black/5"
+                className="bg-[#111111] hover:bg-[#D4AF37] hover:text-[#111111] text-[#FCFBF9] font-sans text-xs uppercase tracking-[0.15em] font-semibold px-6 py-3 rounded-full transition-all duration-300 shadow-md border border-[#D4AF37]/20 hover:border-transparent active:scale-95"
               >
                 {t[lang].navBookBtn}
               </a>
@@ -698,42 +608,42 @@ export default function HomeView() {
         </nav>
 
         {/* HERO SECTION */}
-        <section className="relative min-h-[85vh] flex items-center bg-[#111111] overflow-hidden">
+        <section className="relative min-h-[90vh] flex items-center bg-[#090807] overflow-hidden">
           {/* Hero background image */}
           <div className="absolute inset-0">
             <img
               src="https://images.unsplash.com/photo-1598974357801-cbca100e65d3?auto=format&fit=crop&q=80&w=1920"
               alt="Majestic Horse Running"
-              className="w-full h-full object-cover opacity-45 object-center"
+              className="w-full h-full object-cover opacity-35 object-center scale-105 transition-transform duration-10000"
             />
             {/* Elegant overlay gradients */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#FCFBF9] via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#090807] via-[#090807]/80 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#FCFBF9] via-[#090807]/20 to-transparent" />
           </div>
 
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-white w-full">
-            <div className="max-w-2xl space-y-6">
-              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-bold tracking-widest uppercase">
-                <Compass className="w-3.5 h-3.5" />
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-white w-full">
+            <div className="max-w-2xl space-y-8">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-bold tracking-[0.2em] uppercase">
+                <Compass className="w-4.5 h-4.5" />
                 {t[lang].tagline}
               </span>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold leading-tight tracking-wide">
+              <h1 className="text-4xl sm:text-5xl md:text-6.5xl font-serif font-bold leading-tight tracking-[0.04em] drop-shadow-md">
                 {t[lang].heroTitle}
               </h1>
-              <p className="text-base sm:text-lg text-gray-300 font-light leading-relaxed">
+              <p className="text-base sm:text-lg text-gray-300 font-light leading-relaxed max-w-xl">
                 {t[lang].heroSubtitle}
               </p>
               <div className="flex flex-wrap gap-4 pt-4">
                 <a
                   href="#contacts"
-                  className="bg-gold hover:bg-gold-dark text-black font-semibold px-7 py-4 rounded-full transition-all flex items-center gap-2 group text-sm"
+                  className="bg-gradient-to-r from-gold-dark via-gold to-gold-light hover:from-gold hover:to-gold-light text-[#111111] font-semibold px-8 py-4.5 rounded-full transition-all duration-300 flex items-center gap-2 group text-sm shadow-lg shadow-gold/15 active:scale-98"
                 >
                   <span>{t[lang].heroCTA1}</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-300" />
                 </a>
                 <a
                   href="#services"
-                  className="bg-transparent border border-white/30 hover:border-white text-white font-semibold px-7 py-4 rounded-full transition-all text-sm"
+                  className="bg-transparent border border-white/20 hover:border-white/60 hover:bg-white/5 text-white font-semibold px-8 py-4.5 rounded-full transition-all duration-300 text-sm active:scale-98"
                 >
                   {t[lang].heroCTA2}
                 </a>
@@ -743,19 +653,20 @@ export default function HomeView() {
         </section>
 
         {/* ABOUT SECTION */}
-        <section id="about" className="py-24 bg-[#FCFBF9]">
+        <section id="about" className="py-28 bg-[#FCFBF9] luxury-grid-bg relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900">{t[lang].aboutTitle}</h2>
-              <div className="w-12 h-1 bg-gold mx-auto" />
+            <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
+              <h2 className="text-3xl md:text-4.5xl font-serif font-bold text-gray-900 tracking-wide">{t[lang].aboutTitle}</h2>
+              <div className="w-16 h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto" />
               <p className="text-gray-500 font-light text-base md:text-lg">{t[lang].aboutSub}</p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
               {/* Left Column: Image with golden border */}
               <div className="lg:col-span-5 relative">
-                <div className="absolute -top-4 -left-4 w-full h-full border-2 border-gold rounded-2xl pointer-events-none z-0" />
-                <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl aspect-[4/3] lg:aspect-[3/4]">
+                <div className="absolute -top-4 -left-4 w-full h-full border-2 border-gold/40 rounded-2xl pointer-events-none z-0" />
+                <div className="absolute -bottom-4 -right-4 w-full h-full border-2 border-gold/40 rounded-2xl pointer-events-none z-0" />
+                <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl aspect-[4/3] lg:aspect-[3/4] border border-[#D4AF37]/20">
                   <img
                     src={
                       activeAboutTab === "place"
@@ -772,14 +683,14 @@ export default function HomeView() {
               </div>
 
               {/* Right Column: Custom tabs content */}
-              <div className="lg:col-span-7 space-y-8">
+              <div className="lg:col-span-7 space-y-10">
                 {/* Tabs header */}
-                <div className="flex border-b border-gray-200">
+                <div className="flex border-b border-gray-200/80 gap-6">
                   <button
                     onClick={() => setActiveAboutTab("place")}
-                    className={`pb-4 text-sm font-semibold tracking-wider uppercase border-b-2 mr-8 transition-all ${
+                    className={`pb-4 text-xs font-bold tracking-[0.18em] uppercase border-b-2 transition-all duration-300 ${
                       activeAboutTab === "place"
-                        ? "border-gold text-black font-bold"
+                        ? "border-[#D4AF37] text-black font-extrabold"
                         : "border-transparent text-gray-400 hover:text-black"
                     }`}
                   >
@@ -787,9 +698,9 @@ export default function HomeView() {
                   </button>
                   <button
                     onClick={() => setActiveAboutTab("team")}
-                    className={`pb-4 text-sm font-semibold tracking-wider uppercase border-b-2 mr-8 transition-all ${
+                    className={`pb-4 text-xs font-bold tracking-[0.18em] uppercase border-b-2 transition-all duration-300 ${
                       activeAboutTab === "team"
-                        ? "border-gold text-black font-bold"
+                        ? "border-[#D4AF37] text-black font-extrabold"
                         : "border-transparent text-gray-400 hover:text-black"
                     }`}
                   >
@@ -797,9 +708,9 @@ export default function HomeView() {
                   </button>
                   <button
                     onClick={() => setActiveAboutTab("horses")}
-                    className={`pb-4 text-sm font-semibold tracking-wider uppercase border-b-2 transition-all ${
+                    className={`pb-4 text-xs font-bold tracking-[0.18em] uppercase border-b-2 transition-all duration-300 ${
                       activeAboutTab === "horses"
-                        ? "border-gold text-black font-bold"
+                        ? "border-[#D4AF37] text-black font-extrabold"
                         : "border-transparent text-gray-400 hover:text-black"
                     }`}
                   >
@@ -850,26 +761,26 @@ export default function HomeView() {
         </section>
 
         {/* HORSE RIDING SECTION */}
-        <section id="riding" className="py-24 bg-white">
+        <section id="riding" className="py-28 bg-white relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900">{t[lang].ridingTitle}</h2>
-              <div className="w-12 h-1 bg-gold mx-auto" />
+            <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
+              <h2 className="text-3xl md:text-4.5xl font-serif font-bold text-gray-900 tracking-wide">{t[lang].ridingTitle}</h2>
+              <div className="w-16 h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto" />
               <p className="text-gray-500 font-light text-base md:text-lg">{t[lang].ridingSub}</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Card 1 */}
-              <div className="bg-[#FCFBF9] border border-gray-100 rounded-2xl p-8 hover-gold-grow flex flex-col justify-between shadow-sm">
-                <div className="space-y-4">
-                  <div className="inline-flex p-3 bg-amber-50 rounded-xl text-gold">
-                    <Users className="w-6 h-6" />
+              <div className="bg-gradient-to-br from-[#FCFBF9] to-white border border-[#D4AF37]/15 rounded-2xl p-8 hover-gold-grow flex flex-col justify-between shadow-sm relative overflow-hidden">
+                <div className="space-y-5">
+                  <div className="inline-flex p-3 bg-gradient-to-br from-gold-light/20 to-gold/25 rounded-2xl text-gold-dark">
+                    <Users className="w-7 h-7" />
                   </div>
-                  <h3 className="text-xl font-serif font-bold text-gray-900">{t[lang].rideKids}</h3>
+                  <h3 className="text-xl font-serif font-bold text-gray-900 tracking-wide">{t[lang].rideKids}</h3>
                   <p className="text-gray-500 text-sm font-light leading-relaxed">{t[lang].rideKidsText}</p>
                 </div>
-                <div className="mt-8 pt-4 border-t border-gray-100">
-                  <a href="#prices" className="inline-flex items-center gap-1.5 text-xs font-bold text-gold hover:text-black transition-colors uppercase tracking-wider">
+                <div className="mt-8 pt-5 border-t border-gray-100/80">
+                  <a href="#prices" className="inline-flex items-center gap-2 text-xs font-bold text-gold hover:text-black transition-colors duration-300 uppercase tracking-widest">
                     <span>{lang === "bg" ? "Виж цени" : "View prices"}</span>
                     <ChevronRight className="w-4 h-4" />
                   </a>
@@ -877,16 +788,16 @@ export default function HomeView() {
               </div>
 
               {/* Card 2 */}
-              <div className="bg-[#FCFBF9] border border-gray-100 rounded-2xl p-8 hover-gold-grow flex flex-col justify-between shadow-sm">
-                <div className="space-y-4">
-                  <div className="inline-flex p-3 bg-amber-50 rounded-xl text-gold">
-                    <Award className="w-6 h-6" />
+              <div className="bg-gradient-to-br from-[#FCFBF9] to-white border border-[#D4AF37]/15 rounded-2xl p-8 hover-gold-grow flex flex-col justify-between shadow-sm relative overflow-hidden">
+                <div className="space-y-5">
+                  <div className="inline-flex p-3 bg-gradient-to-br from-gold-light/20 to-gold/25 rounded-2xl text-gold-dark">
+                    <Award className="w-7 h-7" />
                   </div>
-                  <h3 className="text-xl font-serif font-bold text-gray-900">{t[lang].rideAdults}</h3>
+                  <h3 className="text-xl font-serif font-bold text-gray-900 tracking-wide">{t[lang].rideAdults}</h3>
                   <p className="text-gray-500 text-sm font-light leading-relaxed">{t[lang].rideAdultsText}</p>
                 </div>
-                <div className="mt-8 pt-4 border-t border-gray-100">
-                  <a href="#prices" className="inline-flex items-center gap-1.5 text-xs font-bold text-gold hover:text-black transition-colors uppercase tracking-wider">
+                <div className="mt-8 pt-5 border-t border-gray-100/80">
+                  <a href="#prices" className="inline-flex items-center gap-2 text-xs font-bold text-gold hover:text-black transition-colors duration-300 uppercase tracking-widest">
                     <span>{lang === "bg" ? "Виж цени" : "View prices"}</span>
                     <ChevronRight className="w-4 h-4" />
                   </a>
@@ -894,16 +805,16 @@ export default function HomeView() {
               </div>
 
               {/* Card 3 */}
-              <div className="bg-[#FCFBF9] border border-gray-100 rounded-2xl p-8 hover-gold-grow flex flex-col justify-between shadow-sm">
-                <div className="space-y-4">
-                  <div className="inline-flex p-3 bg-amber-50 rounded-xl text-gold">
-                    <Compass className="w-6 h-6" />
+              <div className="bg-gradient-to-br from-[#FCFBF9] to-white border border-[#D4AF37]/15 rounded-2xl p-8 hover-gold-grow flex flex-col justify-between shadow-sm relative overflow-hidden">
+                <div className="space-y-5">
+                  <div className="inline-flex p-3 bg-gradient-to-br from-gold-light/20 to-gold/25 rounded-2xl text-gold-dark">
+                    <Compass className="w-7 h-7" />
                   </div>
-                  <h3 className="text-xl font-serif font-bold text-gray-900">{t[lang].rideExcursions}</h3>
+                  <h3 className="text-xl font-serif font-bold text-gray-900 tracking-wide">{t[lang].rideExcursions}</h3>
                   <p className="text-gray-500 text-sm font-light leading-relaxed">{t[lang].rideExcursionsText}</p>
                 </div>
-                <div className="mt-8 pt-4 border-t border-gray-100">
-                  <a href="#prices" className="inline-flex items-center gap-1.5 text-xs font-bold text-gold hover:text-black transition-colors uppercase tracking-wider">
+                <div className="mt-8 pt-5 border-t border-gray-100/80">
+                  <a href="#prices" className="inline-flex items-center gap-2 text-xs font-bold text-gold hover:text-black transition-colors duration-300 uppercase tracking-widest">
                     <span>{lang === "bg" ? "Виж цени" : "View prices"}</span>
                     <ChevronRight className="w-4 h-4" />
                   </a>
@@ -914,124 +825,148 @@ export default function HomeView() {
         </section>
 
         {/* SERVICES SECTION */}
-        <section id="services" className="py-24 bg-[#FCFBF9]">
+        <section id="services" className="py-28 bg-[#FCFBF9] luxury-grid-bg relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900">{t[lang].servicesTitle}</h2>
-              <div className="w-12 h-1 bg-gold mx-auto" />
+            <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
+              <h2 className="text-3xl md:text-4.5xl font-serif font-bold text-gray-900 tracking-wide">{t[lang].servicesTitle}</h2>
+              <div className="w-16 h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto" />
               <p className="text-gray-500 font-light text-base md:text-lg">{t[lang].servicesSub}</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Service item 1 */}
-              <div className="bg-white border border-gray-200/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
-                <div className="h-52 overflow-hidden">
+              <div className="bg-white border border-[#D4AF37]/10 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group relative">
+                <div className="h-56 overflow-hidden relative">
+                  <div className="absolute inset-0 bg-[#090807]/20 group-hover:bg-[#090807]/10 transition-colors duration-500 z-10" />
                   <img
                     src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&q=80&w=800"
                     alt="Pet Hotel"
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     loading="lazy"
                   />
+                  <span className="absolute top-4 right-4 z-20 bg-[#111111]/85 text-gold text-[10px] font-bold tracking-widest px-3 py-1.5 rounded-full border border-gold/25 uppercase">
+                    Resort Service
+                  </span>
                 </div>
-                <div className="p-6 space-y-3">
-                  <div className="flex items-center gap-2 text-gold">
-                    <Home className="w-5 h-5" />
-                    <h3 className="text-lg font-serif font-bold text-gray-900">{t[lang].servPetHotel}</h3>
+                <div className="p-7 space-y-3 relative z-20 bg-white">
+                  <div className="flex items-center gap-2.5 text-gold-dark">
+                    <Home className="w-5.5 h-5.5" />
+                    <h3 className="text-lg font-serif font-bold text-gray-900 tracking-wide">{t[lang].servPetHotel}</h3>
                   </div>
                   <p className="text-gray-500 text-xs font-light leading-relaxed">{t[lang].servPetHotelDesc}</p>
                 </div>
               </div>
 
               {/* Service item 2 */}
-              <div className="bg-white border border-gray-200/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
-                <div className="h-52 overflow-hidden">
+              <div className="bg-white border border-[#D4AF37]/10 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group relative">
+                <div className="h-56 overflow-hidden relative">
+                  <div className="absolute inset-0 bg-[#090807]/20 group-hover:bg-[#090807]/10 transition-colors duration-500 z-10" />
                   <img
                     src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&q=80&w=800"
                     alt="Horse Pension"
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     loading="lazy"
                   />
+                  <span className="absolute top-4 right-4 z-20 bg-[#111111]/85 text-gold text-[10px] font-bold tracking-widest px-3 py-1.5 rounded-full border border-gold/25 uppercase">
+                    Professional
+                  </span>
                 </div>
-                <div className="p-6 space-y-3">
-                  <div className="flex items-center gap-2 text-gold">
-                    <Award className="w-5 h-5" />
-                    <h3 className="text-lg font-serif font-bold text-gray-900">{t[lang].servHorseHotel}</h3>
+                <div className="p-7 space-y-3 relative z-20 bg-white">
+                  <div className="flex items-center gap-2.5 text-gold-dark">
+                    <Award className="w-5.5 h-5.5" />
+                    <h3 className="text-lg font-serif font-bold text-gray-900 tracking-wide">{t[lang].servHorseHotel}</h3>
                   </div>
                   <p className="text-gray-500 text-xs font-light leading-relaxed">{t[lang].servHorseHotelDesc}</p>
                 </div>
               </div>
 
               {/* Service item 3 */}
-              <div className="bg-white border border-gray-200/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
-                <div className="h-52 overflow-hidden">
+              <div className="bg-white border border-[#D4AF37]/10 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group relative">
+                <div className="h-56 overflow-hidden relative">
+                  <div className="absolute inset-0 bg-[#090807]/20 group-hover:bg-[#090807]/10 transition-colors duration-500 z-10" />
                   <img
                     src="https://images.unsplash.com/photo-1530101121893-8072750bb7f9?auto=format&fit=crop&q=80&w=800"
                     alt="Kids Birthdays"
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     loading="lazy"
                   />
+                  <span className="absolute top-4 right-4 z-20 bg-[#111111]/85 text-gold text-[10px] font-bold tracking-widest px-3 py-1.5 rounded-full border border-gold/25 uppercase">
+                    Events
+                  </span>
                 </div>
-                <div className="p-6 space-y-3">
-                  <div className="flex items-center gap-2 text-gold">
-                    <Gift className="w-5 h-5" />
-                    <h3 className="text-lg font-serif font-bold text-gray-900">{t[lang].servBirthday}</h3>
+                <div className="p-7 space-y-3 relative z-20 bg-white">
+                  <div className="flex items-center gap-2.5 text-gold-dark">
+                    <Gift className="w-5.5 h-5.5" />
+                    <h3 className="text-lg font-serif font-bold text-gray-900 tracking-wide">{t[lang].servBirthday}</h3>
                   </div>
                   <p className="text-gray-500 text-xs font-light leading-relaxed">{t[lang].servBirthdayDesc}</p>
                 </div>
               </div>
 
               {/* Service item 4 */}
-              <div className="bg-white border border-gray-200/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
-                <div className="h-52 overflow-hidden">
+              <div className="bg-white border border-[#D4AF37]/10 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group relative">
+                <div className="h-56 overflow-hidden relative">
+                  <div className="absolute inset-0 bg-[#090807]/20 group-hover:bg-[#090807]/10 transition-colors duration-500 z-10" />
                   <img
                     src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800"
                     alt="Restaurant"
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     loading="lazy"
                   />
+                  <span className="absolute top-4 right-4 z-20 bg-[#111111]/85 text-gold text-[10px] font-bold tracking-widest px-3 py-1.5 rounded-full border border-gold/25 uppercase">
+                    Cuisine
+                  </span>
                 </div>
-                <div className="p-6 space-y-3">
-                  <div className="flex items-center gap-2 text-gold">
-                    <Utensils className="w-5 h-5" />
-                    <h3 className="text-lg font-serif font-bold text-gray-900">{t[lang].servKitchen}</h3>
+                <div className="p-7 space-y-3 relative z-20 bg-white">
+                  <div className="flex items-center gap-2.5 text-gold-dark">
+                    <Utensils className="w-5.5 h-5.5" />
+                    <h3 className="text-lg font-serif font-bold text-gray-900 tracking-wide">{t[lang].servKitchen}</h3>
                   </div>
                   <p className="text-gray-500 text-xs font-light leading-relaxed">{t[lang].servKitchenDesc}</p>
                 </div>
               </div>
 
               {/* Service item 5 */}
-              <div className="bg-white border border-gray-200/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
-                <div className="h-52 overflow-hidden">
+              <div className="bg-white border border-[#D4AF37]/10 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group relative">
+                <div className="h-56 overflow-hidden relative">
+                  <div className="absolute inset-0 bg-[#090807]/20 group-hover:bg-[#090807]/10 transition-colors duration-500 z-10" />
                   <img
                     src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&q=80&w=800"
                     alt="ATV Riding"
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     loading="lazy"
                   />
+                  <span className="absolute top-4 right-4 z-20 bg-[#111111]/85 text-gold text-[10px] font-bold tracking-widest px-3 py-1.5 rounded-full border border-gold/25 uppercase">
+                    Adventure
+                  </span>
                 </div>
-                <div className="p-6 space-y-3">
-                  <div className="flex items-center gap-2 text-gold">
-                    <Compass className="w-5 h-5" />
-                    <h3 className="text-lg font-serif font-bold text-gray-900">{t[lang].servATV}</h3>
+                <div className="p-7 space-y-3 relative z-20 bg-white">
+                  <div className="flex items-center gap-2.5 text-gold-dark">
+                    <Compass className="w-5.5 h-5.5" />
+                    <h3 className="text-lg font-serif font-bold text-gray-900 tracking-wide">{t[lang].servATV}</h3>
                   </div>
                   <p className="text-gray-500 text-xs font-light leading-relaxed">{t[lang].servATVDesc}</p>
                 </div>
               </div>
 
               {/* Service item 6 */}
-              <div className="bg-white border border-gray-200/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
-                <div className="h-52 overflow-hidden">
+              <div className="bg-white border border-[#D4AF37]/10 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group relative">
+                <div className="h-56 overflow-hidden relative">
+                  <div className="absolute inset-0 bg-[#090807]/20 group-hover:bg-[#090807]/10 transition-colors duration-500 z-10" />
                   <img
                     src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800"
                     alt="Russian Sauna"
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     loading="lazy"
                   />
+                  <span className="absolute top-4 right-4 z-20 bg-[#111111]/85 text-gold text-[10px] font-bold tracking-widest px-3 py-1.5 rounded-full border border-gold/25 uppercase">
+                    Wellness
+                  </span>
                 </div>
-                <div className="p-6 space-y-3">
-                  <div className="flex items-center gap-2 text-gold">
-                    <Flame className="w-5 h-5" />
-                    <h3 className="text-lg font-serif font-bold text-gray-900">{t[lang].servBath}</h3>
+                <div className="p-7 space-y-3 relative z-20 bg-white">
+                  <div className="flex items-center gap-2.5 text-gold-dark">
+                    <Flame className="w-5.5 h-5.5" />
+                    <h3 className="text-lg font-serif font-bold text-gray-900 tracking-wide">{t[lang].servBath}</h3>
                   </div>
                   <p className="text-gray-500 text-xs font-light leading-relaxed">{t[lang].servBathDesc}</p>
                 </div>
@@ -1041,41 +976,41 @@ export default function HomeView() {
         </section>
 
         {/* PRICE LIST & CALCULATOR SECTION */}
-        <section id="prices" className="py-24 bg-white">
+        <section id="prices" className="py-28 bg-white relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900">{t[lang].pricesTitle}</h2>
-              <div className="w-12 h-1 bg-gold mx-auto" />
+            <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
+              <h2 className="text-3xl md:text-4.5xl font-serif font-bold text-gray-900 tracking-wide">{t[lang].pricesTitle}</h2>
+              <div className="w-16 h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto" />
               <p className="text-gray-500 font-light text-base md:text-lg">{t[lang].pricesSub}</p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
               
               {/* Left Column: Service Selector (8 cols) */}
-              <div className="lg:col-span-8 space-y-6">
+              <div className="lg:col-span-8 space-y-8">
                 
                 {/* Category toggles */}
-                <div className="flex bg-gray-100 p-1.5 rounded-xl border border-gray-200/50 max-w-md">
+                <div className="flex bg-[#111111]/5 p-1.5 rounded-2xl border border-[#D4AF37]/10 max-w-md">
                   <button
                     onClick={() => setSelectedCategory("riding")}
-                    className={`flex-1 text-center py-2.5 rounded-lg text-xs font-semibold tracking-wider uppercase transition-all ${
-                      selectedCategory === "riding" ? "bg-white text-black shadow-sm" : "text-gray-500 hover:text-black"
+                    className={`flex-1 text-center py-3 rounded-xl text-xs font-bold tracking-[0.15em] uppercase transition-all duration-300 ${
+                      selectedCategory === "riding" ? "bg-[#111111] text-[#FCFBF9] shadow-md" : "text-gray-500 hover:text-black"
                     }`}
                   >
                     {t[lang].calcCatRiding}
                   </button>
                   <button
                     onClick={() => setSelectedCategory("services")}
-                    className={`flex-1 text-center py-2.5 rounded-lg text-xs font-semibold tracking-wider uppercase transition-all ${
-                      selectedCategory === "services" ? "bg-white text-black shadow-sm" : "text-gray-500 hover:text-black"
+                    className={`flex-1 text-center py-3 rounded-xl text-xs font-bold tracking-[0.15em] uppercase transition-all duration-300 ${
+                      selectedCategory === "services" ? "bg-[#111111] text-[#FCFBF9] shadow-md" : "text-gray-500 hover:text-black"
                     }`}
                   >
                     {t[lang].calcCatServices}
                   </button>
                   <button
                     onClick={() => setSelectedCategory("tours")}
-                    className={`flex-1 text-center py-2.5 rounded-lg text-xs font-semibold tracking-wider uppercase transition-all ${
-                      selectedCategory === "tours" ? "bg-white text-black shadow-sm" : "text-gray-500 hover:text-black"
+                    className={`flex-1 text-center py-3 rounded-xl text-xs font-bold tracking-[0.15em] uppercase transition-all duration-300 ${
+                      selectedCategory === "tours" ? "bg-[#111111] text-[#FCFBF9] shadow-md" : "text-gray-500 hover:text-black"
                     }`}
                   >
                     {t[lang].calcCatATV}
@@ -1093,25 +1028,27 @@ export default function HomeView() {
                       <div 
                         key={item.id}
                         onClick={() => toggleQuoteItem(item.id)}
-                        className={`flex items-center justify-between p-5 rounded-2xl border transition-all cursor-pointer select-none ${
+                        className={`flex items-center justify-between p-5 rounded-2xl border transition-all duration-300 cursor-pointer select-none ${
                           isSelected 
-                            ? "bg-amber-50/40 border-gold shadow-sm" 
-                            : "bg-[#FCFBF9] border-gray-200/80 hover:bg-gray-50"
+                            ? "bg-gradient-to-r from-amber-50/20 to-amber-50/40 border-[#D4AF37] shadow-md shadow-gold/5" 
+                            : "bg-gradient-to-br from-[#FCFBF9] to-white border-gray-200/80 hover:border-[#D4AF37]/30 hover:bg-gray-50"
                         }`}
                       >
                         <div className="flex items-center gap-4">
-                          <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all ${
-                            isSelected ? "bg-gold border-gold text-black" : "border-gray-300 bg-white"
+                          <div className={`w-5.5 h-5.5 rounded-lg border flex items-center justify-center transition-all duration-300 ${
+                            isSelected ? "bg-gradient-to-br from-gold-dark to-gold border-[#D4AF37] text-white shadow-sm" : "border-gray-300 bg-white"
                           }`}>
                             {isSelected && <Check className="w-3.5 h-3.5 stroke-[3px]" />}
                           </div>
                           <div>
                             <h4 className="font-sans font-semibold text-gray-900 text-sm sm:text-base">{name}</h4>
-                            <p className="text-xs text-gray-400 font-light mt-0.5">Единица: 1 {unit}</p>
+                            <p className="text-xs text-gray-400 font-light mt-0.5">
+                              {lang === "bg" ? "Единица:" : "Unit:"} 1 {unit}
+                            </p>
                           </div>
                         </div>
                         <div className="text-right">
-                          <span className="font-serif font-bold text-gray-900 text-lg sm:text-xl">
+                          <span className="font-serif font-bold text-gray-900 text-lg sm:text-2xl tracking-wide">
                             {item.price}€
                           </span>
                         </div>
@@ -1122,16 +1059,19 @@ export default function HomeView() {
               </div>
 
               {/* Right Column: Quote Summary Card (4 cols) */}
-              <div className="lg:col-span-4 bg-[#111111] text-white p-6 sm:p-8 rounded-3xl shadow-xl space-y-6 lg:sticky lg:top-28">
-                <div className="border-b border-white/10 pb-4">
-                  <h3 className="font-serif text-xl font-bold tracking-wide">{t[lang].calcSelected}</h3>
-                  <p className="text-xs text-gray-400 mt-1 uppercase tracking-wider font-semibold text-gold">Summary Quote</p>
+              <div className="lg:col-span-4 bg-[#120E0A] text-white p-6 sm:p-8 rounded-3xl shadow-2xl space-y-6 lg:sticky lg:top-28 border border-[#D4AF37]/25 relative overflow-hidden">
+                {/* Visual texture element */}
+                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-gold/10 to-transparent rounded-full filter blur-xl pointer-events-none" />
+
+                <div className="border-b border-white/10 pb-4 relative z-10">
+                  <h3 className="font-serif text-xl font-bold tracking-wider">{t[lang].calcSelected}</h3>
+                  <p className="text-[10px] text-[#F3E5AB] mt-1 uppercase tracking-[0.2em] font-semibold">Luxury Quote Receipt</p>
                 </div>
 
                 {/* Selected list */}
-                <div className="space-y-4 max-h-[220px] overflow-y-auto no-scrollbar">
+                <div className="space-y-4 max-h-[220px] overflow-y-auto no-scrollbar relative z-10">
                   {Object.keys(quoteItems).length === 0 ? (
-                    <p className="text-xs text-gray-500 font-light leading-relaxed">{t[lang].calcEmpty}</p>
+                    <p className="text-xs text-gray-400 font-light leading-relaxed italic">{t[lang].calcEmpty}</p>
                   ) : (
                     Object.entries(quoteItems).map(([id, qty]) => {
                       const item = pricingList.riding.find(i => i.id === id) || 
@@ -1143,7 +1083,7 @@ export default function HomeView() {
                       return (
                         <div key={id} className="flex items-center justify-between text-xs gap-3">
                           <div className="flex-1 truncate">
-                            <span className="font-medium">{name}</span>
+                            <span className="font-medium text-gray-300">{name}</span>
                           </div>
                           <div className="flex items-center gap-2">
                             <input
@@ -1153,7 +1093,7 @@ export default function HomeView() {
                               onChange={(e) => updateQuoteQty(id, parseInt(e.target.value) || 1)}
                               className="w-10 bg-white/10 border border-white/10 text-white text-center rounded py-0.5 focus:outline-none focus:border-gold text-xs font-bold"
                             />
-                            <span className="font-bold text-gold w-10 text-right">{item.price * qty}€</span>
+                            <span className="font-bold text-gold w-12 text-right">{item.price * qty}€</span>
                           </div>
                         </div>
                       );
@@ -1162,16 +1102,16 @@ export default function HomeView() {
                 </div>
 
                 {/* Total */}
-                <div className="border-t border-white/10 pt-4 flex items-center justify-between">
+                <div className="border-t border-white/10 pt-4 flex items-center justify-between relative z-10">
                   <span className="text-sm font-semibold text-gray-300">{t[lang].calcTotal}:</span>
-                  <span className="font-serif text-2xl font-bold text-gold">{calculateTotal()}€</span>
+                  <span className="font-serif text-2xl font-bold text-gold drop-shadow-[0_0_8px_rgba(212,175,55,0.35)]">{calculateTotal()}€</span>
                 </div>
 
                 {/* Submit to Form CTA */}
                 <button
                   onClick={applyQuoteToForm}
                   disabled={Object.keys(quoteItems).length === 0}
-                  className="w-full bg-gold hover:bg-gold-dark disabled:bg-gray-800 disabled:text-gray-500 text-black font-semibold text-xs uppercase tracking-wider py-3.5 rounded-xl transition-all shadow-md active:scale-[0.98]"
+                  className="w-full bg-gradient-to-r from-gold-dark via-gold to-gold-light hover:from-gold hover:to-gold-light disabled:from-gray-800 disabled:to-gray-800 disabled:text-gray-500 text-black font-semibold text-xs uppercase tracking-wider py-4 rounded-xl transition-all duration-300 shadow-md active:scale-[0.98] relative z-10"
                 >
                   {t[lang].calcBookNow}
                 </button>
@@ -1182,16 +1122,16 @@ export default function HomeView() {
         </section>
 
         {/* GALLERY SECTION */}
-        <section id="gallery" className="py-24 bg-[#FCFBF9]">
+        <section id="gallery" className="py-28 bg-[#FCFBF9] luxury-grid-bg relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900">{t[lang].galleryTitle}</h2>
-              <div className="w-12 h-1 bg-gold mx-auto" />
+            <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
+              <h2 className="text-3xl md:text-4.5xl font-serif font-bold text-gray-900 tracking-wide">{t[lang].galleryTitle}</h2>
+              <div className="w-16 h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto" />
               <p className="text-gray-500 font-light text-base md:text-lg">{t[lang].gallerySub}</p>
             </div>
 
             {/* Filter buttons */}
-            <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+            <div className="flex flex-wrap items-center justify-center gap-3 mb-12">
               {[
                 { filter: "all", labelBg: t.bg.filterAll, labelEn: t.en.filterAll },
                 { filter: "opening", labelBg: t.bg.filterOpening, labelEn: t.en.filterOpening },
@@ -1203,10 +1143,10 @@ export default function HomeView() {
                 <button
                   key={btn.filter}
                   onClick={() => setActiveGalleryFilter(btn.filter)}
-                  className={`text-xs font-semibold px-4 py-2.5 rounded-full transition-all border ${
+                  className={`text-xs font-bold tracking-[0.12em] px-5 py-3 rounded-full transition-all duration-300 border uppercase ${
                     activeGalleryFilter === btn.filter
-                      ? "bg-[#111111] text-[#FCFBF9] border-black shadow-sm"
-                      : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+                      ? "bg-[#111111] text-[#FCFBF9] border-[#111111] shadow-md"
+                      : "bg-white text-gray-500 border-gray-200/80 hover:bg-gray-50 hover:text-black"
                   }`}
                 >
                   {lang === "bg" ? btn.labelBg : btn.labelEn}
@@ -1215,27 +1155,27 @@ export default function HomeView() {
             </div>
 
             {/* Photos grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredGallery.map((item) => (
                 <div 
                   key={item.id}
                   onClick={() => setSelectedImage(item.url)}
-                  className="group relative bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm cursor-pointer aspect-square hover:shadow-md transition-all duration-300"
+                  className="group relative bg-white border border-[#D4AF37]/15 rounded-2xl overflow-hidden shadow-sm cursor-pointer aspect-square hover:shadow-xl hover:border-[#D4AF37]/40 transition-all duration-500"
                 >
                   <img
                     src={item.url}
                     alt={lang === "bg" ? item.titleBg : item.titleEn}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     loading="lazy"
                   />
                   {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-                    <span className="text-gold text-xs font-semibold uppercase tracking-wider mb-1">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 z-20">
+                    <span className="text-gold text-[10px] font-bold uppercase tracking-[0.2em] mb-1.5">
                       {item.filter.toUpperCase()}
                     </span>
-                    <h4 className="text-white font-serif font-semibold text-lg leading-tight flex items-center justify-between">
+                    <h4 className="text-white font-serif font-bold text-lg leading-tight flex items-center justify-between">
                       <span>{lang === "bg" ? item.titleBg : item.titleEn}</span>
-                      <Maximize2 className="w-4 h-4 shrink-0 text-gold" />
+                      <Maximize2 className="w-5 h-5 shrink-0 text-gold" />
                     </h4>
                   </div>
                 </div>
@@ -1264,40 +1204,40 @@ export default function HomeView() {
         </section>
 
         {/* CONTACTS & FORM SECTION */}
-        <section id="contacts" className="py-24 bg-white">
+        <section id="contacts" className="py-28 bg-white relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
               
               {/* Left Column: Contact details (5 cols) */}
-              <div className="lg:col-span-5 space-y-8">
+              <div className="lg:col-span-5 space-y-10">
                 <div>
-                  <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900">{t[lang].contactsTitle}</h2>
-                  <div className="w-12 h-1 bg-gold mt-3 mb-6" />
+                  <h2 className="text-3xl md:text-4.5xl font-serif font-bold text-gray-900 tracking-wide">{t[lang].contactsTitle}</h2>
+                  <div className="w-16 h-1 bg-gradient-to-r from-gold-dark to-gold-light mt-4 mb-8" />
                   <p className="text-gray-500 font-light text-sm sm:text-base leading-relaxed">{t[lang].contactsSub}</p>
                 </div>
 
                 <div className="space-y-6">
                   {/* Contact detail item 1 */}
-                  <div className="flex gap-4">
-                    <div className="p-3 bg-amber-50 text-gold rounded-xl shrink-0 h-fit">
-                      <Phone className="w-5 h-5" />
+                  <div className="flex gap-5">
+                    <div className="p-3 bg-gradient-to-br from-gold-light/20 to-gold/25 text-gold-dark rounded-xl shrink-0 h-fit border border-gold/15 shadow-sm">
+                      <Phone className="w-5.5 h-5.5" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900 text-sm">{t[lang].cPhone}</h4>
-                      <a href="tel:0885919788" className="text-base text-[#c5a059] font-bold hover:underline mt-1 block">
+                      <h4 className="font-bold text-gray-800 text-xs uppercase tracking-wider">{t[lang].cPhone}</h4>
+                      <a href="tel:0885919788" className="text-lg text-gold-dark font-extrabold hover:underline mt-1.5 block tracking-wide">
                         0885 919 788
                       </a>
                     </div>
                   </div>
 
                   {/* Contact detail item 2 */}
-                  <div className="flex gap-4">
-                    <div className="p-3 bg-amber-50 text-gold rounded-xl shrink-0 h-fit">
-                      <MapPin className="w-5 h-5" />
+                  <div className="flex gap-5">
+                    <div className="p-3 bg-gradient-to-br from-gold-light/20 to-gold/25 text-gold-dark rounded-xl shrink-0 h-fit border border-gold/15 shadow-sm">
+                      <MapPin className="w-5.5 h-5.5" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900 text-sm">{t[lang].cLoc}</h4>
-                      <p className="text-sm text-gray-600 mt-1">
+                      <h4 className="font-bold text-gray-800 text-xs uppercase tracking-wider">{t[lang].cLoc}</h4>
+                      <p className="text-sm text-gray-600 mt-1.5 leading-relaxed font-light">
                         {lang === "bg" 
                           ? "гр. Бургас, местност Ченгене Скеле (близо до Рибарско селище)"
                           : "Burgas, Chengene Skele area (near the Fishing Village)"}
@@ -1306,35 +1246,35 @@ export default function HomeView() {
                         href="https://maps.google.com/?q=Royal+Horse+Burgas+Ченгене+Скеле"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs text-gold hover:text-black font-semibold mt-2 transition-colors uppercase tracking-wider"
+                        className="inline-flex items-center gap-1.5 text-xs text-gold hover:text-black font-semibold mt-2.5 transition-colors uppercase tracking-widest duration-300"
                       >
                         <span>{t[lang].cMapBtn}</span>
-                        <ChevronRight className="w-3.5 h-3.5" />
+                        <ChevronRight className="w-4 h-4" />
                       </a>
                     </div>
                   </div>
 
                   {/* Contact detail item 3 */}
-                  <div className="flex gap-4">
-                    <div className="p-3 bg-amber-50 text-gold rounded-xl shrink-0 h-fit">
-                      <Clock className="w-5 h-5" />
+                  <div className="flex gap-5">
+                    <div className="p-3 bg-gradient-to-br from-gold-light/20 to-gold/25 text-gold-dark rounded-xl shrink-0 h-fit border border-gold/15 shadow-sm">
+                      <Clock className="w-5.5 h-5.5" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900 text-sm">{t[lang].cHours}</h4>
-                      <p className="text-xs text-gray-500 font-light mt-1 leading-relaxed">
+                      <h4 className="font-bold text-gray-800 text-xs uppercase tracking-wider">{t[lang].cHours}</h4>
+                      <p className="text-xs text-gray-500 font-light mt-1.5 leading-relaxed max-w-xs">
                         {t[lang].cHoursText}
                       </p>
                     </div>
                   </div>
 
                   {/* Contact detail item 4 */}
-                  <div className="flex gap-4">
-                    <div className="p-3 bg-amber-50 text-gold rounded-xl shrink-0 h-fit">
-                      <Mail className="w-5 h-5" />
+                  <div className="flex gap-5">
+                    <div className="p-3 bg-gradient-to-br from-gold-light/20 to-gold/25 text-gold-dark rounded-xl shrink-0 h-fit border border-gold/15 shadow-sm">
+                      <Mail className="w-5.5 h-5.5" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900 text-sm">{t[lang].cEmail}</h4>
-                      <a href="mailto:info@royalhorse.bg" className="text-sm text-gray-600 hover:text-gold block mt-1">
+                      <h4 className="font-bold text-gray-800 text-xs uppercase tracking-wider">{t[lang].cEmail}</h4>
+                      <a href="mailto:info@royalhorse.bg" className="text-sm text-gray-650 font-medium hover:text-gold block mt-1.5 transition-colors duration-300">
                         info@royalhorse.bg
                       </a>
                     </div>
@@ -1343,19 +1283,21 @@ export default function HomeView() {
               </div>
 
               {/* Right Column: Lead Form (7 cols) */}
-              <div className="lg:col-span-7 bg-[#FCFBF9] border border-gray-200/80 rounded-3xl p-6 sm:p-8 shadow-sm">
-                <h3 className="text-xl font-serif font-bold text-gray-900 mb-6">{t[lang].formTitle}</h3>
+              <div className="lg:col-span-7 bg-gradient-to-br from-[#FCFBF9] to-white border border-[#D4AF37]/15 rounded-3xl p-6 sm:p-10 shadow-xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-gold/5 to-transparent rounded-full filter blur-2xl pointer-events-none" />
+
+                <h3 className="text-2xl font-serif font-bold text-gray-900 mb-8 tracking-wide relative z-10">{t[lang].formTitle}</h3>
                 
                 {submitSuccess ? (
-                  <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 p-6 rounded-2xl flex items-start gap-4 animate-fade-in-up">
-                    <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" />
+                  <div className="bg-emerald-50/50 border border-emerald-200 text-emerald-800 p-8 rounded-2xl flex items-start gap-4 animate-fade-in-up relative z-10">
+                    <CheckCircle2 className="w-6 h-6 text-emerald-600 shrink-0 mt-0.5" />
                     <p className="text-sm leading-relaxed font-semibold">{t[lang].formSuccess}</p>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
+                  <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                        <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
                           {t[lang].formName} *
                         </label>
                         <input
@@ -1363,7 +1305,7 @@ export default function HomeView() {
                           required
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className={`w-full bg-white border rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-gold transition-all ${
+                          className={`w-full bg-[#FCFBF9] border rounded-xl py-3.5 px-4 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/20 transition-all duration-300 ${
                             formErrors.name ? "border-red-400" : "border-gray-200"
                           }`}
                           placeholder="Иван Петров"
@@ -1374,7 +1316,7 @@ export default function HomeView() {
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                        <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
                           {t[lang].formPhone} *
                         </label>
                         <input
@@ -1382,7 +1324,7 @@ export default function HomeView() {
                           required
                           value={formData.phone}
                           onChange={handlePhoneChange}
-                          className={`w-full bg-white border rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-gold transition-all ${
+                          className={`w-full bg-[#FCFBF9] border rounded-xl py-3.5 px-4 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/20 transition-all duration-300 ${
                             formErrors.phone ? "border-red-400" : "border-gray-200"
                           }`}
                           placeholder="+359 88 591 9788"
@@ -1394,7 +1336,7 @@ export default function HomeView() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                      <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
                         {t[lang].formEmail} *
                       </label>
                       <input
@@ -1402,7 +1344,7 @@ export default function HomeView() {
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className={`w-full bg-white border rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-gold transition-all ${
+                        className={`w-full bg-[#FCFBF9] border rounded-xl py-3.5 px-4 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/20 transition-all duration-300 ${
                           formErrors.email ? "border-red-400" : "border-gray-200"
                         }`}
                         placeholder="example@mail.com"
@@ -1413,14 +1355,14 @@ export default function HomeView() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                      <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
                         {t[lang].formMsg}
                       </label>
                       <textarea
                         rows={4}
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full bg-white border border-gray-200 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-gold transition-all"
+                        className="w-full bg-[#FCFBF9] border border-gray-200 rounded-xl py-3.5 px-4 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/20 transition-all duration-300"
                         placeholder="..."
                       />
                     </div>
@@ -1428,7 +1370,7 @@ export default function HomeView() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-[#111111] hover:bg-gold hover:text-black text-white font-semibold text-xs uppercase tracking-wider py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
+                      className="w-full bg-[#111111] hover:bg-gradient-to-r hover:from-gold-dark hover:via-gold hover:to-gold-light hover:text-[#111111] text-white font-semibold text-xs uppercase tracking-widest py-4.5 rounded-xl shadow-lg transition-all duration-500 flex items-center justify-center gap-2 active:scale-98"
                     >
                       {isSubmitting ? (
                         <RefreshCw className="w-4 h-4 animate-spin text-gold" />
@@ -1445,24 +1387,24 @@ export default function HomeView() {
         </section>
 
         {/* FOOTER */}
-        <footer className="bg-[#111111] text-gray-400 py-12 px-4 sm:px-6 lg:px-8 border-t border-white/5 font-sans">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-center md:text-left">
-              <span className="font-serif text-xl font-bold tracking-wider text-white">
+        <footer className="bg-[#120E0A] text-gray-400 py-16 px-4 sm:px-6 lg:px-8 border-t border-[#D4AF37]/25 font-sans relative overflow-hidden">
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
+            <div className="text-center md:text-left space-y-2">
+              <span className="font-serif text-2xl font-bold tracking-[0.15em] text-white">
                 ROYAL<span className="text-gold">HORSE</span>
               </span>
-              <p className="text-xs text-gray-500 mt-1 max-w-sm font-light">
+              <p className="text-xs text-gray-400 max-w-sm font-light leading-relaxed">
                 {t[lang].footerText}
               </p>
             </div>
             
             {/* Social Links */}
-            <div className="flex gap-4">
+            <div className="flex gap-5">
               <a 
                 href="https://www.facebook.com/royalhorse.burgas"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/5 hover:bg-gold/10 hover:text-gold border border-white/10 flex items-center justify-center text-white transition-all text-xs font-semibold"
+                className="w-11 h-11 rounded-full bg-white/5 hover:bg-gold/15 hover:text-gold border border-white/10 hover:border-gold/30 flex items-center justify-center text-white transition-all duration-300 text-xs font-semibold shadow-sm"
               >
                 FB
               </a>
@@ -1470,7 +1412,7 @@ export default function HomeView() {
                 href="https://www.youtube.com/watch?v=7NOH8v2e2wE"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/5 hover:bg-gold/10 hover:text-gold border border-white/10 flex items-center justify-center text-white transition-all text-xs font-semibold"
+                className="w-11 h-11 rounded-full bg-white/5 hover:bg-gold/15 hover:text-gold border border-white/10 hover:border-gold/30 flex items-center justify-center text-white transition-all duration-300 text-xs font-semibold shadow-sm"
               >
                 YT
               </a>
