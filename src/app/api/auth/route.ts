@@ -3,9 +3,9 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET || "royal-horse-secret-key-2026";
-const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
-// Pre-hashed password for: "royalhorse2026"
-const DEFAULT_HASH = "$2b$10$EuOVfTj6OossQ5okcpBYguVAtuEcXtPXBznHeH0VuX8SXCGIbIBzi"; // hashed "royalhorse2026"
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "ADMIN";
+// Pre-hashed password for: "ADMIN"
+const DEFAULT_HASH = "$2b$10$VXb0H6NFnPy14IbAkgauHOVdmeBCAR2bFM9AxdCnnRnUU0J/tIlWq"; // hashed "ADMIN"
 const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH || DEFAULT_HASH;
 
 export async function POST(request: Request) {
