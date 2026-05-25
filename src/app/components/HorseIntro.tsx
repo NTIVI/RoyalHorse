@@ -132,24 +132,64 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
     };
     window.addEventListener("resize", handleResize);
 
-    // --- GSAP TIMELINE ---
+    // --- HORSE SKELETAL WALK CYCLE TIMELINE ---
+    const walkCycle = gsap.timeline({ repeat: -1 });
+
+    // Front Leg 1 swings: forward then backward
+    walkCycle.fromTo("#front-leg-1", 
+      { rotation: -20, transformOrigin: "59px 52px" },
+      { rotation: 20, duration: 0.6, ease: "power1.inOut", yoyo: true, repeat: -1 },
+      0
+    );
+    // Front Leg 2 swings in opposite direction
+    walkCycle.fromTo("#front-leg-2", 
+      { rotation: 20, transformOrigin: "63px 52px" },
+      { rotation: -20, duration: 0.6, ease: "power1.inOut", yoyo: true, repeat: -1 },
+      0
+    );
+    // Back Leg 1 swings: backward then forward
+    walkCycle.fromTo("#back-leg-1", 
+      { rotation: 16, transformOrigin: "34px 50px" },
+      { rotation: -16, duration: 0.6, ease: "power1.inOut", yoyo: true, repeat: -1 },
+      0
+    );
+    // Back Leg 2 swings in opposite direction
+    walkCycle.fromTo("#back-leg-2", 
+      { rotation: -16, transformOrigin: "38px 50px" },
+      { rotation: 16, duration: 0.6, ease: "power1.inOut", yoyo: true, repeat: -1 },
+      0
+    );
+    // Body bobs up and down slightly (at twice the walk frequency to match steps)
+    walkCycle.fromTo("#horse-body-group",
+      { y: 0 },
+      { y: -3.5, duration: 0.3, ease: "power1.inOut", yoyo: true, repeat: -1 },
+      0
+    );
+    // Tail swings gently
+    walkCycle.fromTo("#horse-tail",
+      { rotation: -6, transformOrigin: "30px 47px" },
+      { rotation: 6, duration: 0.9, ease: "power1.inOut", yoyo: true, repeat: -1 },
+      0
+    );
+
+    // --- MAIN TIMELINE ---
     const mainTimeline = gsap.timeline();
 
     // Initial state configurations
     gsap.set(horseContainer, {
       left: "10vw",
       top: "84vh",
-      scale: 0.6,
+      scale: 0.65,
       rotation: -12,
       opacity: 0,
     });
     gsap.set(sunGlow, { scale: 0.1, opacity: 0 });
     gsap.set(logo, { opacity: 0, y: 50, scale: 0.92 });
 
-    // 1. Initial fade-in of the horse on the lower slope
+    // 1. Initial fade-in of the walking horse
     mainTimeline.to(horseContainer, {
       opacity: 1,
-      duration: 1.2,
+      duration: 1.0,
       ease: "power2.out",
     });
 
@@ -159,31 +199,93 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
       top: "71.2vh",
       scale: 0.85,
       rotation: -10,
-      duration: 4.8,
+      duration: 5.2,
       ease: "power1.inOut",
-      onUpdate: function () {
-        const progress = this.progress();
-        // Simulates steps with a smooth bounding/bobbing effect
-        const bob = Math.abs(Math.sin(progress * Math.PI * 10)) * -6;
-        gsap.set(horseSvg, { y: bob });
-      },
     });
 
-    // 3. Brief pause at the peak before rearing
-    mainTimeline.to(horseSvg, {
-      y: 0,
-      duration: 0.4,
-      ease: "power2.out",
-    });
-
-    // 4. Horse Rears Up Majestically at the peak
-    mainTimeline.to(horseContainer, {
-      rotation: -38,
-      y: -14,
-      scale: 0.95,
-      duration: 1.4,
-      ease: "back.out(1.5)",
+    // 3. Reach the peak: Pause walk cycle and stand still
+    mainTimeline.to({}, {
+      duration: 0.1,
       onStart: () => {
+        // Pause walk animations
+        walkCycle.pause();
+
+        // Smoothly return leg/body rotations to standing/neutral pose
+        gsap.to(["#front-leg-1", "#front-leg-2", "#back-leg-1", "#back-leg-2", "#horse-body-group", "#horse-tail"], {
+          rotation: 0,
+          y: 0,
+          duration: 0.4,
+          ease: "power2.out",
+        });
+
+        // Set container angle flatter on peak
+        gsap.to(horseContainer, {
+          rotation: -4,
+          duration: 0.4,
+          ease: "power2.out",
+        });
+      }
+    });
+
+    // Brief pause standing at the peak
+    mainTimeline.to({}, { duration: 0.4 });
+
+    // 4. Rears Up Majestically at the peak (Rearing skeletal pose)
+    mainTimeline.to({}, {
+      duration: 1.4,
+      onStart: () => {
+        // Rotate body backwards around hip area (35px 52px)
+        gsap.to("#horse-body-group", {
+          rotation: -42,
+          transformOrigin: "35px 52px",
+          duration: 1.2,
+          ease: "back.out(1.2)",
+        });
+
+        // Lift and bend front legs
+        gsap.to("#front-leg-1", {
+          rotation: -55,
+          transformOrigin: "59px 52px",
+          duration: 1.2,
+          ease: "back.out(1.2)",
+        });
+        gsap.to("#front-leg-2", {
+          rotation: -45,
+          transformOrigin: "63px 52px",
+          duration: 1.2,
+          ease: "back.out(1.2)",
+        });
+
+        // Bend back legs to support rearing weight
+        gsap.to("#back-leg-1", {
+          rotation: 12,
+          transformOrigin: "34px 50px",
+          duration: 1.2,
+          ease: "power2.out",
+        });
+        gsap.to("#back-leg-2", {
+          rotation: 8,
+          transformOrigin: "38px 50px",
+          duration: 1.2,
+          ease: "power2.out",
+        });
+
+        // Tail sweeps down
+        gsap.to("#horse-tail", {
+          rotation: -25,
+          transformOrigin: "30px 47px",
+          duration: 1.2,
+          ease: "power2.out",
+        });
+
+        // Scale container slightly
+        gsap.to(horseContainer, {
+          scale: 0.95,
+          y: -10,
+          duration: 1.2,
+          ease: "back.out(1.2)",
+        });
+
         // Trigger sunburst glow expansion
         gsap.to(sunGlow, {
           scale: 4.5,
@@ -193,9 +295,9 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
         });
 
         // Trigger particle blast
-        setTimeout(triggerExplosion, 400);
+        setTimeout(triggerExplosion, 350);
 
-        // Fade in logo behind the horse
+        // Fade in logo behind the peak
         gsap.to(logo, {
           opacity: 1,
           y: 0,
@@ -204,11 +306,11 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
           ease: "power3.out",
           delay: 0.3,
         });
-      },
+      }
     });
 
     // Hold the majestic view
-    mainTimeline.to({}, { duration: 3.2 });
+    mainTimeline.to({}, { duration: 3.4 });
 
     // 5. Fade out everything and lift intro overlay
     mainTimeline.to([horseContainer, logo, sunGlow, canvas, ".mountain-layer"], {
@@ -222,6 +324,7 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
           duration: 0.8,
           ease: "power4.inOut",
           onComplete: () => {
+            walkCycle.kill();
             cancelAnimationFrame(animationFrameId);
             window.removeEventListener("resize", handleResize);
             onFinished();
@@ -231,6 +334,7 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
     });
 
     return () => {
+      walkCycle.kill();
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener("resize", handleResize);
       mainTimeline.kill();
@@ -292,15 +396,15 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
         <path d="M0,380 C180,320 320,440 550,290 C720,180 850,280 1100,210 C1280,160 1380,240 1440,210" stroke="#D4AF37" strokeWidth="1.2" strokeOpacity="0.2" fill="none" />
       </svg>
 
-      {/* Climbing & Rearing Majestic Horse Silhouette */}
+      {/* Climbing & Rearing Majestic Horse Silhouette with joints */}
       <div
         ref={horseContainerRef}
         className="absolute pointer-events-none select-none"
         style={{
-          width: "140px",
-          height: "140px",
+          width: "145px",
+          height: "145px",
           zIndex: 15,
-          transform: "translate(-50%, -100%)", // anchors horse's feet to top point
+          transform: "translate(-50%, -100%)", // anchors horse's feet
         }}
       >
         <svg
@@ -308,8 +412,43 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
           viewBox="0 0 100 100"
           className="w-full h-full text-[#08070c] fill-current drop-shadow-[0_0_15px_rgba(212,175,55,0.55)]"
         >
-          {/* Detailed rearing horse silhouette facing right */}
-          <path d="M72,78 C70,72 65,65 62,58 C59,51 58,45 59,41 C60,37 63,33 65,31 C67,29 66,25 63,23 C59,21 53,25 49,29 C45,33 40,39 36,45 C32,51 27,58 23,63 C19,68 13,71 7,73 C3,74 0,76 0,78 C0,80 5,80 11,78 C17,76 23,71 28,65 C33,59 38,51 43,45 C48,39 53,35 57,33 C61,31 63,33 61,37 C59,41 55,48 53,55 C51,62 51,69 53,75 C55,81 59,85 65,87 C69,88 72,86 73,83 Z M47,20 C49,23 49,26 48,29 C47,32 45,35 42,37 C39,39 36,39 33,37 C30,35 27,32 25,29 C23,26 22,23 22,20 C22,17 23,14 25,11 C27,8 30,6 33,6 C36,6 39,8 42,11 C45,14 47,17 47,20 Z" />
+          {/* Far legs (drawn behind body) */}
+          <path
+            id="back-leg-2"
+            d="M36,50 Q31,58 33,68 L29,82 L32,82 L35,72 Q36,62 39,50 Z"
+            fill="#040306"
+          />
+          <path
+            id="front-leg-2"
+            d="M62,52 L64,66 L62,76 L64,82 L66,82 L65,76 L66,66 L64,52 Z"
+            fill="#040306"
+          />
+
+          {/* Body group (contains body, head, neck, tail) */}
+          <g id="horse-body-group">
+            <path
+              id="horse-tail"
+              d="M30,47 C25,50 19,55 15,65 C13,70 11,78 11,83 C13,83 16,78 19,72 C22,66 25,58 29,52 Z"
+              fill="#040306"
+            />
+            {/* Main Torso, Neck & Head silhouette */}
+            <path
+              d="M32,45 C38,44 48,44 54,46 C58,42 62,32 66,22 C67,18 70,16 73,15 C76,14 78,16 79,18 C80,20 78,22 76,23 C74,24 72,26 73,28 C74,30 77,29 79,28 C81,27 83,28 84,30 C85,32 84,34 81,36 C78,38 75,41 73,45 C71,48 70,52 68,55 C64,57 58,57 52,56 C44,55 38,55 32,53 C29,51 28,48 32,45 Z"
+              fill="#08070c"
+            />
+          </g>
+
+          {/* Near legs (drawn in front of body) */}
+          <path
+            id="back-leg-1"
+            d="M33,50 Q29,60 31,70 L27,82 L30,82 L33,72 Q34,62 37,50 Z"
+            fill="#08070c"
+          />
+          <path
+            id="front-leg-1"
+            d="M58,52 L60,66 L58,76 L60,82 L62,82 L61,76 L62,66 L60,52 Z"
+            fill="#08070c"
+          />
         </svg>
       </div>
 
