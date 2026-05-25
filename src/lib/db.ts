@@ -6,7 +6,7 @@ const sql = neon(databaseUrl);
 
 export async function query(queryString: string, params: any[] = []) {
   try {
-    return await (sql as any)(queryString, params);
+    return await sql.query(queryString, params);
   } catch (error) {
     console.error("Database query error:", error);
     throw error;
