@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/lib/LanguageContext";
 import { t } from "@/lib/translations";
 import Header from "@/app/components/Header";
@@ -9,35 +9,57 @@ import Footer from "@/app/components/Footer";
 export default function AboutPage() {
   const { lang } = useLanguage();
   const [activeTab, setActiveTab] = useState<"place" | "team" | "horses">("place");
+  const [loading, setLoading] = useState(true);
 
-  // Local photos mapped for sections
-  const placeImages = [
-    "/images/about_place_image_1.jpg",
-    "/images/about_place_image_2.jpg",
-    "/images/about_place_image_3.jpg",
-    "/images/about_place_image_4.jpg",
-    "/images/about_place_image_5.jpg",
-    "/images/about_place_image_6.jpg",
-    "/images/about_place_image_7.jpg",
-    "/images/about_place_image_8.jpg",
-    "/images/about_place_image_9.jpg",
-    "/images/about_place_image_10.jpg",
-  ];
+  // Defaults to fallback lists
+  const [placeImages, setPlaceImages] = useState<any[]>([
+    { image_url: "/images/about_place_image_1.jpg", title_bg: "Комплексът", title_en: "The Complex", desc_bg: "", desc_en: "" },
+    { image_url: "/images/about_place_image_2.jpg", title_bg: "Комплексът 2", title_en: "Complex 2", desc_bg: "", desc_en: "" },
+    { image_url: "/images/about_place_image_3.jpg", title_bg: "Комплексът 3", title_en: "Complex 3", desc_bg: "", desc_en: "" },
+    { image_url: "/images/about_place_image_4.jpg", title_bg: "Комплексът 4", title_en: "Complex 4", desc_bg: "", desc_en: "" },
+    { image_url: "/images/about_place_image_5.jpg", title_bg: "Комплексът 5", title_en: "Complex 5", desc_bg: "", desc_en: "" },
+    { image_url: "/images/about_place_image_6.jpg", title_bg: "Комплексът 6", title_en: "Complex 6", desc_bg: "", desc_en: "" },
+    { image_url: "/images/about_place_image_7.jpg", title_bg: "Комплексът 7", title_en: "Complex 7", desc_bg: "", desc_en: "" },
+    { image_url: "/images/about_place_image_8.jpg", title_bg: "Комплексът 8", title_en: "Complex 8", desc_bg: "", desc_en: "" },
+    { image_url: "/images/about_place_image_9.jpg", title_bg: "Комплексът 9", title_en: "Complex 9", desc_bg: "", desc_en: "" },
+    { image_url: "/images/about_place_image_10.jpg", title_bg: "Комплексът 10", title_en: "Complex 10", desc_bg: "", desc_en: "" },
+  ]);
 
-  const teamMembers = [
-    { nameBg: "Димитър Василев", nameEn: "Dimitar Vasilev", roleBg: "Главен Инструктор", roleEn: "Head Instructor", img: "/images/about_team_image_1.jpg" },
-    { nameBg: "Елена Петрова", nameEn: "Elena Petrova", roleBg: "Инструктор по терапевтична езда", roleEn: "Therapeutic Riding Instructor", img: "/images/about_team_image_2.jpg" },
-    { nameBg: "Николай Иванов", nameEn: "Nikolay Ivanov", roleBg: "Инструктор & Водач", roleEn: "Instructor & Guide", img: "/images/about_team_image_3.jpg" },
-    { nameBg: "Мария Георгиева", nameEn: "Mariya Georgieva", roleBg: "Грижа за конете", roleEn: "Stable Manager", img: "/images/about_team_image_4.jpg" },
-  ];
+  const [teamMembers, setTeamMembers] = useState<any[]>([
+    { title_bg: "Димитър Василев", title_en: "Dimitar Vasilev", desc_bg: "Главен Инструктор", desc_en: "Head Instructor", image_url: "/images/about_team_image_1.jpg" },
+    { title_bg: "Елена Петрова", title_en: "Elena Petrova", desc_bg: "Инструктор по терапевтична езда", desc_en: "Therapeutic Riding Instructor", image_url: "/images/about_team_image_2.jpg" },
+    { title_bg: "Николай Иванов", title_en: "Nikolay Ivanov", desc_bg: "Инструктор & Водач", desc_en: "Instructor & Guide", image_url: "/images/about_team_image_3.jpg" },
+    { title_bg: "Мария Георгиева", title_en: "Mariya Georgieva", desc_bg: "Грижа за конете", desc_en: "Stable Manager", image_url: "/images/about_team_image_4.jpg" },
+  ]);
 
-  const horses = [
-    { nameBg: "Силвър", nameEn: "Silver", descBg: "Спокоен и величествен сив жребец, идеален за напреднали ездачи.", descEn: "A calm and majestic grey stallion, ideal for advanced riders.", img: "/images/about_horses_image_1.jpg" },
-    { nameBg: "Барон", nameEn: "Baron", descBg: "Опитен и кротък кон за обучение на деца и възрастни.", descEn: "Experienced and gentle horse for teaching kids and adults.", img: "/images/about_horses_image_2.jpg" },
-    { nameBg: "Карина", nameEn: "Karina", descBg: "Темпераментна и изящна кобила, любимка на спортните ездачи.", descEn: "A spirited and elegant mare, a favorite of sport riders.", img: "/images/about_horses_image_3.jpg" },
-    { nameBg: "Звезда", nameEn: "Zvezda", descBg: "Изключително нежна кобила, използвана основно за хипотерапия.", descEn: "An exceptionally gentle mare, used primarily for hippotherapy.", img: "/images/about_horses_image_4.jpg" },
-    { nameBg: "Шоколад", nameEn: "Chocolate", descBg: "Очарователно и дружелюбно пони, любимец на най-малките гости.", descEn: "Charming and friendly pony, a favorite of our youngest guests.", img: "/images/about_horses_image_5.jpg" },
-  ];
+  const [horses, setHorses] = useState<any[]>([
+    { title_bg: "Силвър", title_en: "Silver", desc_bg: "Спокоен и величествен сив жребец, идеален за напреднали ездачи.", desc_en: "A calm and majestic grey stallion, ideal for advanced riders.", image_url: "/images/about_horses_image_1.jpg" },
+    { title_bg: "Барон", title_en: "Baron", desc_bg: "Опитен и кротък кон за обучение на деца и възрастни.", desc_en: "Experienced and gentle horse for teaching kids and adults.", image_url: "/images/about_horses_image_2.jpg" },
+    { title_bg: "Карина", title_en: "Karina", desc_bg: "Темпераментна и изящна кобила, любимка на спортните ездачи.", desc_en: "A spirited and elegant mare, a favorite of sport riders.", image_url: "/images/about_horses_image_3.jpg" },
+    { title_bg: "Звезда", title_en: "Zvezda", desc_bg: "Изключително нежна кобила, използвана основно за хипотерапия.", desc_en: "An exceptionally gentle mare, used primarily for hippotherapy.", image_url: "/images/about_horses_image_4.jpg" },
+    { title_bg: "Шоколад", title_en: "Chocolate", desc_bg: "Очарователно и дружелюбно пони, любимец на най-малките гости.", desc_en: "Charming and friendly pony, a favorite of our youngest guests.", image_url: "/images/about_horses_image_5.jpg" },
+  ]);
+
+  useEffect(() => {
+    fetch("/api/content")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          const place = data.filter((item) => item.category === "about_place");
+          const team = data.filter((item) => item.category === "about_team");
+          const horseList = data.filter((item) => item.category === "about_horses");
+
+          if (place.length > 0) setPlaceImages(place);
+          if (team.length > 0) setTeamMembers(team);
+          if (horseList.length > 0) setHorses(horseList);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch dynamic content:", err);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <>
@@ -96,13 +118,21 @@ export default function AboutPage() {
               <div className="space-y-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                   <div className="space-y-6">
-                    <h2 className="text-3xl font-serif font-bold text-gray-900">{t[lang].tabPlace}</h2>
-                    <p className="text-gray-600 leading-relaxed text-base">{t[lang].placeText1}</p>
-                    <p className="text-gray-600 leading-relaxed text-base">{t[lang].placeText2}</p>
+                    <h2 className="text-3xl font-serif font-bold text-gray-900">
+                      {lang === "bg" ? placeImages[0]?.title_bg : placeImages[0]?.title_en}
+                    </h2>
+                    <p className="text-gray-600 leading-relaxed text-base">
+                      {lang === "bg" ? placeImages[0]?.desc_bg || t[lang].placeText1 : placeImages[0]?.desc_en || t[lang].placeText1}
+                    </p>
+                    {placeImages[1] && (
+                      <p className="text-gray-600 leading-relaxed text-base">
+                        {lang === "bg" ? placeImages[1]?.desc_bg || t[lang].placeText2 : placeImages[1]?.desc_en || t[lang].placeText2}
+                      </p>
+                    )}
                   </div>
                   <div className="relative h-[350px] rounded-3xl overflow-hidden shadow-2xl border border-gray-100">
                     <img
-                      src={placeImages[0]}
+                      src={placeImages[0]?.image_url}
                       alt="Royal Horse Place"
                       className="w-full h-full object-cover"
                     />
@@ -118,8 +148,8 @@ export default function AboutPage() {
                     {placeImages.slice(1).map((img, index) => (
                       <div key={index} className="aspect-square rounded-2xl overflow-hidden shadow-md group border border-gray-100">
                         <img
-                          src={img}
-                          alt={`Place ${index + 2}`}
+                          src={img.image_url}
+                          alt={lang === "bg" ? img.title_bg : img.title_en}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       </div>
@@ -152,17 +182,17 @@ export default function AboutPage() {
                     <div key={index} className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
                       <div className="h-64 overflow-hidden relative">
                         <img
-                          src={member.img}
-                          alt={lang === "bg" ? member.nameBg : member.nameEn}
+                          src={member.image_url}
+                          alt={lang === "bg" ? member.title_bg : member.title_en}
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="p-6 text-center">
                         <h4 className="font-serif text-lg font-bold text-gray-900">
-                          {lang === "bg" ? member.nameBg : member.nameEn}
+                          {lang === "bg" ? member.title_bg : member.title_en}
                         </h4>
                         <p className="text-xs uppercase tracking-widest text-[#D4AF37] font-semibold mt-1">
-                          {lang === "bg" ? member.roleBg : member.roleEn}
+                          {lang === "bg" ? member.desc_bg : member.desc_en}
                         </p>
                       </div>
                     </div>
@@ -181,7 +211,7 @@ export default function AboutPage() {
                   </div>
                   <div className="relative h-[320px] rounded-3xl overflow-hidden shadow-2xl border border-gray-100">
                     <img
-                      src={horses[0].img}
+                      src={horses[0]?.image_url}
                       alt="Noble Horse"
                       className="w-full h-full object-cover"
                     />
@@ -194,17 +224,17 @@ export default function AboutPage() {
                     <div key={index} className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-lg flex flex-col hover:shadow-xl transition-all duration-300">
                       <div className="h-56 overflow-hidden">
                         <img
-                          src={horse.img}
-                          alt={lang === "bg" ? horse.nameBg : horse.nameEn}
+                          src={horse.image_url}
+                          alt={lang === "bg" ? horse.title_bg : horse.title_en}
                           className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                         />
                       </div>
                       <div className="p-6 space-y-2 flex-grow">
                         <h4 className="font-serif text-xl font-bold text-gray-900">
-                          {lang === "bg" ? horse.nameBg : horse.nameEn}
+                          {lang === "bg" ? horse.title_bg : horse.title_en}
                         </h4>
                         <p className="text-sm text-gray-600 leading-relaxed">
-                          {lang === "bg" ? horse.descBg : horse.descEn}
+                          {lang === "bg" ? horse.desc_bg : horse.desc_en}
                         </p>
                       </div>
                     </div>

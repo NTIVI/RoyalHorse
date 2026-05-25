@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/lib/LanguageContext";
 import { t } from "@/lib/translations";
 import Header from "@/app/components/Header";
@@ -10,78 +10,64 @@ import { GraduationCap, Trees, Compass } from "lucide-react";
 
 export default function RidingPage() {
   const { lang } = useLanguage();
+  const [ridingItems, setRidingItems] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const services = [
+  // Default hardcoded list
+  const defaultRiding = [
     {
-      title: t[lang].rideKids,
-      desc: t[lang].rideKidsText,
-      icon: <GraduationCap className="w-8 h-8 text-[#D4AF37]" />,
-      images: [
-        "/images/riding_lessons_image_1.jpg",
-        "/images/riding_pony_image_1.jpg",
-        "/images/riding_pony_image_2.jpg",
-        "/images/riding_pony_image_3.jpg",
-      ],
-      detailsBg: [
-        "Обучение на деца над 4 години на пони",
-        "Индивидуални тренировки с квалифициран треньор",
-        "Специализирана хипотерапия с обучени терапевтични коне",
-        "Развитие на баланс, координация и любов към животните",
-      ],
-      detailsEn: [
-        "Pony lessons for children over 4 years old",
-        "Private lessons with certified professional coaches",
-        "Specialized hippotherapy with trained therapy horses",
-        "Develop balance, coordination, and animal connection",
-      ],
+      title_bg: t[lang].rideKids,
+      title_en: t[lang].rideKidsText,
+      desc_bg: t[lang].rideKidsText,
+      desc_en: "Pony riding sessions, individual coaching, and dedicated hippotherapy for kids.",
+      image_url: "/images/riding_lessons_image_1.jpg",
+      iconType: "kids"
     },
     {
-      title: t[lang].rideAdults,
-      desc: t[lang].rideAdultsText,
-      icon: <Compass className="w-8 h-8 text-[#D4AF37]" />,
-      images: [
-        "/images/riding_horse_image_1.jpg",
-        "/images/riding_horse_image_2.jpg",
-        "/images/riding_horse_image_3.jpg",
-        "/images/riding_horse_image_4.jpg",
-      ],
-      detailsBg: [
-        "Обучение за напълно начинаещи и напреднали ездачи",
-        "Обиколки в затворен професионален манеж",
-        "Усъвършенстване на стойка, управление и тръс/галоп",
-        "Подходящо оборудване и защитни каски, включени в цената",
-      ],
-      detailsEn: [
-        "Lessons for complete beginners to advanced riders",
-        "Riding sessions inside a closed, professional arena",
-        "Improve posture, control, and trot/canter/gallop gait",
-        "All safety helmets and protective gear included",
-      ],
+      title_bg: t[lang].rideAdults,
+      title_en: t[lang].rideAdultsText,
+      desc_bg: t[lang].rideAdultsText,
+      desc_en: "Professional training, dressage skills development, and trial rides for adult riders.",
+      image_url: "/images/riding_horse_image_1.jpg",
+      iconType: "adults"
     },
     {
-      title: t[lang].rideExcursions,
-      desc: t[lang].rideExcursionsText,
-      icon: <Trees className="w-8 h-8 text-[#D4AF37]" />,
-      images: [
-        "/images/riding_excursions_image_1.jpg",
-        "/images/riding_excursions_image_2.jpg",
-        "/images/riding_nature_image_1.jpg",
-        "/images/riding_nature_image_2.jpg",
-      ],
-      detailsBg: [
-        "Преходи сред девствените пътеки на Странджа планина",
-        "Разходки край живописния морски бряг на Ченгене Скеле",
-        "Екскурзии и разходки с автентична файтон каруца",
-        "Опитен водач, придружаващ групата през целия преход",
-      ],
-      detailsEn: [
-        "Trail riding through pristine paths of Strandzha mountain",
-        "Rides along the picturesque sea coast of Chengene Skele",
-        "Carriage and wagon excursions for groups or couples",
-        "Experienced trail guide accompanying the group at all times",
-      ],
-    },
+      title_bg: t[lang].rideExcursions,
+      title_en: t[lang].rideExcursionsText,
+      desc_bg: t[lang].rideExcursionsText,
+      desc_en: "Riding tours through scenic mountain paths of Strandzha and coastlines.",
+      image_url: "/images/riding_excursions_image_1.jpg",
+      iconType: "nature"
+    }
   ];
+
+  useEffect(() => {
+    fetch("/api/content?category=riding")
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          setRidingItems(data);
+        } else {
+          setRidingItems(defaultRiding);
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setRidingItems(defaultRiding);
+        setLoading(false);
+      });
+  }, [lang]);
+
+  const getIcon = (titleBg: string) => {
+    if (titleBg.includes("деца") || titleBg.includes("Kids") || titleBg.includes("pony")) {
+      return <GraduationCap className="w-8 h-8 text-[#D4AF37]" />;
+    }
+    if (titleBg.includes("преходи") || titleBg.includes("Разходки") || titleBg.includes("Trails") || titleBg.includes("excursion")) {
+      return <Trees className="w-8 h-8 text-[#D4AF37]" />;
+    }
+    return <Compass className="w-8 h-8 text-[#D4AF37]" />;
+  };
 
   return (
     <>
@@ -100,11 +86,14 @@ export default function RidingPage() {
 
           {/* Service Sections */}
           <div className="space-y-24">
-            {services.map((service, index) => {
+            {ridingItems.map((item, index) => {
               const isEven = index % 2 === 0;
+              const title = lang === "bg" ? item.title_bg : item.title_en;
+              const desc = lang === "bg" ? item.desc_bg : item.desc_en;
+
               return (
                 <div
-                  key={index}
+                  key={item.id || index}
                   className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-16 ${
                     isEven ? "" : "lg:flex-row-reverse"
                   }`}
@@ -112,23 +101,14 @@ export default function RidingPage() {
                   {/* Text Column */}
                   <div className="w-full lg:w-1/2 space-y-6">
                     <div className="inline-flex p-3 bg-white border border-[#D4AF37]/20 rounded-2xl shadow-md">
-                      {service.icon}
+                      {getIcon(item.title_bg)}
                     </div>
-                    <h2 className="text-3xl font-serif font-bold text-gray-900">{service.title}</h2>
-                    <p className="text-gray-600 leading-relaxed text-base">{service.desc}</p>
-                    
-                    <ul className="space-y-3 pt-2">
-                      {(lang === "bg" ? service.detailsBg : service.detailsEn).map((detail, idx) => (
-                        <li key={idx} className="flex items-start gap-3 text-sm text-gray-700">
-                          <span className="text-[#D4AF37] mt-1 font-bold">✓</span>
-                          <span>{detail}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <h2 className="text-3xl font-serif font-bold text-gray-900">{title}</h2>
+                    <p className="text-gray-600 leading-relaxed text-base">{desc}</p>
 
                     <div className="pt-4">
                       <Link
-                        href={`/contacts?service=${encodeURIComponent(service.title)}`}
+                        href={`/contacts?service=${encodeURIComponent(title)}`}
                         className="inline-flex bg-[#111111] hover:bg-[#D4AF37] hover:text-[#111111] text-white text-xs uppercase tracking-widest font-semibold px-8 py-4 rounded-full transition-all duration-300 border border-transparent shadow-md hover:shadow-lg active:scale-95 cursor-pointer"
                       >
                         {lang === "bg" ? "Заяви час за тази услуга" : "Book this service"}
@@ -136,24 +116,15 @@ export default function RidingPage() {
                     </div>
                   </div>
 
-                  {/* Visual Grid Column */}
-                  <div className="w-full lg:w-1/2 grid grid-cols-2 gap-4">
-                    {service.images.map((img, imgIdx) => (
-                      <div
-                        key={imgIdx}
-                        className={`aspect-[4/3] rounded-3xl overflow-hidden shadow-lg border border-gray-100 group ${
-                          imgIdx === 0
-                            ? "col-span-2 aspect-[2/1]"
-                            : ""
-                        }`}
-                      >
-                        <img
-                          src={img}
-                          alt={`${service.title} image ${imgIdx + 1}`}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                      </div>
-                    ))}
+                  {/* Visual Column */}
+                  <div className="w-full lg:w-1/2">
+                    <div className="aspect-[16/10] rounded-3xl overflow-hidden shadow-lg border border-gray-100 group">
+                      <img
+                        src={item.image_url}
+                        alt={title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                    </div>
                   </div>
                 </div>
               );
