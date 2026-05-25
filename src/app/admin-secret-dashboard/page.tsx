@@ -71,6 +71,7 @@ export default function AdminDashboard() {
   const [compressing, setCompressing] = useState(false);
 
   const [newItem, setNewItem] = useState({
+    category: "about_place",
     title_bg: "",
     title_en: "",
     desc_bg: "",
@@ -272,15 +273,13 @@ export default function AdminDashboard() {
       const res = await fetch("/api/content", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          category: selectedCategory,
-          ...newItem
-        })
+        body: JSON.stringify(newItem)
       });
 
       if (res.ok) {
         setIsAddingNew(false);
         setNewItem({
+          category: "about_place",
           title_bg: "",
           title_en: "",
           desc_bg: "",
@@ -710,7 +709,18 @@ export default function AdminDashboard() {
               
               <div className="flex gap-2">
                 <button
-                  onClick={() => setIsAddingNew(true)}
+                  onClick={() => {
+                    setNewItem({
+                      category: selectedCategory,
+                      title_bg: "",
+                      title_en: "",
+                      desc_bg: "",
+                      desc_en: "",
+                      image_url: "",
+                      extra_info: ""
+                    });
+                    setIsAddingNew(true);
+                  }}
                   className="inline-flex items-center gap-2 text-xs font-bold text-black bg-[#D4AF37] hover:bg-[#F3E5AB] px-4 py-2.5 rounded-xl shadow-md transition-all cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" />
@@ -874,11 +884,22 @@ export default function AdminDashboard() {
                     <X className="w-6 h-6" />
                   </button>
 
-                  <div className="space-y-1">
+                  <div className="space-y-3">
                     <h3 className="text-xl font-serif font-bold text-white tracking-wide">Добавить новый пост</h3>
-                    <p className="text-[10px] text-[#D4AF37] uppercase tracking-widest font-semibold">
-                      Категория: {cmsCategories.find(c=>c.key === selectedCategory)?.label}
-                    </p>
+                    <div className="space-y-1">
+                      <label className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-1">Выберите раздел меню (Категорию)</label>
+                      <select
+                        value={newItem.category}
+                        onChange={(e) => setNewItem({ ...newItem, category: e.target.value })}
+                        className="w-full bg-[#1C1A18] border border-white/5 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20 rounded-xl py-2 px-3 text-sm text-white focus:outline-none transition-all"
+                      >
+                        {cmsCategories.map((cat) => (
+                          <option key={cat.key} value={cat.key}>
+                            {cat.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
 
                   <form onSubmit={handleCreateCms} className="space-y-4">
