@@ -597,11 +597,10 @@ export default function AdminDashboard() {
               <button
                 key={langKey}
                 onClick={() => setAdminLang(langKey)}
-                className={`text-[10px] font-bold px-2 py-1 rounded-lg uppercase transition-all cursor-pointer ${
-                  adminLang === langKey
+                className={`text-[10px] font-bold px-2 py-1 rounded-lg uppercase transition-all cursor-pointer ${adminLang === langKey
                     ? "bg-[#D4AF37] text-black"
                     : "text-gray-400 hover:text-white"
-                }`}
+                  }`}
               >
                 {langKey}
               </button>
@@ -609,9 +608,8 @@ export default function AdminDashboard() {
           </div>
           <button
             onClick={() => setTheme(isDark ? "light" : "dark")}
-            className={`p-2.5 rounded-xl border transition-all cursor-pointer ${
-              isDark ? "bg-black/20 border-white/5 hover:bg-black/30 text-[#D4AF37]" : "bg-white border-black/10 hover:bg-gray-50 text-yellow-800 shadow-sm"
-            }`}
+            className={`p-2.5 rounded-xl border transition-all cursor-pointer ${isDark ? "bg-black/20 border-white/5 hover:bg-black/30 text-[#D4AF37]" : "bg-white border-black/10 hover:bg-gray-50 text-yellow-800 shadow-sm"
+              }`}
           >
             {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </button>
@@ -679,7 +677,7 @@ export default function AdminDashboard() {
 
   return (
     <div className={`min-h-screen font-sans flex flex-col lg:flex-row transition-colors duration-300 ${isDark ? "bg-[#0E0D0C] text-gray-200" : "bg-gray-50 text-gray-900"}`}>
-      
+
       {/* SIDEBAR NAVIGATION */}
       <aside className={`w-full lg:w-72 border-b lg:border-b-0 lg:border-r flex flex-col shrink-0 transition-colors ${isDark ? "bg-[#121110] border-white/5" : "bg-white border-gray-200/80 shadow-sm"}`}>
         <div className="p-6 border-b border-white/5 flex items-center justify-between">
@@ -702,11 +700,10 @@ export default function AdminDashboard() {
                 <button
                   key={langKey}
                   onClick={() => setAdminLang(langKey)}
-                  className={`text-[9px] font-bold px-2 py-1 rounded-lg uppercase transition-all cursor-pointer ${
-                    adminLang === langKey
+                  className={`text-[9px] font-bold px-2 py-1 rounded-lg uppercase transition-all cursor-pointer ${adminLang === langKey
                       ? "bg-[#D4AF37] text-black shadow-sm"
                       : "text-gray-400 hover:text-white"
-                  }`}
+                    }`}
                 >
                   {langKey}
                 </button>
@@ -715,9 +712,8 @@ export default function AdminDashboard() {
 
             <button
               onClick={() => setTheme(isDark ? "light" : "dark")}
-              className={`p-2 rounded-xl border transition-all cursor-pointer ${
-                isDark ? "bg-black/20 border-white/5 text-[#D4AF37] hover:bg-black/30" : "bg-gray-100 border-black/5 text-yellow-800 hover:bg-gray-200"
-              }`}
+              className={`p-2 rounded-xl border transition-all cursor-pointer ${isDark ? "bg-black/20 border-white/5 text-[#D4AF37] hover:bg-black/30" : "bg-gray-100 border-black/5 text-yellow-800 hover:bg-gray-200"
+                }`}
               title={isDark ? "Светлая тема" : "Темная тема"}
             >
               {isDark ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
@@ -728,15 +724,14 @@ export default function AdminDashboard() {
         <nav className="p-4 flex-grow space-y-1">
           <button
             onClick={() => setActiveAdminTab("inquiries")}
-            className={`w-full flex items-center gap-3 text-xs font-semibold px-4 py-3 rounded-xl transition-all cursor-pointer ${
-              activeAdminTab === "inquiries"
+            className={`w-full flex items-center gap-3 text-xs font-semibold px-4 py-3 rounded-xl transition-all cursor-pointer ${activeAdminTab === "inquiries"
                 ? isDark
                   ? "bg-[#D4AF37]/10 text-[#D4AF37] border-l-2 border-[#D4AF37]"
                   : "bg-[#D4AF37]/15 text-[#8a6800] border-l-2 border-[#D4AF37] font-bold"
                 : isDark
-                ? "text-gray-400 hover:bg-white/5 hover:text-white"
-                : "text-gray-600 hover:bg-gray-100 hover:text-black"
-            }`}
+                  ? "text-gray-400 hover:bg-white/5 hover:text-white"
+                  : "text-gray-600 hover:bg-gray-100 hover:text-black"
+              }`}
           >
             <Inbox className="w-4 h-4" />
             <span>{t.tabInquiries}</span>
@@ -749,15 +744,14 @@ export default function AdminDashboard() {
 
           <button
             onClick={() => setActiveAdminTab("cms")}
-            className={`w-full flex items-center gap-3 text-xs font-semibold px-4 py-3 rounded-xl transition-all cursor-pointer ${
-              activeAdminTab === "cms"
+            className={`w-full flex items-center gap-3 text-xs font-semibold px-4 py-3 rounded-xl transition-all cursor-pointer ${activeAdminTab === "cms"
                 ? isDark
                   ? "bg-[#D4AF37]/10 text-[#D4AF37] border-l-2 border-[#D4AF37]"
                   : "bg-[#D4AF37]/15 text-[#8a6800] border-l-2 border-[#D4AF37] font-bold"
                 : isDark
-                ? "text-gray-400 hover:bg-white/5 hover:text-white"
-                : "text-gray-600 hover:bg-gray-100 hover:text-black"
-            }`}
+                  ? "text-gray-400 hover:bg-white/5 hover:text-white"
+                  : "text-gray-600 hover:bg-gray-100 hover:text-black"
+              }`}
           >
             <FileText className="w-4 h-4" />
             <span>{t.tabCms}</span>
@@ -826,13 +820,12 @@ export default function AdminDashboard() {
                 <button
                   key={f.key}
                   onClick={() => setFilterStatus(f.key)}
-                  className={`text-xs font-semibold px-4 py-2 rounded-xl transition-all border cursor-pointer ${
-                    filterStatus === f.key
+                  className={`text-xs font-semibold px-4 py-2 rounded-xl transition-all border cursor-pointer ${filterStatus === f.key
                       ? "bg-[#D4AF37] text-black border-transparent shadow-md"
                       : isDark
-                      ? "bg-[#121110] text-gray-400 border-white/5 hover:border-white/10 hover:text-white"
-                      : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50 shadow-sm"
-                  }`}
+                        ? "bg-[#121110] text-gray-400 border-white/5 hover:border-white/10 hover:text-white"
+                        : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50 shadow-sm"
+                    }`}
                 >
                   {f.label}
                 </button>
@@ -973,14 +966,14 @@ export default function AdminDashboard() {
         {/* ======================================================== */}
         {activeAdminTab === "cms" && (
           <div className="space-y-6">
-            
+
             {/* Header bar */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/5 pb-4">
               <div>
                 <h1 className={`text-2xl font-serif font-bold tracking-wide ${isDark ? "text-white" : "text-gray-900"}`}>{t.cmsTitle}</h1>
                 <p className="text-xs text-gray-500 mt-1">{t.cmsDesc}</p>
               </div>
-              
+
               <div className="flex gap-2">
                 <button
                   onClick={() => {
@@ -1016,13 +1009,12 @@ export default function AdminDashboard() {
                 <button
                   key={cat.key}
                   onClick={() => setSelectedCategory(cat.key)}
-                  className={`text-xs font-semibold px-4 py-2 rounded-xl transition-all border cursor-pointer ${
-                    selectedCategory === cat.key
+                  className={`text-xs font-semibold px-4 py-2 rounded-xl transition-all border cursor-pointer ${selectedCategory === cat.key
                       ? "bg-[#D4AF37] text-black border-transparent shadow-sm"
                       : isDark
-                      ? "bg-[#121110] text-gray-400 border-white/5 hover:border-white/10 hover:text-white"
-                      : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50 shadow-sm"
-                  }`}
+                        ? "bg-[#121110] text-gray-400 border-white/5 hover:border-white/10 hover:text-white"
+                        : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50 shadow-sm"
+                    }`}
                 >
                   {cat.label}
                 </button>
@@ -1056,11 +1048,11 @@ export default function AdminDashboard() {
                           <ImageIcon className="w-8 h-8" />
                         </div>
                       )}
-                      
+
                       <span className="absolute top-3 right-3 text-[8px] font-bold px-2 py-0.5 bg-black/75 text-gray-400 rounded-full font-mono">
                         ID: {item.id}
                       </span>
-                      
+
                       <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                         <button
                           onClick={() => setPreviewImage(item.image_url)}
@@ -1156,7 +1148,7 @@ export default function AdminDashboard() {
 
                   <div className="space-y-3">
                     <h3 className="text-xl font-serif font-bold tracking-wide">{t.addPostTitle}</h3>
-                    
+
                     {/* Horizontal scroll list categories bar */}
                     <div className="space-y-1.5">
                       <label className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-1">
@@ -1170,13 +1162,12 @@ export default function AdminDashboard() {
                               key={cat.key}
                               type="button"
                               onClick={() => setNewItem({ ...newItem, category: cat.key })}
-                              className={`relative shrink-0 flex items-center gap-2 py-3 px-4.5 rounded-full border text-xs font-bold uppercase tracking-wider transition-all duration-300 active:scale-[0.96] cursor-pointer ${
-                                isSelected
+                              className={`relative shrink-0 flex items-center gap-2 py-3 px-4.5 rounded-full border text-xs font-bold uppercase tracking-wider transition-all duration-300 active:scale-[0.96] cursor-pointer ${isSelected
                                   ? "bg-[#D4AF37]/15 border-[#D4AF37] text-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.12)]"
                                   : isDark
-                                  ? "bg-[#1C1A18] border-white/5 text-gray-400 hover:border-[#D4AF37]/20 hover:text-white"
-                                  : "bg-gray-50 border-gray-200 text-gray-600 hover:border-[#D4AF37]/45 hover:text-black shadow-sm"
-                              }`}
+                                    ? "bg-[#1C1A18] border-white/5 text-gray-400 hover:border-[#D4AF37]/20 hover:text-white"
+                                    : "bg-gray-50 border-gray-200 text-gray-600 hover:border-[#D4AF37]/45 hover:text-black shadow-sm"
+                                }`}
                             >
                               {cat.key === "about_place" && <MapPin className="w-3.5 h-3.5" />}
                               {cat.key === "about_team" && <Users className="w-3.5 h-3.5" />}
@@ -1323,7 +1314,7 @@ export default function AdminDashboard() {
                   <div className="space-y-1">
                     <h3 className="text-xl font-serif font-bold tracking-wide">{t.editPostTitle}</h3>
                     <p className="text-[10px] text-gray-500 uppercase tracking-wider font-semibold">
-                      ID: {editingItem.id} | {t.section}: {cmsCategories.find(c=>c.key === editingItem.category)?.label}
+                      ID: {editingItem.id} | {t.section}: {cmsCategories.find(c => c.key === editingItem.category)?.label}
                     </p>
                   </div>
 

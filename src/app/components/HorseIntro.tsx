@@ -136,25 +136,25 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
     const walkCycle = gsap.timeline({ repeat: -1 });
 
     // Front Leg 1 swings: forward then backward
-    walkCycle.fromTo("#front-leg-1", 
+    walkCycle.fromTo("#front-leg-1",
       { rotation: -20, transformOrigin: "59px 52px" },
       { rotation: 20, duration: 0.6, ease: "power1.inOut", yoyo: true, repeat: -1 },
       0
     );
     // Front Leg 2 swings in opposite direction
-    walkCycle.fromTo("#front-leg-2", 
+    walkCycle.fromTo("#front-leg-2",
       { rotation: 20, transformOrigin: "63px 52px" },
       { rotation: -20, duration: 0.6, ease: "power1.inOut", yoyo: true, repeat: -1 },
       0
     );
     // Back Leg 1 swings: backward then forward
-    walkCycle.fromTo("#back-leg-1", 
+    walkCycle.fromTo("#back-leg-1",
       { rotation: 16, transformOrigin: "34px 50px" },
       { rotation: -16, duration: 0.6, ease: "power1.inOut", yoyo: true, repeat: -1 },
       0
     );
     // Back Leg 2 swings in opposite direction
-    walkCycle.fromTo("#back-leg-2", 
+    walkCycle.fromTo("#back-leg-2",
       { rotation: -16, transformOrigin: "38px 50px" },
       { rotation: 16, duration: 0.6, ease: "power1.inOut", yoyo: true, repeat: -1 },
       0
