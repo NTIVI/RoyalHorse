@@ -22,7 +22,12 @@ import {
   ImageIcon,
   X,
   FileText,
-  Eye
+  Eye,
+  MapPin,
+  Users,
+  Star,
+  Compass,
+  Image as LucideImage
 } from "lucide-react";
 
 interface Inquiry {
@@ -886,19 +891,39 @@ export default function AdminDashboard() {
 
                   <div className="space-y-3">
                     <h3 className="text-xl font-serif font-bold text-white tracking-wide">Добавить новый пост</h3>
-                    <div className="space-y-1">
+                    <div className="space-y-1.5">
                       <label className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-1">Выберите раздел меню (Категорию)</label>
-                      <select
-                        value={newItem.category}
-                        onChange={(e) => setNewItem({ ...newItem, category: e.target.value })}
-                        className="w-full bg-[#1C1A18] border border-white/5 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20 rounded-xl py-2 px-3 text-sm text-white focus:outline-none transition-all"
-                      >
-                        {cmsCategories.map((cat) => (
-                          <option key={cat.key} value={cat.key}>
-                            {cat.label}
-                          </option>
-                        ))}
-                      </select>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-1.5">
+                        {cmsCategories.map((cat) => {
+                          const isSelected = newItem.category === cat.key;
+                          return (
+                            <button
+                              key={cat.key}
+                              type="button"
+                              onClick={() => setNewItem({ ...newItem, category: cat.key })}
+                              className={`relative group flex flex-col items-center justify-center p-3 rounded-xl border text-center transition-all duration-300 active:scale-[0.97] cursor-pointer min-h-[72px] ${
+                                isSelected
+                                  ? "bg-[#D4AF37]/10 border-[#D4AF37] text-white shadow-[0_0_15px_rgba(212,175,55,0.15)] animate-pulse-subtle"
+                                  : "bg-[#1C1A18] border-white/5 text-gray-400 hover:border-[#D4AF37]/20 hover:text-white"
+                              }`}
+                            >
+                              {isSelected && (
+                                <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#D4AF37]" />
+                              )}
+
+                              {cat.key === "about_place" && <MapPin className={`w-4 h-4 mb-1 transition-colors ${isSelected ? "text-[#D4AF37]" : "text-gray-500 group-hover:text-gray-300"}`} />}
+                              {cat.key === "about_team" && <Users className={`w-4 h-4 mb-1 transition-colors ${isSelected ? "text-[#D4AF37]" : "text-gray-500 group-hover:text-gray-300"}`} />}
+                              {cat.key === "about_horses" && <Star className={`w-4 h-4 mb-1 transition-colors ${isSelected ? "text-[#D4AF37]" : "text-gray-500 group-hover:text-gray-300"}`} />}
+                              {cat.key === "riding" && <Compass className={`w-4 h-4 mb-1 transition-colors ${isSelected ? "text-[#D4AF37]" : "text-gray-500 group-hover:text-gray-300"}`} />}
+                              {cat.key === "services" && <Layers className={`w-4 h-4 mb-1 transition-colors ${isSelected ? "text-[#D4AF37]" : "text-gray-500 group-hover:text-gray-300"}`} />}
+                              {cat.key === "gallery" && <LucideImage className={`w-4 h-4 mb-1 transition-colors ${isSelected ? "text-[#D4AF37]" : "text-gray-500 group-hover:text-gray-300"}`} />}
+                              {cat.key === "news" && <FileText className={`w-4 h-4 mb-1 transition-colors ${isSelected ? "text-[#D4AF37]" : "text-gray-500 group-hover:text-gray-300"}`} />}
+
+                              <span className="text-[10px] font-bold tracking-wider uppercase leading-tight">{cat.label}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
                   </div>
 
