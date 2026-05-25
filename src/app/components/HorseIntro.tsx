@@ -11,52 +11,44 @@ interface HorseIntroProps {
 export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const horseWrapRef = useRef<HTMLDivElement>(null);
-  const headGroupRef = useRef<SVGGElement>(null);
-  const leftEarRef = useRef<SVGPathElement>(null);
-  const rightEarRef = useRef<SVGPathElement>(null);
-  const leftEyeRef = useRef<SVGCircleElement>(null);
-  const rightEyeRef = useRef<SVGCircleElement>(null);
-  const nostrilsRef = useRef<SVGGElement>(null);
+  const horseContainerRef = useRef<HTMLDivElement>(null);
+  const horseSvgRef = useRef<SVGSVGElement>(null);
+  const sunGlowRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const overlay = overlayRef.current;
     const canvas = canvasRef.current;
-    const horseWrap = horseWrapRef.current;
-    const headGroup = headGroupRef.current;
-    const leftEar = leftEarRef.current;
-    const rightEar = rightEarRef.current;
-    const leftEye = leftEyeRef.current;
-    const rightEye = rightEyeRef.current;
-    const nostrils = nostrilsRef.current;
+    const horseContainer = horseContainerRef.current;
+    const horseSvg = horseSvgRef.current;
+    const sunGlow = sunGlowRef.current;
     const logo = logoRef.current;
 
-    if (!overlay || !horseWrap || !headGroup || !logo) return;
+    if (!overlay || !horseContainer || !horseSvg || !sunGlow || !logo || !canvas) return;
 
-    // --- CANVAS PARTICLE SYSTEM ---
+    // --- CANVAS STARFIELD & BURST SYSTEM ---
     let animationFrameId: number;
-    const ctx = canvas?.getContext("2d");
+    const ctx = canvas.getContext("2d");
     const particles: any[] = [];
     const burstParticles: any[] = [];
     let isExploded = false;
     let canvasWidth = window.innerWidth;
     let canvasHeight = window.innerHeight;
 
-    if (canvas && ctx) {
+    if (ctx) {
       canvas.width = canvasWidth;
       canvas.height = canvasHeight;
 
-      // Initialize background floating particles
-      for (let i = 0; i < 70; i++) {
+      // Twinkling background stars
+      for (let i = 0; i < 90; i++) {
         particles.push({
           x: Math.random() * canvasWidth,
-          y: Math.random() * canvasHeight,
-          radius: Math.random() * 2.2 + 0.6,
-          color: `rgba(212, 175, 55, ${Math.random() * 0.4 + 0.15})`,
-          speedX: Math.random() * 0.4 - 0.2,
-          speedY: Math.random() * -0.5 - 0.1,
-          twinkleSpeed: Math.random() * 0.02 + 0.005,
+          y: Math.random() * canvasHeight * 0.7, // Keep stars in top 70% of sky
+          radius: Math.random() * 2.0 + 0.5,
+          color: `rgba(212, 175, 55, ${Math.random() * 0.5 + 0.15})`,
+          speedX: Math.random() * 0.2 - 0.1,
+          speedY: Math.random() * -0.3 - 0.05,
+          twinkleSpeed: Math.random() * 0.03 + 0.005,
           twinkleVal: Math.random(),
         });
       }
@@ -64,39 +56,39 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
       const drawParticles = () => {
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-        // Render ambient particles
+        // Render ambient stars
         particles.forEach((p) => {
           p.y += p.speedY;
           p.x += p.speedX;
-          if (p.y < -10) p.y = canvasHeight + 10;
+          if (p.y < -10) p.y = canvasHeight * 0.7 + 10;
           if (p.x < -10 || p.x > canvasWidth + 10) p.x = Math.random() * canvasWidth;
 
           p.twinkleVal += p.twinkleSpeed;
-          const alpha = Math.sin(p.twinkleVal) * 0.25 + 0.35;
+          const alpha = Math.sin(p.twinkleVal) * 0.3 + 0.4;
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(212, 175, 55, ${alpha})`;
-          ctx.shadowBlur = 12;
+          ctx.shadowBlur = 10;
           ctx.shadowColor = "#D4AF37";
           ctx.fill();
         });
 
-        // Render burst particles if exploded
+        // Render solar flare burst particles
         if (isExploded) {
           burstParticles.forEach((bp, index) => {
             bp.x += bp.vx;
             bp.y += bp.vy;
-            bp.vy += 0.02; // slight gravity
+            bp.vy += 0.025; // slight gravity
             bp.alpha -= bp.decay;
-            bp.radius *= 0.98; // shrink
+            bp.radius *= 0.975; // slowly shrink
 
             if (bp.alpha <= 0 || bp.radius <= 0.2) {
               burstParticles.splice(index, 1);
             } else {
               ctx.beginPath();
               ctx.arc(bp.x, bp.y, bp.radius, 0, Math.PI * 2);
-              ctx.fillStyle = `rgba(255, 235, 170, ${bp.alpha})`;
-              ctx.shadowBlur = 18;
+              ctx.fillStyle = `rgba(255, 225, 150, ${bp.alpha})`;
+              ctx.shadowBlur = 15;
               ctx.shadowColor = "#D4AF37";
               ctx.fill();
             }
@@ -109,29 +101,28 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
       drawParticles();
     }
 
-    // Trigger particle explosion from center
+    // Trigger sunburst explosion at peak location (Center, ~71% height)
     const triggerExplosion = () => {
       isExploded = true;
       const originX = canvasWidth / 2;
-      const originY = canvasHeight / 2 - 20;
+      const originY = canvasHeight * 0.71;
 
-      // Spawn 150 particles
-      for (let i = 0; i < 160; i++) {
+      for (let i = 0; i < 180; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 5 + 2.5;
+        const speed = Math.random() * 6 + 3.0;
         burstParticles.push({
           x: originX,
           y: originY,
           vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          radius: Math.random() * 4 + 1.5,
+          vy: Math.sin(angle) * speed - 1.5, // bias upwards
+          radius: Math.random() * 4.5 + 1.5,
           alpha: 1.0,
-          decay: Math.random() * 0.015 + 0.008,
+          decay: Math.random() * 0.012 + 0.006,
         });
       }
     };
 
-    // Handle resize
+    // Handle viewport resize
     const handleResize = () => {
       if (!canvas) return;
       canvasWidth = window.innerWidth;
@@ -141,136 +132,89 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
     };
     window.addEventListener("resize", handleResize);
 
-    // --- GSAP TIMELINE FOR INTRO ---
+    // --- GSAP TIMELINE ---
     const mainTimeline = gsap.timeline();
 
-    // Reset initial states
-    gsap.set(horseWrap, { scale: 0.82, opacity: 0, y: 30 });
-    gsap.set(logo, { opacity: 0, scale: 0.9, filter: "blur(20px)" });
-    gsap.set(headGroup, { rotation: 0, x: 0, y: 0 });
+    // Initial state configurations
+    gsap.set(horseContainer, {
+      left: "10vw",
+      top: "84vh",
+      scale: 0.6,
+      rotation: -12,
+      opacity: 0,
+    });
+    gsap.set(sunGlow, { scale: 0.1, opacity: 0 });
+    gsap.set(logo, { opacity: 0, y: 50, scale: 0.92 });
 
-    // 1. Initial fade-in of the horse
-    mainTimeline.to(horseWrap, {
+    // 1. Initial fade-in of the horse on the lower slope
+    mainTimeline.to(horseContainer, {
       opacity: 1,
-      scale: 1,
+      duration: 1.2,
+      ease: "power2.out",
+    });
+
+    // 2. Horse walks/climbs up the mountain slope
+    mainTimeline.to(horseContainer, {
+      left: "48vw",
+      top: "71.2vh",
+      scale: 0.85,
+      rotation: -10,
+      duration: 4.8,
+      ease: "power1.inOut",
+      onUpdate: function () {
+        const progress = this.progress();
+        // Simulates steps with a smooth bounding/bobbing effect
+        const bob = Math.abs(Math.sin(progress * Math.PI * 10)) * -6;
+        gsap.set(horseSvg, { y: bob });
+      },
+    });
+
+    // 3. Brief pause at the peak before rearing
+    mainTimeline.to(horseSvg, {
       y: 0,
-      duration: 1.5,
-      ease: "power3.out",
+      duration: 0.4,
+      ease: "power2.out",
     });
 
-    // Sub-animation: Breathing (continuous loop)
-    const breathTween = gsap.to(horseWrap, {
-      y: -6,
-      scaleX: 1.01,
-      duration: 2.2,
-      yoyo: true,
-      repeat: -1,
-      ease: "power1.inOut",
-    });
-
-    // Sub-animation: Eyeblinks (random triggers)
-    const blinkInterval = setInterval(() => {
-      if (leftEye && rightEye) {
-        gsap.timeline()
-          .to([leftEye, rightEye], { scaleY: 0.1, duration: 0.12, transformOrigin: "center center" })
-          .to([leftEye, rightEye], { scaleY: 1, duration: 0.12, transformOrigin: "center center" });
-      }
-    }, 4000);
-
-    // Sub-animation: Nostril dilation (breathing sync)
-    gsap.to(nostrils, {
-      scale: 1.15,
-      duration: 2.2,
-      yoyo: true,
-      repeat: -1,
-      transformOrigin: "center center",
-      ease: "power1.inOut",
-    });
-
-    // 2. Look Left
-    mainTimeline.to(headGroup, {
-      rotation: -14,
-      x: -12,
-      duration: 1.6,
-      ease: "power2.inOut",
-      delay: 0.4,
+    // 4. Horse Rears Up Majestically at the peak
+    mainTimeline.to(horseContainer, {
+      rotation: -38,
+      y: -14,
+      scale: 0.95,
+      duration: 1.4,
+      ease: "back.out(1.5)",
       onStart: () => {
-        // Move ears slightly when turning
-        if (leftEar && rightEar) {
-          gsap.to(leftEar, { rotation: -10, transformOrigin: "bottom center", duration: 0.8 });
-          gsap.to(rightEar, { rotation: -4, transformOrigin: "bottom center", duration: 0.8 });
-        }
-      }
-    });
-
-    // Hold left look
-    mainTimeline.to({}, { duration: 0.8 });
-
-    // 3. Look Right
-    mainTimeline.to(headGroup, {
-      rotation: 14,
-      x: 12,
-      duration: 1.8,
-      ease: "power2.inOut",
-      onStart: () => {
-        if (leftEar && rightEar) {
-          gsap.to(leftEar, { rotation: 5, transformOrigin: "bottom center", duration: 0.8 });
-          gsap.to(rightEar, { rotation: 12, transformOrigin: "bottom center", duration: 0.8 });
-        }
-      }
-    });
-
-    // Hold right look
-    mainTimeline.to({}, { duration: 0.8 });
-
-    // 4. Return to Center (Looks straight at viewer)
-    mainTimeline.to(headGroup, {
-      rotation: 0,
-      x: 0,
-      duration: 1.5,
-      ease: "back.out(1.1)",
-      onStart: () => {
-        if (leftEar && rightEar) {
-          gsap.to([leftEar, rightEar], { rotation: 0, transformOrigin: "bottom center", duration: 1.0 });
-        }
-      }
-    });
-
-    // 5. Final Intro: Explode and Reveal Logo
-    mainTimeline.to({}, {
-      duration: 0.2,
-      onComplete: () => {
-        // Trigger particle burst
-        triggerExplosion();
-
-        // Animate logo appearance
-        gsap.to(logo, {
+        // Trigger sunburst glow expansion
+        gsap.to(sunGlow, {
+          scale: 4.5,
           opacity: 1,
-          scale: 1,
-          filter: "blur(0px)",
-          duration: 1.6,
-          ease: "power4.out",
-        });
-
-        // Add extra glow to horse when matching center
-        gsap.to(horseWrap, {
-          scale: 1.05,
-          filter: "drop-shadow(0 0 40px rgba(212,175,55,0.7))",
-          duration: 1.2,
+          duration: 1.8,
           ease: "power2.out",
         });
-      }
+
+        // Trigger particle blast
+        setTimeout(triggerExplosion, 400);
+
+        // Fade in logo behind the horse
+        gsap.to(logo, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1.8,
+          ease: "power3.out",
+          delay: 0.3,
+        });
+      },
     });
 
-    // Hold final majestic view
-    mainTimeline.to({}, { duration: 2.6 });
+    // Hold the majestic view
+    mainTimeline.to({}, { duration: 3.2 });
 
-    // 6. Smooth fade out of everything and slide up overlay
-    mainTimeline.to([horseWrap, logo, canvas], {
+    // 5. Fade out everything and lift intro overlay
+    mainTimeline.to([horseContainer, logo, sunGlow, canvas, ".mountain-layer"], {
       opacity: 0,
-      y: -30,
       duration: 0.8,
-      stagger: 0.1,
+      stagger: 0.08,
       ease: "power3.in",
       onComplete: () => {
         gsap.to(overlay, {
@@ -278,21 +222,18 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
           duration: 0.8,
           ease: "power4.inOut",
           onComplete: () => {
-            clearInterval(blinkInterval);
             cancelAnimationFrame(animationFrameId);
             window.removeEventListener("resize", handleResize);
             onFinished();
-          }
+          },
         });
-      }
+      },
     });
 
     return () => {
-      clearInterval(blinkInterval);
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener("resize", handleResize);
       mainTimeline.kill();
-      breathTween.kill();
     };
   }, [onFinished]);
 
@@ -308,152 +249,92 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-[100] overflow-hidden flex flex-col items-center justify-center bg-[#090807]"
+      className="fixed inset-0 z-[100] overflow-hidden bg-[#030206] flex flex-col justify-between"
       style={{
-        background: "radial-gradient(circle at center, #1b140d 0%, #070605 100%)",
+        background: "linear-gradient(to bottom, #030206 0%, #0c0816 40%, #1a0f24 70%, #30172e 100%)",
       }}
     >
-      {/* Canvas for magic dust and explosion particles */}
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
+      {/* Twilight Starfield */}
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-0" />
 
-      {/* Central glow backdrop */}
-      <div 
-        className="absolute w-[500px] h-[500px] rounded-full pointer-events-none"
+      {/* Dynamic Sun Flare Behind Peak */}
+      <div
+        ref={sunGlowRef}
+        className="absolute rounded-full pointer-events-none"
         style={{
-          background: "radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%)",
+          width: "250px",
+          height: "250px",
+          background: "radial-gradient(circle, rgba(255,223,120,0.45) 0%, rgba(212,175,55,0.2) 40%, rgba(255,110,30,0.08) 70%, transparent 100%)",
           transform: "translate(-50%, -50%)",
-          top: "40%",
-          left: "50%",
-          filter: "blur(40px)",
+          top: "71.2vh",
+          left: "50vw",
+          filter: "blur(20px)",
+          zIndex: 5,
         }}
       />
 
-      {/* Living Horse SVG Wrapper */}
+      {/* Cinematic Mountain Range Back layer */}
+      <svg
+        className="mountain-layer absolute bottom-0 left-0 w-full h-[55vh] z-2 opacity-30 pointer-events-none"
+        viewBox="0 0 1440 600"
+        preserveAspectRatio="none"
+      >
+        <path d="M0,600 L0,480 L180,380 L400,490 L680,290 L950,420 L1200,310 L1440,430 L1440,600 Z" fill="#180e22" />
+      </svg>
+
+      {/* Cinematic Mountain Range Front layer (Main Walking Slope) */}
+      <svg
+        className="mountain-layer absolute bottom-0 left-0 w-full h-[45vh] z-10 pointer-events-none"
+        viewBox="0 0 1440 500"
+        preserveAspectRatio="none"
+      >
+        <path d="M0,500 L0,380 C180,320 320,440 550,290 C720,180 850,280 1100,210 C1280,160 1380,240 1440,210 L1440,500 Z" fill="#08070c" />
+        <path d="M0,380 C180,320 320,440 550,290 C720,180 850,280 1100,210 C1280,160 1380,240 1440,210" stroke="#D4AF37" strokeWidth="1.2" strokeOpacity="0.2" fill="none" />
+      </svg>
+
+      {/* Climbing & Rearing Majestic Horse Silhouette */}
       <div
-        ref={horseWrapRef}
-        className="relative z-10 w-[300px] h-[300px] md:w-[380px] md:h-[380px] flex items-center justify-center pointer-events-none"
+        ref={horseContainerRef}
+        className="absolute pointer-events-none select-none"
         style={{
-          filter: "drop-shadow(0 0 25px rgba(212,175,55,0.25))",
+          width: "140px",
+          height: "140px",
+          zIndex: 15,
+          transform: "translate(-50%, -100%)", // anchors horse's feet to top point
         }}
       >
         <svg
-          viewBox="0 0 400 400"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full"
+          ref={horseSvgRef}
+          viewBox="0 0 100 100"
+          className="w-full h-full text-[#08070c] fill-current drop-shadow-[0_0_15px_rgba(212,175,55,0.55)]"
         >
-          {/* Base Stable Chest / Neck Bottom */}
-          <path
-            d="M140 330 C150 280, 160 250, 180 230 C200 250, 210 280, 220 330 C230 380, 250 400, 270 410 L110 410 C120 400, 130 380, 140 330 Z"
-            fill="url(#goldGrad)"
-            opacity="0.85"
-          />
-
-          {/* Living/Movable Head Group */}
-          <g ref={headGroupRef} id="horse-head">
-            {/* Ears */}
-            <g id="ears">
-              {/* Left Ear */}
-              <path
-                ref={leftEarRef}
-                d="M172 120 C165 95, 160 70, 172 45 C180 70, 182 90, 180 120 Z"
-                fill="url(#goldGrad)"
-              />
-              {/* Right Ear */}
-              <path
-                ref={rightEarRef}
-                d="M228 120 C235 95, 240 70, 228 45 C220 70, 218 90, 220 120 Z"
-                fill="url(#goldGrad)"
-              />
-            </g>
-
-            {/* Mane standing up */}
-            <path
-              d="M185 130 Q192 105, 200 90 Q208 105, 215 130 Z"
-              fill="#523d18"
-              opacity="0.6"
-            />
-            <path
-              d="M190 125 C195 108, 198 98, 202 92 C204 98, 207 108, 210 125 Z"
-              fill="#D4AF37"
-              opacity="0.9"
-            />
-
-            {/* Main Head Structure */}
-            {/* Forehead & Muzzle */}
-            <path
-              d="M176 120 C176 120, 200 110, 224 120 C230 135, 235 160, 230 195 C226 220, 224 250, 218 275 C215 290, 185 290, 182 275 C176 250, 174 220, 170 195 C165 160, 170 135, 176 120 Z"
-              fill="url(#goldGrad)"
-            />
-            
-            {/* Elegant nose bridge center highlight */}
-            <path
-              d="M194 120 L206 120 L212 250 C212 250, 200 262, 188 250 Z"
-              fill="url(#goldLightGrad)"
-              opacity="0.35"
-            />
-
-            {/* Nostrils */}
-            <g ref={nostrilsRef} id="nostrils">
-              <ellipse cx="188" cy="272" rx="4" ry="2.5" fill="#442a08" />
-              <ellipse cx="212" cy="272" rx="4" ry="2.5" fill="#442a08" />
-            </g>
-
-            {/* Muzzle bottom lip */}
-            <path
-              d="M190 282 C194 285, 206 285, 210 282 C206 287, 194 287, 190 282 Z"
-              fill="#8d651e"
-            />
-
-            {/* Eyes */}
-            <g id="eyes">
-              {/* Left Eye socket & pupil */}
-              <ellipse cx="180" cy="162" rx="6.5" ry="4" fill="#3a250b" />
-              <circle ref={leftEyeRef} cx="180" cy="162" r="3" fill="#ffffff" />
-              <circle cx="181.2" cy="160.8" r="1" fill="#000000" />
-              
-              {/* Right Eye socket & pupil */}
-              <ellipse cx="220" cy="162" rx="6.5" ry="4" fill="#3a250b" />
-              <circle ref={rightEyeRef} cx="220" cy="162" r="3" fill="#ffffff" />
-              <circle cx="218.8" cy="160.8" r="1" fill="#000000" />
-            </g>
-
-            {/* Luxury Star on Forehead (Blaze) */}
-            <path
-              d="M200 132 L204 142 L214 144 L206 150 L208 160 L200 152 L192 160 L194 150 L186 144 L196 142 Z"
-              fill="#FCFBF9"
-              opacity="0.95"
-              style={{ filter: "drop-shadow(0 0 4px #fff)" }}
-            />
-          </g>
-
-          {/* Golden gradients definitions */}
-          <defs>
-            <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#AA820A" />
-              <stop offset="30%" stopColor="#D4AF37" />
-              <stop offset="70%" stopColor="#F3E5AB" />
-              <stop offset="100%" stopColor="#AA820A" />
-            </linearGradient>
-            <linearGradient id="goldLightGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#FFF2CC" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="#D4AF37" stopOpacity="0.1" />
-            </linearGradient>
-          </defs>
+          {/* Detailed rearing horse silhouette facing right */}
+          <path d="M72,78 C70,72 65,65 62,58 C59,51 58,45 59,41 C60,37 63,33 65,31 C67,29 66,25 63,23 C59,21 53,25 49,29 C45,33 40,39 36,45 C32,51 27,58 23,63 C19,68 13,71 7,73 C3,74 0,76 0,78 C0,80 5,80 11,78 C17,76 23,71 28,65 C33,59 38,51 43,45 C48,39 53,35 57,33 C61,31 63,33 61,37 C59,41 55,48 53,55 C51,62 51,69 53,75 C55,81 59,85 65,87 C69,88 72,86 73,83 Z M47,20 C49,23 49,26 48,29 C47,32 45,35 42,37 C39,39 36,39 33,37 C30,35 27,32 25,29 C23,26 22,23 22,20 C22,17 23,14 25,11 C27,8 30,6 33,6 C36,6 39,8 42,11 C45,14 47,17 47,20 Z" />
         </svg>
       </div>
 
-      {/* RoyalHorse Logo (fades in behind or over the horse in center) */}
+      {/* RoyalHorse Logo (fades in behind the peak in sky) */}
       <div
         ref={logoRef}
-        className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
-        style={{ zIndex: 20 }}
+        className="absolute inset-x-0 flex flex-col items-center justify-center pointer-events-none"
+        style={{
+          top: "18vh",
+          zIndex: 8,
+        }}
       >
         <div className="text-center px-6">
           {/* Luxury Crown SVG */}
           <div className="flex justify-center mb-6">
-            <svg width="60" height="34" viewBox="0 0 60 34" fill="none" className="drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]">
-              <path d="M4 30 L12 10 L22 20 L30 4 L38 20 L48 10 L56 30 Z" fill="url(#goldGrad)" />
+            <svg width="60" height="34" viewBox="0 0 60 34" fill="none" className="drop-shadow-[0_0_12px_rgba(212,175,55,0.7)]">
+              <defs>
+                <linearGradient id="goldIntroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#AA820A" />
+                  <stop offset="30%" stopColor="#D4AF37" />
+                  <stop offset="70%" stopColor="#F3E5AB" />
+                  <stop offset="100%" stopColor="#AA820A" />
+                </linearGradient>
+              </defs>
+              <path d="M4 30 L12 10 L22 20 L30 4 L38 20 L48 10 L56 30 Z" fill="url(#goldIntroGrad)" />
               <circle cx="30" cy="4" r="2.5" fill="#FCFBF9" />
               <circle cx="12" cy="10" r="2" fill="#FCFBF9" />
               <circle cx="48" cy="10" r="2" fill="#FCFBF9" />
@@ -463,13 +344,13 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
           <h1
             className="font-serif font-bold tracking-[0.24em] text-white"
             style={{
-              fontSize: "clamp(2.5rem, 8vw, 6rem)",
+              fontSize: "clamp(2.5rem, 8vw, 5.5rem)",
               textShadow: "0 0 40px rgba(212,175,55,0.45), 0 2px 14px rgba(0,0,0,0.9)",
             }}
           >
             ROYAL<span className="text-[#D4AF37]">HORSE</span>
           </h1>
-          <div className="mt-2 flex items-center justify-center gap-4">
+          <div className="mt-4 flex items-center justify-center gap-4">
             <div style={{ width: 50, height: 1.5, background: "linear-gradient(90deg, transparent, #D4AF37)" }} />
             <p
               className="text-xs uppercase tracking-[0.38em] font-light"
@@ -483,30 +364,32 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
       </div>
 
       {/* Skip button */}
-      <button
-        onClick={handleSkip}
-        className="absolute bottom-8 right-8 z-30 text-xs font-semibold uppercase tracking-widest transition-all"
-        style={{
-          color: "rgba(255, 235, 170, 0.6)",
-          border: "1px solid rgba(212,175,55,0.25)",
-          padding: "11px 22px",
-          borderRadius: 999,
-          background: "rgba(9,8,7,0.5)",
-          backdropFilter: "blur(12px)",
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.color = "#D4AF37";
-          e.currentTarget.style.borderColor = "rgba(212,175,55,0.7)";
-          e.currentTarget.style.boxShadow = "0 0 15px rgba(212,175,55,0.2)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.color = "rgba(255, 235, 170, 0.6)";
-          e.currentTarget.style.borderColor = "rgba(212,175,55,0.25)";
-          e.currentTarget.style.boxShadow = "none";
-        }}
-      >
-        {lang === "bg" ? "Пропусни" : lang === "ru" ? "Пропустить" : "Skip"}
-      </button>
+      <div className="w-full p-8 flex justify-end items-end z-20">
+        <button
+          onClick={handleSkip}
+          className="text-xs font-semibold uppercase tracking-widest transition-all cursor-pointer"
+          style={{
+            color: "rgba(255, 235, 170, 0.6)",
+            border: "1px solid rgba(212,175,55,0.25)",
+            padding: "11px 22px",
+            borderRadius: 999,
+            background: "rgba(9,8,7,0.5)",
+            backdropFilter: "blur(12px)",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = "#D4AF37";
+            e.currentTarget.style.borderColor = "rgba(212,175,55,0.7)";
+            e.currentTarget.style.boxShadow = "0 0 15px rgba(212,175,55,0.2)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = "rgba(255, 235, 170, 0.6)";
+            e.currentTarget.style.borderColor = "rgba(212,175,55,0.25)";
+            e.currentTarget.style.boxShadow = "none";
+          }}
+        >
+          {lang === "bg" ? "Пропусни" : lang === "ru" ? "Пропустить" : "Skip"}
+        </button>
+      </div>
     </div>
   );
 }
