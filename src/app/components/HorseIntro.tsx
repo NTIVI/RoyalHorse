@@ -177,9 +177,9 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
 
     // Initial state configurations
     gsap.set(horseContainer, {
-      left: "10vw",
-      top: "84vh",
-      scale: 0.65,
+      left: "0vw",
+      top: "84svh",
+      scale: 0.85,
       rotation: -12,
       opacity: 0,
     });
@@ -196,7 +196,7 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
     // 2. Horse walks/climbs up the mountain slope
     mainTimeline.to(horseContainer, {
       left: "48vw",
-      top: "71.2vh",
+      top: "71.2svh",
       scale: 0.85,
       rotation: -10,
       duration: 5.2,
@@ -370,7 +370,7 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
           height: "250px",
           background: "radial-gradient(circle, rgba(255,223,120,0.45) 0%, rgba(212,175,55,0.2) 40%, rgba(255,110,30,0.08) 70%, transparent 100%)",
           transform: "translate(-50%, -50%)",
-          top: "71.2vh",
+          top: "71.2svh",
           left: "50vw",
           filter: "blur(20px)",
           zIndex: 5,
@@ -379,7 +379,7 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
 
       {/* Cinematic Mountain Range Back layer */}
       <svg
-        className="mountain-layer absolute bottom-0 left-0 w-full h-[55vh] z-2 opacity-30 pointer-events-none"
+        className="mountain-layer absolute bottom-0 left-0 w-full h-[55svh] z-2 opacity-30 pointer-events-none"
         viewBox="0 0 1440 600"
         preserveAspectRatio="none"
       >
@@ -388,7 +388,7 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
 
       {/* Cinematic Mountain Range Front layer (Main Walking Slope) */}
       <svg
-        className="mountain-layer absolute bottom-0 left-0 w-full h-[45vh] z-10 pointer-events-none"
+        className="mountain-layer absolute bottom-0 left-0 w-full h-[45svh] z-10 pointer-events-none"
         viewBox="0 0 1440 500"
         preserveAspectRatio="none"
       >
@@ -457,7 +457,7 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
         ref={logoRef}
         className="absolute inset-x-0 flex flex-col items-center justify-center pointer-events-none"
         style={{
-          top: "18vh",
+          top: "18svh",
           zIndex: 8,
         }}
       >

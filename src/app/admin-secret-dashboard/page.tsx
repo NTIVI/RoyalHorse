@@ -1451,11 +1451,11 @@ export default function AdminDashboard() {
                 className="fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-4 cursor-zoom-out animate-fade-in"
                 onClick={() => setPreviewImage(null)}
               >
-                <div className="max-w-4xl w-full max-h-[85vh] relative flex items-center justify-center">
+                <div className="max-w-4xl w-full max-h-[85svh] relative flex items-center justify-center">
                   <img
                     src={previewImage}
                     alt="Preview Fullscreen"
-                    className="max-w-full max-h-[85vh] rounded-2xl object-contain border border-white/15"
+                    className="max-w-full max-h-[85svh] rounded-2xl object-contain border border-white/15"
                   />
                   <button
                     onClick={() => setPreviewImage(null)}

@@ -59,7 +59,7 @@ export default function HomeView() {
 
       <main className="flex-grow">
         {/* HERO SECTION */}
-        <section className="relative min-h-[85vh] flex items-center bg-[#090807] overflow-hidden">
+        <section className="relative min-h-[85svh] flex items-center bg-[#090807] overflow-hidden">
           {/* Hero background image - made opacity-75 and lighter overlays for great visibility of the horse */}
           <div className="absolute inset-0 z-0">
             <img
