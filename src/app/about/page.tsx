@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/lib/LanguageContext";
-import { t } from "@/lib/translations";
+import { t, translate } from "@/lib/translations";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 
@@ -119,14 +119,14 @@ export default function AboutPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                   <div className="space-y-6">
                     <h2 className="text-3xl font-serif font-bold text-gray-900">
-                      {lang === "bg" ? placeImages[0]?.title_bg : placeImages[0]?.title_en}
+                      {lang === "bg" ? placeImages[0]?.title_bg : lang === "ru" ? translate(placeImages[0]?.title_bg, "ru") : placeImages[0]?.title_en}
                     </h2>
                     <p className="text-gray-600 leading-relaxed text-base">
-                      {lang === "bg" ? placeImages[0]?.desc_bg || t[lang].placeText1 : placeImages[0]?.desc_en || t[lang].placeText1}
+                      {lang === "bg" ? placeImages[0]?.desc_bg || t[lang].placeText1 : lang === "ru" ? translate(placeImages[0]?.desc_bg || t[lang].placeText1, "ru") : placeImages[0]?.desc_en || t[lang].placeText1}
                     </p>
                     {placeImages[1] && (
                       <p className="text-gray-600 leading-relaxed text-base">
-                        {lang === "bg" ? placeImages[1]?.desc_bg || t[lang].placeText2 : placeImages[1]?.desc_en || t[lang].placeText2}
+                        {lang === "bg" ? placeImages[1]?.desc_bg || t[lang].placeText2 : lang === "ru" ? translate(placeImages[1]?.desc_bg || t[lang].placeText2, "ru") : placeImages[1]?.desc_en || t[lang].placeText2}
                       </p>
                     )}
                   </div>
@@ -142,14 +142,14 @@ export default function AboutPage() {
                 {/* Photo Grid */}
                 <div>
                   <h3 className="text-xl font-serif font-bold mb-6 text-gray-800">
-                    {lang === "bg" ? "Снимки от комплекса" : "Photos from the complex"}
+                    {lang === "bg" ? "Снимки от комплекса" : lang === "ru" ? "Фотографии комплекса" : "Photos from the complex"}
                   </h3>
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
                     {placeImages.slice(1).map((img, index) => (
                       <div key={index} className="aspect-square rounded-2xl overflow-hidden shadow-md group border border-gray-100">
                         <img
                           src={img.image_url}
-                          alt={lang === "bg" ? img.title_bg : img.title_en}
+                          alt={lang === "bg" ? img.title_bg : lang === "ru" ? translate(img.title_bg, "ru") : img.title_en}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       </div>
@@ -183,16 +183,16 @@ export default function AboutPage() {
                       <div className="h-64 overflow-hidden relative">
                         <img
                           src={member.image_url}
-                          alt={lang === "bg" ? member.title_bg : member.title_en}
+                          alt={lang === "bg" ? member.title_bg : lang === "ru" ? translate(member.title_bg, "ru") : member.title_en}
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="p-6 text-center">
                         <h4 className="font-serif text-lg font-bold text-gray-900">
-                          {lang === "bg" ? member.title_bg : member.title_en}
+                          {lang === "bg" ? member.title_bg : lang === "ru" ? translate(member.title_bg, "ru") : member.title_en}
                         </h4>
                         <p className="text-xs uppercase tracking-widest text-[#D4AF37] font-semibold mt-1">
-                          {lang === "bg" ? member.desc_bg : member.desc_en}
+                          {lang === "bg" ? member.desc_bg : lang === "ru" ? translate(member.desc_bg, "ru") : member.desc_en}
                         </p>
                       </div>
                     </div>
@@ -225,16 +225,16 @@ export default function AboutPage() {
                       <div className="h-56 overflow-hidden">
                         <img
                           src={horse.image_url}
-                          alt={lang === "bg" ? horse.title_bg : horse.title_en}
+                          alt={lang === "bg" ? horse.title_bg : lang === "ru" ? translate(horse.title_bg, "ru") : horse.title_en}
                           className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                         />
                       </div>
                       <div className="p-6 space-y-2 flex-grow">
                         <h4 className="font-serif text-xl font-bold text-gray-900">
-                          {lang === "bg" ? horse.title_bg : horse.title_en}
+                          {lang === "bg" ? horse.title_bg : lang === "ru" ? translate(horse.title_bg, "ru") : horse.title_en}
                         </h4>
                         <p className="text-sm text-gray-600 leading-relaxed">
-                          {lang === "bg" ? horse.desc_bg : horse.desc_en}
+                          {lang === "bg" ? horse.desc_bg : lang === "ru" ? translate(horse.desc_bg, "ru") : horse.desc_en}
                         </p>
                       </div>
                     </div>

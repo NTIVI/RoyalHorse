@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-type Lang = "bg" | "en";
+type Lang = "bg" | "en" | "ru";
 
 interface LanguageContextProps {
   lang: Lang;
@@ -16,7 +16,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const savedLang = localStorage.getItem("royal_horse_lang") as Lang;
-    if (savedLang === "bg" || savedLang === "en") {
+    if (savedLang === "bg" || savedLang === "en" || savedLang === "ru") {
       setLangState(savedLang);
     }
   }, []);

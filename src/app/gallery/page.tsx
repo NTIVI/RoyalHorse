@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/lib/LanguageContext";
-import { t } from "@/lib/translations";
+import { t, translate } from "@/lib/translations";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import { ImageIcon } from "lucide-react";
@@ -88,7 +88,7 @@ export default function GalleryPage() {
           {/* Grid Layout */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredItems.map((item, index) => {
-              const title = lang === "bg" ? item.title_bg : item.title_en;
+              const title = lang === "bg" ? item.title_bg : lang === "ru" ? translate(item.title_bg, "ru") : item.title_en;
               const filterLabel = filterCategories.find(c => c.id === item.extra_info)?.label || "";
 
               return (
@@ -120,7 +120,7 @@ export default function GalleryPage() {
 
           {filteredItems.length === 0 && (
             <p className="text-center text-gray-500 py-16">
-              {lang === "bg" ? "Няма снимки в тази категория." : "No photos available in this category."}
+              {lang === "bg" ? "Няма снимки в тази категория." : lang === "ru" ? "В этой категории нет фотографий." : "No photos available in this category."}
             </p>
           )}
         </div>

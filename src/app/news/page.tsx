@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/lib/LanguageContext";
-import { t } from "@/lib/translations";
+import { t, translate } from "@/lib/translations";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import { Calendar } from "lucide-react";
@@ -73,18 +73,18 @@ export default function NewsPage() {
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h1 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-gray-900 mb-4">
-              {lang === "bg" ? "Новини & Събития" : "News & Events"}
+              {lang === "bg" ? "Новини & Събития" : lang === "ru" ? "Новости & События" : "News & Events"}
             </h1>
             <p className="text-lg text-[#D4AF37] font-serif italic">
-              {lang === "bg" ? "Следете последните събития от живота на клуба" : "Follow the latest happenings from the stable life"}
+              {lang === "bg" ? "Следете последните събития от живота на клуба" : lang === "ru" ? "Следите за последними событиями из жизни клуба" : "Follow the latest happenings from the stable life"}
             </p>
           </div>
 
           {/* News Feed */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
             {newsFeed.map((item, idx) => {
-              const title = lang === "bg" ? item.title_bg : item.title_en;
-              const desc = lang === "bg" ? item.desc_bg : item.desc_en;
+              const title = lang === "bg" ? item.title_bg : lang === "ru" ? translate(item.title_bg, "ru") : item.title_en;
+              const desc = lang === "bg" ? item.desc_bg : lang === "ru" ? translate(item.desc_bg, "ru") : item.desc_en;
 
               return (
                 <div

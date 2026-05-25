@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/lib/LanguageContext";
-import { t } from "@/lib/translations";
+import { t, translate } from "@/lib/translations";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import Link from "next/link";
@@ -88,8 +88,8 @@ export default function RidingPage() {
           <div className="space-y-24">
             {ridingItems.map((item, index) => {
               const isEven = index % 2 === 0;
-              const title = lang === "bg" ? item.title_bg : item.title_en;
-              const desc = lang === "bg" ? item.desc_bg : item.desc_en;
+              const title = lang === "bg" ? item.title_bg : lang === "ru" ? translate(item.title_bg, "ru") : item.title_en;
+              const desc = lang === "bg" ? item.desc_bg : lang === "ru" ? translate(item.desc_bg, "ru") : item.desc_en;
 
               return (
                 <div
@@ -111,7 +111,7 @@ export default function RidingPage() {
                         href={`/contacts?service=${encodeURIComponent(title)}`}
                         className="inline-flex bg-[#111111] hover:bg-[#D4AF37] hover:text-[#111111] text-white text-xs uppercase tracking-widest font-semibold px-8 py-4 rounded-full transition-all duration-300 border border-transparent shadow-md hover:shadow-lg active:scale-95 cursor-pointer"
                       >
-                        {lang === "bg" ? "Заяви час за тази услуга" : "Book this service"}
+                        {lang === "bg" ? "Заяви час за тази услуга" : lang === "ru" ? "Забронировать эту услугу" : "Book this service"}
                       </Link>
                     </div>
                   </div>

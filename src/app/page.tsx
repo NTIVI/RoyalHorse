@@ -110,12 +110,14 @@ export default function HomeView() {
                 <Compass className="w-6 h-6" />
               </div>
               <h3 className="font-serif text-lg font-bold text-gray-900">
-                {lang === "bg" ? "Професионализъм" : "Professionalism"}
+                {lang === "bg" ? "Професионализъм" : lang === "ru" ? "Профессионализм" : "Professionalism"}
               </h3>
               <p className="text-sm text-gray-500 font-light leading-relaxed">
                 {lang === "bg" 
                   ? "Нашите сертифицирани инструктори ще Ви преведат през всяка стъпка на обучението."
-                  : "Our certified instructors guide you through every stage of your riding journey."}
+                  : lang === "ru"
+                    ? "Наши сертифицированные инструкторы проведут вас через каждый этап обучения."
+                    : "Our certified instructors guide you through every stage of your riding journey."}
               </p>
             </div>
 
@@ -124,12 +126,14 @@ export default function HomeView() {
                 <ShieldCheck className="w-6 h-6" />
               </div>
               <h3 className="font-serif text-lg font-bold text-gray-900">
-                {lang === "bg" ? "Безопасност" : "Safety First"}
+                {lang === "bg" ? "Безопасност" : lang === "ru" ? "Безопасность" : "Safety First"}
               </h3>
               <p className="text-sm text-gray-500 font-light leading-relaxed">
                 {lang === "bg" 
                   ? "Разполагаме с най-високо ниво защитна екипировка и напълно спокойни, обучени коне."
-                  : "We provide professional protective equipment and gentle, highly trained horses."}
+                  : lang === "ru"
+                    ? "Мы предоставляем защитное снаряжение высочайшего уровня и спокойных, обученных лошадей."
+                    : "We provide professional protective equipment and gentle, highly trained horses."}
               </p>
             </div>
 
@@ -138,12 +142,14 @@ export default function HomeView() {
                 <Heart className="w-6 h-6" />
               </div>
               <h3 className="font-serif text-lg font-bold text-gray-900">
-                {lang === "bg" ? "Грижа & Любов" : "Care & Passion"}
+                {lang === "bg" ? "Грижа & Любов" : lang === "ru" ? "Забота & Любовь" : "Care & Passion"}
               </h3>
               <p className="text-sm text-gray-500 font-light leading-relaxed">
                 {lang === "bg" 
                   ? "Хранене, поддръжка и чисти падоци за конете, съчетани с любов към природата."
-                  : "Quality feed, clean paddocks, and absolute devotion to the well-being of our horses."}
+                  : lang === "ru"
+                    ? "Качественное питание, чистые левады и абсолютная преданность заботе о наших лошадях."
+                    : "Quality feed, clean paddocks, and absolute devotion to the well-being of our horses."}
               </p>
             </div>
           </div>
@@ -154,12 +160,14 @@ export default function HomeView() {
           <div className="max-w-7xl mx-auto space-y-16">
             <div className="text-center max-w-2xl mx-auto space-y-3">
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900">
-                {lang === "bg" ? "Преживейте магията в RoyalHorse" : "Experience the magic at RoyalHorse"}
+                {lang === "bg" ? "Преживейте магията в RoyalHorse" : lang === "ru" ? "Почувствуйте магию в RoyalHorse" : "Experience the magic at RoyalHorse"}
               </h2>
               <p className="text-sm text-gray-500 font-light">
                 {lang === "bg" 
                   ? "Изберете Вашето занимание и се насладете на невероятно време на открито"
-                  : "Select your activity and enjoy an amazing outdoor adventure"}
+                  : lang === "ru"
+                    ? "Выберите занятие по душе и наслаждайтесь отличным временем на свежем воздухе"
+                    : "Select your activity and enjoy an amazing outdoor adventure"}
               </p>
             </div>
 
@@ -178,13 +186,15 @@ export default function HomeView() {
                   <p className="text-sm text-gray-500 font-light leading-relaxed">
                     {lang === "bg" 
                       ? "Предлагаме професионално обучение за деца и възрастни, разходки сред живописните пътеки на Странджа планина и край морето."
-                      : "We offer professional training for kids and adults, along with trail rides through Strandzha mountain and by the sea."}
+                      : lang === "ru"
+                        ? "Мы предлагаем профессиональное обучение детей и взрослых, конные прогулки по живописным тропам Странджи и побережью."
+                        : "We offer professional training for kids and adults, along with trail rides through Strandzha mountain and by the sea."}
                   </p>
                   <Link
                     href="/riding"
                     className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#D4AF37] hover:text-[#111111] transition-colors"
                   >
-                    <span>{lang === "bg" ? "Виж детайли за ездата" : "View Riding Details"}</span>
+                    <span>{lang === "bg" ? "Виж детайли за ездата" : lang === "ru" ? "Подробнее о верховой езде" : "View Riding Details"}</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
@@ -204,13 +214,15 @@ export default function HomeView() {
                   <p className="text-sm text-gray-500 font-light leading-relaxed">
                     {lang === "bg" 
                       ? "Комплексът включва хотел за кучета и котки, професионален пансион за коне, руска баня на дърва, АТВ под наем и домашна кухня."
-                      : "Our complex includes a pet hotel for dogs/cats, a horse boarding stable, a wood-fired sauna, ATV rentals, and homemade dining."}
+                      : lang === "ru"
+                        ? "Комплекс включает гостиницу для собак и кошек, профессиональный пансион для лошадей, русскую баню, АТВ и домашнюю кухню."
+                        : "Our complex includes a pet hotel for dogs/cats, a horse boarding stable, a wood-fired sauna, ATV rentals, and homemade dining."}
                   </p>
                   <Link
                     href="/services"
                     className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#D4AF37] hover:text-[#111111] transition-colors"
                   >
-                    <span>{lang === "bg" ? "Виж всички услуги" : "View All Services"}</span>
+                    <span>{lang === "bg" ? "Виж всички услуги" : lang === "ru" ? "Все услуги" : "View All Services"}</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
@@ -224,12 +236,14 @@ export default function HomeView() {
           <div className="max-w-4xl mx-auto text-center space-y-12">
             <div className="space-y-3">
               <h2 className="text-3xl font-serif font-bold text-gray-900">
-                {lang === "bg" ? "Заявете Вашето посещение" : "Book Your Experience"}
+                {lang === "bg" ? "Заявете Вашето посещение" : lang === "ru" ? "Запланируйте свой визит" : "Book Your Experience"}
               </h2>
               <p className="text-sm text-gray-500 font-light">
                 {lang === "bg"
                   ? "Попълнете формата и изберете желаната услуга, за да се свържем с Вас"
-                  : "Fill out the booking form and select your desired service to get in touch"}
+                  : lang === "ru"
+                    ? "Заполните форму и выберите желаемую услугу, и мы свяжемся с вами"
+                    : "Fill out the booking form and select your desired service to get in touch"}
               </p>
             </div>
             <ContactForm />

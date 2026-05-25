@@ -21,22 +21,22 @@ export default function Footer() {
           </div>
           
           {/* Social Links */}
-          <div className="flex gap-5">
+          <div className="flex flex-wrap gap-4">
             <a 
               href="https://www.facebook.com/royalhorse.burgas"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-11 h-11 rounded-full bg-[#1877F2]/10 text-[#1877F2] border border-[#1877F2]/40 shadow-[0_0_12px_rgba(24,119,242,0.3)] hover:shadow-[0_0_20px_rgba(24,119,242,0.6)] hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2] flex items-center justify-center transition-all duration-300 text-xs font-bold"
+              className="px-6 py-3 rounded-full bg-[#1877F2]/10 text-[#1877F2] border border-[#1877F2]/40 shadow-[0_0_12px_rgba(24,119,242,0.3)] hover:shadow-[0_0_22px_rgba(24,119,242,0.75)] hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2] flex items-center justify-center transition-all duration-300 text-sm font-semibold tracking-wide"
             >
-              FB
+              Facebook
             </a>
             <a 
               href="https://www.youtube.com/watch?v=7NOH8v2e2wE"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-11 h-11 rounded-full bg-[#FF0000]/10 text-[#FF0000] border border-[#FF0000]/40 shadow-[0_0_12px_rgba(255,0,0,0.3)] hover:shadow-[0_0_20px_rgba(255,0,0,0.6)] hover:bg-[#FF0000] hover:text-white hover:border-[#FF0000] flex items-center justify-center transition-all duration-300 text-xs font-bold"
+              className="px-6 py-3 rounded-full bg-[#FF0000]/10 text-[#FF0000] border border-[#FF0000]/40 shadow-[0_0_12px_rgba(255,0,0,0.3)] hover:shadow-[0_0_22px_rgba(255,0,0,0.75)] hover:bg-[#FF0000] hover:text-white hover:border-[#FF0000] flex items-center justify-center transition-all duration-300 text-sm font-semibold tracking-wide"
             >
-              YT
+              YouTube
             </a>
           </div>
         </div>
@@ -48,7 +48,13 @@ export default function Footer() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-3 text-xs text-gray-400 font-light">
-            <span>{lang === "bg" ? "Сайтът е създаден от" : "Website created by"}</span>
+            <span>
+              {lang === "bg" 
+                ? "Сайтът е създаден от" 
+                : lang === "ru" 
+                  ? "Сайт был создан" 
+                  : "Website created by"}
+            </span>
             <a
               href="https://agile-business-pro.com/"
               target="_blank"

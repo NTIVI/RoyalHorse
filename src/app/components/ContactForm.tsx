@@ -52,25 +52,25 @@ export default function ContactForm({ initialMessage = "", initialService = "" }
     const errors = { name: "", phone: "", email: "" };
 
     if (!formData.name.trim()) {
-      errors.name = lang === "bg" ? "Името е задължително" : "Name is required";
+      errors.name = lang === "bg" ? "Името е задължително" : lang === "ru" ? "Имя обязательно для заполнения" : "Name is required";
       valid = false;
     }
     
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim()) {
-      errors.email = lang === "bg" ? "Имейлът е задължителен" : "Email is required";
+      errors.email = lang === "bg" ? "Имейлът е задължителен" : lang === "ru" ? "Email обязателен для заполнения" : "Email is required";
       valid = false;
     } else if (!emailRegex.test(formData.email)) {
-      errors.email = lang === "bg" ? "Невалиден имейл формат" : "Invalid email format";
+      errors.email = lang === "bg" ? "Невалиден имейл формат" : lang === "ru" ? "Неверный формат email" : "Invalid email format";
       valid = false;
     }
 
     const phoneDigits = formData.phone.replace(/\s/g, "");
     if (!formData.phone.trim()) {
-      errors.phone = lang === "bg" ? "Телефонът е задължителен" : "Phone is required";
+      errors.phone = lang === "bg" ? "Телефонът е задължителен" : lang === "ru" ? "Телефон обязателен для заполнения" : "Phone is required";
       valid = false;
     } else if (phoneDigits.length < 8) {
-      errors.phone = lang === "bg" ? "Невалиден телефонен номер" : "Invalid phone number";
+      errors.phone = lang === "bg" ? "Невалиден телефонен номер" : lang === "ru" ? "Неверный номер телефона" : "Invalid phone number";
       valid = false;
     }
 
@@ -131,7 +131,7 @@ export default function ContactForm({ initialMessage = "", initialService = "" }
                 className={`w-full bg-[#FCFBF9] border rounded-xl py-3.5 px-4 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/20 transition-all duration-300 ${
                   formErrors.name ? "border-red-400" : "border-gray-200"
                 }`}
-                placeholder={lang === "bg" ? "Иван Петров" : "John Doe"}
+                placeholder={lang === "bg" ? "Иван Петров" : lang === "ru" ? "Иван Петров" : "John Doe"}
               />
               {formErrors.name && (
                 <span className="text-xs text-red-500 mt-1 block">{formErrors.name}</span>
@@ -189,8 +189,8 @@ export default function ContactForm({ initialMessage = "", initialService = "" }
               >
                 <option value="">{t[lang].formServicePlaceholder}</option>
                 {formServicesList.map((srv) => (
-                  <option key={srv.id} value={lang === "bg" ? srv.bg : srv.en}>
-                    {lang === "bg" ? srv.bg : srv.en}
+                  <option key={srv.id} value={lang === "bg" ? srv.bg : lang === "ru" ? srv.ru : srv.en}>
+                    {lang === "bg" ? srv.bg : lang === "ru" ? srv.ru : srv.en}
                   </option>
                 ))}
               </select>

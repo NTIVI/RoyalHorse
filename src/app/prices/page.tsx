@@ -12,6 +12,7 @@ interface CartItem {
   id: string;
   nameBg: string;
   nameEn: string;
+  nameRu?: string;
   price: number;
   qty: number;
 }
@@ -28,7 +29,7 @@ export default function PricesPage() {
       if (existing) {
         return prev.map((i) => (i.id === item.id ? { ...i, qty: i.qty + 1 } : i));
       }
-      return [...prev, { id: item.id, nameBg: item.nameBg, nameEn: item.nameEn, price: item.price, qty: 1 }];
+      return [...prev, { id: item.id, nameBg: item.nameBg, nameEn: item.nameEn, nameRu: item.nameRu, price: item.price, qty: 1 }];
     });
   };
 
@@ -55,16 +56,18 @@ export default function PricesPage() {
     
     // Generate inquiry text description based on selected items
     const selectedList = cart
-      .map((item) => `${lang === "bg" ? item.nameBg : item.nameEn} x${item.qty} (${item.price * item.qty}€)`)
+      .map((item) => `${lang === "bg" ? item.nameBg : lang === "ru" ? item.nameRu || item.nameBg : item.nameEn} x${item.qty} (${item.price * item.qty}€)`)
       .join(", ");
     
     const message = lang === "bg" 
       ? `Здравейте, бих искал да направя резервация за следните избрани услуги: ${selectedList}. Обща прогнозна цена: ${getTotalPrice()} евро.`
-      : `Hello, I'd like to book the following selected services: ${selectedList}. Estimated total price: ${getTotalPrice()} EUR.`;
+      : lang === "ru"
+        ? `Здравствуйте, я хотел бы сделать заказ на следующие выбранные услуги: ${selectedList}. Общая ориентировочная стоимость: ${getTotalPrice()} евро.`
+        : `Hello, I'd like to book the following selected services: ${selectedList}. Estimated total price: ${getTotalPrice()} EUR.`;
 
     // Redirect to contact form with prepopulated services
     const query = new URLSearchParams({
-      service: lang === "bg" ? "Избрани от калкулатора услуги" : "Selected Calculator Services",
+      service: lang === "bg" ? "Избрани от калкулатора услуги" : lang === "ru" ? "Выбранные из калькулятора услуги" : "Selected Calculator Services",
       message: message
     });
     router.push(`/contacts?${query.toString()}`);
@@ -133,10 +136,10 @@ export default function PricesPage() {
                     >
                       <div className="space-y-1">
                         <h4 className="font-semibold text-gray-900 text-sm sm:text-base">
-                          {lang === "bg" ? item.nameBg : item.nameEn}
+                          {lang === "bg" ? item.nameBg : lang === "ru" ? item.nameRu : item.nameEn}
                         </h4>
                         <p className="text-xs text-[#D4AF37] font-semibold">
-                          {item.price} € / {lang === "bg" ? item.unitBg : item.unitEn}
+                          {item.price} € / {lang === "bg" ? item.unitBg : lang === "ru" ? item.unitRu : item.unitEn}
                         </p>
                       </div>
 
@@ -183,7 +186,7 @@ export default function PricesPage() {
                       <div key={item.id} className="flex justify-between items-start gap-4 text-sm">
                         <div className="space-y-0.5">
                           <p className="font-medium text-gray-800 leading-tight">
-                            {lang === "bg" ? item.nameBg : item.nameEn}
+                            {lang === "bg" ? item.nameBg : lang === "ru" ? item.nameRu : item.nameEn}
                           </p>
                           <p className="text-xs text-gray-400 font-light">
                             {item.qty} x {item.price}€

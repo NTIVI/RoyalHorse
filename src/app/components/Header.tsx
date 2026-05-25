@@ -61,6 +61,14 @@ export default function Header() {
               BG
             </button>
             <button
+              onClick={() => setLang("ru")}
+              className={`px-3 py-1.5 rounded-full transition-all ${
+                lang === "ru" ? "bg-[#111111] text-[#FCFBF9] shadow-sm" : "text-gray-500 hover:text-black cursor-pointer"
+              }`}
+            >
+              RU
+            </button>
+            <button
               onClick={() => setLang("en")}
               className={`px-3 py-1.5 rounded-full transition-all ${
                 lang === "en" ? "bg-[#111111] text-[#FCFBF9] shadow-sm" : "text-gray-500 hover:text-black cursor-pointer"
@@ -83,10 +91,10 @@ export default function Header() {
         <div className="flex md:hidden items-center gap-3">
           {/* Language switcher for mobile */}
           <button 
-            onClick={() => setLang(lang === "bg" ? "en" : "bg")}
+            onClick={() => setLang(lang === "bg" ? "ru" : lang === "ru" ? "en" : "bg")}
             className="text-xs font-bold bg-gray-100 hover:bg-gray-200 text-gray-700 px-2.5 py-1.5 rounded-lg border border-gray-200 cursor-pointer"
           >
-            {lang === "bg" ? "EN" : "BG"}
+            {lang === "bg" ? "RU" : lang === "ru" ? "EN" : "BG"}
           </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

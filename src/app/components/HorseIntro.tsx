@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 interface HorseIntroProps {
-  lang: "bg" | "en";
+  lang: "bg" | "en" | "ru";
   onFinished: () => void;
 }
 
@@ -475,7 +475,7 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
               className="text-xs uppercase tracking-[0.38em] font-light"
               style={{ color: "#F3E5AB", letterSpacing: "0.38em" }}
             >
-              {lang === "bg" ? "Е Л И Т Е Н  К О Н Е Н  К Л У Б" : "E L I T E  E Q U E S T R I A N  C L U B"}
+              {lang === "bg" ? "Е Л И Т Е Н  К О Н Е Н  К Л У Б" : lang === "ru" ? "Э Л И Т Н Ы Й  К О Н Н Ы Й  К Л У Б" : "E L I T E  E Q U E S T R I A N  C L U B"}
             </p>
             <div style={{ width: 50, height: 1.5, background: "linear-gradient(90deg, #D4AF37, transparent)" }} />
           </div>
@@ -505,7 +505,7 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
           e.currentTarget.style.boxShadow = "none";
         }}
       >
-        {lang === "bg" ? "Пропусни" : "Skip"}
+        {lang === "bg" ? "Пропусни" : lang === "ru" ? "Пропустить" : "Skip"}
       </button>
     </div>
   );

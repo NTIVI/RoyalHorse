@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/lib/LanguageContext";
-import { t } from "@/lib/translations";
+import { t, translate } from "@/lib/translations";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import Link from "next/link";
@@ -68,8 +68,8 @@ export default function ServicesPage() {
           {/* Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {servicesList.map((service, idx) => {
-              const title = lang === "bg" ? service.title_bg : service.title_en;
-              const desc = lang === "bg" ? service.desc_bg : service.desc_en;
+              const title = lang === "bg" ? service.title_bg : lang === "ru" ? translate(service.title_bg, "ru") : service.title_en;
+              const desc = lang === "bg" ? service.desc_bg : lang === "ru" ? translate(service.desc_bg, "ru") : service.desc_en;
 
               return (
                 <div
@@ -100,7 +100,7 @@ export default function ServicesPage() {
                         href={`/contacts?service=${encodeURIComponent(title)}`}
                         className="block text-center w-full bg-[#111111] hover:bg-[#D4AF37] hover:text-[#111111] text-white text-xs font-semibold uppercase tracking-widest py-3.5 rounded-xl shadow-md transition-colors duration-300 cursor-pointer"
                       >
-                        {lang === "bg" ? "Резервирай сега" : "Book now"}
+                        {lang === "bg" ? "Резервирай сега" : lang === "ru" ? "Забронировать" : "Book now"}
                       </Link>
                     </div>
                   </div>
