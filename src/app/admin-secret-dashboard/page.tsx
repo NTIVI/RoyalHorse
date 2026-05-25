@@ -68,6 +68,7 @@ export default function AdminDashboard() {
   const [isAddingNew, setIsAddingNew] = useState(false);
   const [confirmDeleteCmsId, setConfirmDeleteCmsId] = useState<number | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [compressing, setCompressing] = useState(false);
 
   const [newItem, setNewItem] = useState({
     title_bg: "",
@@ -81,6 +82,69 @@ export default function AdminDashboard() {
   useEffect(() => {
     checkAuthStatus();
   }, []);
+
+  const compressImage = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target?.result as string;
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          const MAX_WIDTH = 1000;
+          const MAX_HEIGHT = 800;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          if (ctx) {
+            ctx.drawImage(img, 0, 0, width, height);
+            const dataUrl = canvas.toDataURL("image/jpeg", 0.7);
+            resolve(dataUrl);
+          } else {
+            reject(new Error("Failed to get canvas 2d context"));
+          }
+        };
+        img.onerror = (err) => reject(err);
+      };
+      reader.onerror = (err) => reject(err);
+    });
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>, isEdit: boolean) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setCompressing(true);
+    try {
+      const compressedBase64 = await compressImage(file);
+      if (isEdit && editingItem) {
+        setEditingItem({ ...editingItem, image_url: compressedBase64 });
+      } else {
+        setNewItem({ ...newItem, image_url: compressedBase64 });
+      }
+    } catch (err) {
+      console.error("Compression error:", err);
+      alert("Ошибка при обработке изображения");
+    } finally {
+      setCompressing(false);
+    }
+  };
 
   const checkAuthStatus = async () => {
     try {
@@ -842,15 +906,48 @@ export default function AdminDashboard() {
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-1">URL Фотографии</label>
-                      <input
-                        type="text"
-                        required
-                        value={newItem.image_url}
-                        onChange={(e) => setNewItem({ ...newItem, image_url: e.target.value })}
-                        className="w-full bg-[#1C1A18] border border-white/5 focus:border-[#D4AF37] rounded-xl py-3.5 px-4 text-sm text-white focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/20 transition-all"
-                        placeholder="/images/example.jpg"
-                      />
+                      <label className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-1">
+                        Фотография (загрузка с устройства)
+                      </label>
+                      <div className="border-2 border-dashed border-white/10 hover:border-[#D4AF37]/50 rounded-2xl p-6 transition-all bg-[#1C1A18] text-center relative flex flex-col items-center justify-center gap-2 group min-h-[140px]">
+                        {compressing ? (
+                          <div className="flex flex-col items-center gap-2">
+                            <RefreshCw className="w-6 h-6 text-[#D4AF37] animate-spin" />
+                            <span className="text-xs text-gray-400">Сжатие изображения...</span>
+                          </div>
+                        ) : newItem.image_url ? (
+                          <div className="relative w-full flex flex-col items-center">
+                            <img
+                              src={newItem.image_url}
+                              alt="Preview"
+                              className="max-h-28 rounded-xl object-contain border border-white/10"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => setNewItem({ ...newItem, image_url: "" })}
+                              className="absolute -top-2 -right-2 bg-red-600 hover:bg-red-700 text-white rounded-full p-1 border border-black transition-all cursor-pointer"
+                            >
+                              <X className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        ) : (
+                          <label className="cursor-pointer w-full h-full flex flex-col items-center justify-center py-4">
+                            <ImageIcon className="w-8 h-8 text-gray-500 group-hover:text-[#D4AF37] transition-colors mb-2" />
+                            <span className="text-xs text-gray-400 font-semibold group-hover:text-white transition-colors">
+                              Нажмите для выбора файла
+                            </span>
+                            <span className="text-[10px] text-gray-600 mt-1">
+                              JPEG или PNG (авто-сжатие)
+                            </span>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              onChange={(e) => handleFileChange(e, false)}
+                            />
+                          </label>
+                        )}
+                      </div>
                     </div>
 
                     <div className="space-y-1.5">
@@ -942,15 +1039,48 @@ export default function AdminDashboard() {
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-1">URL Фотографии</label>
-                      <input
-                        type="text"
-                        required
-                        value={editingItem.image_url}
-                        onChange={(e) => setEditingItem({ ...editingItem, image_url: e.target.value })}
-                        className="w-full bg-[#1C1A18] border border-white/5 focus:border-[#D4AF37] rounded-xl py-3.5 px-4 text-sm text-white focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/20 transition-all"
-                        placeholder="/images/example.jpg"
-                      />
+                      <label className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-1">
+                        Фотография (загрузка с устройства)
+                      </label>
+                      <div className="border-2 border-dashed border-white/10 hover:border-[#D4AF37]/50 rounded-2xl p-6 transition-all bg-[#1C1A18] text-center relative flex flex-col items-center justify-center gap-2 group min-h-[140px]">
+                        {compressing ? (
+                          <div className="flex flex-col items-center gap-2">
+                            <RefreshCw className="w-6 h-6 text-[#D4AF37] animate-spin" />
+                            <span className="text-xs text-gray-400">Сжатие изображения...</span>
+                          </div>
+                        ) : editingItem.image_url ? (
+                          <div className="relative w-full flex flex-col items-center">
+                            <img
+                              src={editingItem.image_url}
+                              alt="Preview"
+                              className="max-h-28 rounded-xl object-contain border border-white/10"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => setEditingItem({ ...editingItem, image_url: "" })}
+                              className="absolute -top-2 -right-2 bg-red-600 hover:bg-red-700 text-white rounded-full p-1 border border-black transition-all cursor-pointer"
+                            >
+                              <X className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        ) : (
+                          <label className="cursor-pointer w-full h-full flex flex-col items-center justify-center py-4">
+                            <ImageIcon className="w-8 h-8 text-gray-500 group-hover:text-[#D4AF37] transition-colors mb-2" />
+                            <span className="text-xs text-gray-400 font-semibold group-hover:text-white transition-colors">
+                              Нажмите для выбора файла
+                            </span>
+                            <span className="text-[10px] text-gray-600 mt-1">
+                              JPEG или PNG (авто-сжатие)
+                            </span>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              onChange={(e) => handleFileChange(e, true)}
+                            />
+                          </label>
+                        )}
+                      </div>
                     </div>
 
                     <div className="space-y-1.5">
