@@ -23,15 +23,19 @@ export async function initDb() {
         phone VARCHAR(50) NOT NULL,
         email VARCHAR(100) NOT NULL,
         message TEXT DEFAULT '',
+        service VARCHAR(100) DEFAULT '',
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         status VARCHAR(20) DEFAULT 'New',
         notes TEXT DEFAULT ''
       );
     `);
 
-    // Migrate: add message column if table already exists without it
+    // Migrate: add message and service columns if table already exists without them
     await query(`
       ALTER TABLE royal_horse_inquiries ADD COLUMN IF NOT EXISTS message TEXT DEFAULT '';
+    `);
+    await query(`
+      ALTER TABLE royal_horse_inquiries ADD COLUMN IF NOT EXISTS service VARCHAR(100) DEFAULT '';
     `);
 
     console.log("Database initialized successfully.");

@@ -28,7 +28,7 @@ export async function GET(request: Request) {
   try {
     await initDb();
     const result = await query(
-      "SELECT id, name, phone, email, message, created_at, status, notes FROM royal_horse_inquiries ORDER BY created_at DESC"
+      "SELECT id, name, phone, email, message, service, created_at, status, notes FROM royal_horse_inquiries ORDER BY created_at DESC"
     );
     return NextResponse.json(result);
   } catch (error) {
@@ -40,7 +40,7 @@ export async function GET(request: Request) {
 // POST: Submit a new inquiry (public)
 export async function POST(request: Request) {
   try {
-    const { name, phone, email, message } = await request.json();
+    const { name, phone, email, message, service } = await request.json();
 
     if (!name || !phone || !email) {
       return NextResponse.json(
@@ -62,8 +62,8 @@ export async function POST(request: Request) {
     await initDb();
 
     const result = await query(
-      "INSERT INTO royal_horse_inquiries (name, phone, email, message, status) VALUES ($1, $2, $3, $4, $5) RETURNING id",
-      [name.trim(), phone.trim(), email.trim(), (message || "").trim(), "New"]
+      "INSERT INTO royal_horse_inquiries (name, phone, email, message, service, status) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id",
+      [name.trim(), phone.trim(), email.trim(), (message || "").trim(), (service || "").trim(), "New"]
     );
 
     return NextResponse.json({

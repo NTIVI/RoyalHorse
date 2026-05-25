@@ -26,6 +26,7 @@ interface Inquiry {
   phone: string;
   email: string;
   message: string;
+  service?: string;
   created_at: string;
   status: string;
   notes: string;
@@ -376,6 +377,11 @@ export default function AdminDashboard() {
                         <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${statusStyle[inq.status] || "bg-gray-100 text-gray-600"}`}>
                           {statusLabel[inq.status] || inq.status}
                         </span>
+                        {inq.service && (
+                          <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-50/80 text-[#AA820A] border border-amber-200/60">
+                            {inq.service}
+                          </span>
+                        )}
                         <span className="text-[10px] text-gray-400 font-mono">#{inq.id}</span>
                       </div>
                       <div className="flex flex-wrap gap-4 text-xs text-gray-500">

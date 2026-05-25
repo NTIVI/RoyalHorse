@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET || "royal-horse-secret-key-2026";
+const JWT_SECRET = process.env.JWT_SECRET || "royal-horse-secret-key-2026-auth";
 
 function checkAuth(request: Request): boolean {
   try {
