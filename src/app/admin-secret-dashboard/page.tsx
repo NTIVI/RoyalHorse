@@ -22,10 +22,7 @@ import {
   ImageIcon,
   X,
   FileText,
-  Image as ImageIconLucide,
-  Filter,
-  Eye,
-  Check
+  Eye
 } from "lucide-react";
 
 interface Inquiry {
@@ -63,11 +60,10 @@ export default function AdminDashboard() {
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
 
-  // CMS State
-  const [activeAdminTab, setActiveAdminTab] = useState<"inquiries" | "media" | "content">("inquiries");
+  // Unified CMS State
+  const [activeAdminTab, setActiveAdminTab] = useState<"inquiries" | "cms">("inquiries");
   const [cmsContent, setCmsContent] = useState<CmsItem[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("about_place");
-  const [selectedMediaCategory, setSelectedMediaCategory] = useState<string>("all");
   const [editingItem, setEditingItem] = useState<CmsItem | null>(null);
   const [isAddingNew, setIsAddingNew] = useState(false);
   const [confirmDeleteCmsId, setConfirmDeleteCmsId] = useState<number | null>(null);
@@ -205,7 +201,7 @@ export default function AdminDashboard() {
     }
   };
 
-  // CMS Operations
+  // Unified CMS Operations
   const handleCreateCms = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -230,7 +226,7 @@ export default function AdminDashboard() {
         });
         fetchCmsContent();
       } else {
-        alert("Ошибка при добавлении контента");
+        alert("Ошибка при добавлении записи");
       }
     } catch (err) {
       console.error(err);
@@ -252,7 +248,7 @@ export default function AdminDashboard() {
         setEditingItem(null);
         fetchCmsContent();
       } else {
-        alert("Ошибка при обновлении контента");
+        alert("Ошибка при сохранении изменений");
       }
     } catch (err) {
       console.error(err);
@@ -283,10 +279,6 @@ export default function AdminDashboard() {
 
   const filteredCms = cmsContent.filter(item => item.category === selectedCategory);
 
-  const filteredMedia = selectedMediaCategory === "all"
-    ? cmsContent.filter(item => item.image_url)
-    : cmsContent.filter(item => item.category === selectedMediaCategory && item.image_url);
-
   const statusLabel: Record<string, string> = {
     "New": "Новый",
     "In Progress": "В работе",
@@ -300,12 +292,12 @@ export default function AdminDashboard() {
   };
 
   const cmsCategories = [
-    { key: "about_place", label: "За Нас — Комплекс" },
+    { key: "about_place", label: "За Нас — База" },
     { key: "about_team", label: "За Нас — Команда" },
     { key: "about_horses", label: "За Нас — Лошади" },
-    { key: "riding", label: "Конная Езда" },
+    { key: "riding", label: "Конна Езда" },
     { key: "services", label: "Услуги" },
-    { key: "gallery", label: "Галерея" },
+    { key: "gallery", label: "Галерия" },
     { key: "news", label: "Новини" }
   ];
 
@@ -323,7 +315,6 @@ export default function AdminDashboard() {
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-[#090807] flex items-center justify-center px-4 font-sans relative overflow-hidden">
-        {/* Background ambient lighting */}
         <div className="absolute top-[-10%] right-[-10%] w-96 h-96 bg-[#D4AF37]/5 rounded-full filter blur-[120px] pointer-events-none" />
         <div className="absolute bottom-[-10%] left-[-10%] w-96 h-96 bg-[#D4AF37]/3 rounded-full filter blur-[120px] pointer-events-none" />
 
@@ -389,7 +380,6 @@ export default function AdminDashboard() {
       
       {/* SIDEBAR NAVIGATION */}
       <aside className="w-full lg:w-72 bg-[#121110] border-b lg:border-b-0 lg:border-r border-white/5 flex flex-col shrink-0">
-        {/* Branding */}
         <div className="p-6 border-b border-white/5 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="bg-[#D4AF37] text-black w-8 h-8 rounded-lg font-serif font-bold flex items-center justify-center text-sm shadow-md shadow-[#D4AF37]/15">
@@ -402,7 +392,6 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Sidebar Links */}
         <nav className="p-4 flex-grow space-y-1">
           <button
             onClick={() => setActiveAdminTab("inquiries")}
@@ -422,31 +411,18 @@ export default function AdminDashboard() {
           </button>
 
           <button
-            onClick={() => setActiveAdminTab("media")}
+            onClick={() => setActiveAdminTab("cms")}
             className={`w-full flex items-center gap-3 text-xs font-semibold px-4 py-3 rounded-xl transition-all cursor-pointer ${
-              activeAdminTab === "media"
-                ? "bg-[#D4AF37]/10 text-[#D4AF37] border-l-2 border-[#D4AF37]"
-                : "text-gray-400 hover:bg-white/5 hover:text-white"
-            }`}
-          >
-            <ImageIconLucide className="w-4 h-4" />
-            <span>Фотографии по категориям</span>
-          </button>
-
-          <button
-            onClick={() => setActiveAdminTab("content")}
-            className={`w-full flex items-center gap-3 text-xs font-semibold px-4 py-3 rounded-xl transition-all cursor-pointer ${
-              activeAdminTab === "content"
+              activeAdminTab === "cms"
                 ? "bg-[#D4AF37]/10 text-[#D4AF37] border-l-2 border-[#D4AF37]"
                 : "text-gray-400 hover:bg-white/5 hover:text-white"
             }`}
           >
             <FileText className="w-4 h-4" />
-            <span>Тексты и посты (CMS)</span>
+            <span>Редактор страниц (CMS)</span>
           </button>
         </nav>
 
-        {/* Footer Logout */}
         <div className="p-4 border-t border-white/5">
           <button
             onClick={handleLogout}
@@ -466,7 +442,6 @@ export default function AdminDashboard() {
         {/* ======================================================== */}
         {activeAdminTab === "inquiries" && (
           <div className="space-y-6">
-            {/* Title Bar */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <h1 className="text-2xl font-serif font-bold text-white tracking-wide">Заявки от клиентов</h1>
@@ -504,7 +479,7 @@ export default function AdminDashboard() {
               {[
                 { key: "All", label: "Все заявки" },
                 { key: "New", label: "Новые" },
-                { key: "In Progress", label: "В обработке" },
+                { key: "In Progress", label: "В работе" },
                 { key: "Completed", label: "Подтверждённые" },
               ].map((f) => (
                 <button
@@ -521,7 +496,7 @@ export default function AdminDashboard() {
               ))}
             </div>
 
-            {/* Inquiries Cards list */}
+            {/* Cards List */}
             {filteredInquiries.length === 0 ? (
               <div className="bg-[#121110] rounded-3xl border border-white/5 py-24 text-center shadow-lg">
                 <Inbox className="w-12 h-12 text-gray-600 mx-auto mb-3" />
@@ -573,7 +548,6 @@ export default function AdminDashboard() {
                         </div>
                       </div>
 
-                      {/* Operations */}
                       <div className="flex items-center gap-2 shrink-0 self-end md:self-auto">
                         {inq.status !== "Completed" && (
                           <>
@@ -642,7 +616,6 @@ export default function AdminDashboard() {
                       </div>
                     </div>
 
-                    {/* Collapsed message view */}
                     {expandedId === inq.id && inq.message && (
                       <div className="px-6 pb-6 pt-2 border-t border-white/5">
                         <div className="bg-[#1C1A18] border border-white/5 rounded-2xl p-5">
@@ -659,142 +632,25 @@ export default function AdminDashboard() {
         )}
 
         {/* ======================================================== */}
-        {/* PHOTOS & MEDIA PANEL */}
+        {/* UNIFIED PAGE EDITOR (CMS) */}
         {/* ======================================================== */}
-        {activeAdminTab === "media" && (
+        {activeAdminTab === "cms" && (
           <div className="space-y-6">
-            {/* Title Bar */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                <h1 className="text-2xl font-serif font-bold text-white tracking-wide">Управление фотографиями</h1>
-                <p className="text-xs text-gray-500 mt-1">Редактируйте изображения и фотографии на всех страницах сайта</p>
-              </div>
-              <button
-                onClick={fetchCmsContent}
-                className="inline-flex items-center gap-2 text-xs font-bold text-gray-300 bg-white/5 border border-white/10 hover:bg-white/10 px-4 py-2.5 rounded-xl shadow-sm transition-all cursor-pointer"
-              >
-                <RefreshCw className="w-3.5 h-3.5" />
-                <span>Обновить фото</span>
-              </button>
-            </div>
-
-            {/* Categories filters for photos */}
-            <div className="flex flex-wrap gap-2 border-b border-white/5 pb-4">
-              <button
-                onClick={() => setSelectedMediaCategory("all")}
-                className={`text-xs font-semibold px-4 py-2 rounded-xl transition-all border cursor-pointer ${
-                  selectedMediaCategory === "all"
-                    ? "bg-[#D4AF37] text-black border-transparent shadow-md"
-                    : "bg-[#121110] text-gray-400 border-white/5 hover:border-white/10 hover:text-white"
-                }`}
-              >
-                Все фотографии
-              </button>
-              {cmsCategories.map((cat) => (
-                <button
-                  key={cat.key}
-                  onClick={() => setSelectedMediaCategory(cat.key)}
-                  className={`text-xs font-semibold px-4 py-2 rounded-xl transition-all border cursor-pointer ${
-                    selectedMediaCategory === cat.key
-                      ? "bg-[#D4AF37] text-black border-transparent shadow-md"
-                      : "bg-[#121110] text-gray-400 border-white/5 hover:border-white/10 hover:text-white"
-                  }`}
-                >
-                  {cat.label}
-                </button>
-              ))}
-            </div>
-
-            {/* Photos Grid */}
-            {filteredMedia.length === 0 ? (
-              <div className="bg-[#121110] rounded-3xl border border-white/5 py-24 text-center">
-                <ImageIconLucide className="w-12 h-12 text-gray-600 mx-auto mb-3" />
-                <p className="text-gray-400 font-medium text-sm">Фотографий не найдено</p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {filteredMedia.map((item) => (
-                  <div
-                    key={item.id}
-                    className="bg-[#121110] border border-white/5 rounded-3xl overflow-hidden shadow-md flex flex-col group relative"
-                  >
-                    {/* Media image preview */}
-                    <div className="aspect-[4/3] w-full bg-black relative overflow-hidden">
-                      <img
-                        src={item.image_url}
-                        alt={item.title_bg || "Image"}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-pointer"
-                        onClick={() => setPreviewImage(item.image_url)}
-                      />
-                      
-                      {/* Category tag */}
-                      <span className="absolute top-3 left-3 text-[8px] font-bold px-2.5 py-1 bg-black/75 text-[#D4AF37] rounded-full uppercase tracking-wider backdrop-blur-sm border border-[#D4AF37]/15">
-                        {cmsCategories.find(c => c.key === item.category)?.label.split("—")[1] || cmsCategories.find(c => c.key === item.category)?.label || item.category}
-                      </span>
-
-                      {/* Hover details overlay */}
-                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
-                        <button
-                          onClick={() => setPreviewImage(item.image_url)}
-                          className="p-2.5 bg-white/10 text-white rounded-full hover:bg-white/20 transition-all border border-white/10"
-                          title="Посмотреть в полный экран"
-                        >
-                          <Eye className="w-4 h-4" />
-                        </button>
-                        <button
-                          onClick={() => setEditingItem(item)}
-                          className="p-2.5 bg-[#D4AF37] text-black rounded-full hover:bg-[#F3E5AB] transition-all"
-                          title="Редактировать адрес картинки"
-                        >
-                          <Edit2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Picture info info panel */}
-                    <div className="p-4 flex-grow flex flex-col justify-between space-y-3">
-                      <div>
-                        <h4 className="font-bold text-white text-xs truncate leading-snug">
-                          {item.title_bg || "Без названия"}
-                        </h4>
-                        <p className="text-[10px] text-gray-500 font-mono truncate mt-0.5">
-                          {item.image_url}
-                        </p>
-                      </div>
-
-                      <button
-                        onClick={() => setEditingItem(item)}
-                        className="w-full flex items-center justify-center gap-1.5 text-[10px] font-bold py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-gray-300 transition-all cursor-pointer"
-                      >
-                        <Edit2 className="w-3 h-3" />
-                        <span>Редактировать фото</span>
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* ======================================================== */}
-        {/* TEXTS & POSTS CMS PANEL */}
-        {/* ======================================================== */}
-        {activeAdminTab === "content" && (
-          <div className="space-y-6">
-            {/* Title Bar */}
+            
+            {/* Header bar */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/5 pb-4">
               <div>
-                <h1 className="text-2xl font-serif font-bold text-white tracking-wide">Управление постами и текстами</h1>
-                <p className="text-xs text-gray-500 mt-1">Создавайте, удаляйте и обновляйте контент категорий сайта</p>
+                <h1 className="text-2xl font-serif font-bold text-white tracking-wide">Редактор страниц (CMS)</h1>
+                <p className="text-xs text-gray-500 mt-1">Изменяйте фотографии, описания и заголовки для разделов меню</p>
               </div>
+              
               <div className="flex gap-2">
                 <button
                   onClick={() => setIsAddingNew(true)}
                   className="inline-flex items-center gap-2 text-xs font-bold text-black bg-[#D4AF37] hover:bg-[#F3E5AB] px-4 py-2.5 rounded-xl shadow-md transition-all cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" />
-                  <span>Добавить элемент</span>
+                  <span>Добавить пост</span>
                 </button>
                 <button
                   onClick={fetchCmsContent}
@@ -806,7 +662,7 @@ export default function AdminDashboard() {
               </div>
             </div>
 
-            {/* CMS Categories Selection */}
+            {/* Category tabs */}
             <div className="flex flex-wrap gap-2">
               {cmsCategories.map((cat) => (
                 <button
@@ -823,11 +679,11 @@ export default function AdminDashboard() {
               ))}
             </div>
 
-            {/* Content List Grid */}
+            {/* Unified Cards Grid (Image + Texts side-by-side) */}
             {filteredCms.length === 0 ? (
-              <div className="bg-[#121110] rounded-3xl border border-white/5 py-20 text-center shadow-sm">
+              <div className="bg-[#121110] rounded-3xl border border-white/5 py-24 text-center">
                 <ImageIcon className="w-12 h-12 text-gray-600 mx-auto mb-3" />
-                <p className="text-gray-400 font-medium text-sm">В данной категории нет текстовых блоков</p>
+                <p className="text-gray-400 font-medium text-sm">В выбранном разделе пока нет постов</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -836,58 +692,78 @@ export default function AdminDashboard() {
                     key={item.id}
                     className="bg-[#121110] border border-white/5 rounded-3xl overflow-hidden shadow-sm flex flex-col hover:border-white/10 transition-colors group"
                   >
-                    {/* Image Header Preview */}
-                    <div className="h-44 bg-black overflow-hidden relative">
+                    {/* Integrated Photo preview */}
+                    <div className="aspect-[4/3] w-full bg-black relative overflow-hidden">
                       {item.image_url ? (
                         <img
                           src={item.image_url}
-                          alt={item.title_bg}
-                          className="w-full h-full object-cover"
+                          alt={item.title_bg || "Image"}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-pointer"
+                          onClick={() => setPreviewImage(item.image_url)}
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-gray-600">
                           <ImageIcon className="w-8 h-8" />
                         </div>
                       )}
-                      <span className="absolute top-3 right-3 text-[8px] font-bold px-2.5 py-1 bg-black/85 text-gray-300 rounded-full font-mono">
+                      
+                      {/* ID indicator */}
+                      <span className="absolute top-3 right-3 text-[8px] font-bold px-2 py-0.5 bg-black/75 text-gray-400 rounded-full font-mono">
                         ID: {item.id}
                       </span>
+                      
+                      {/* Fullscreen overlay button */}
+                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <button
+                          onClick={() => setPreviewImage(item.image_url)}
+                          className="p-2.5 bg-white/10 text-white rounded-full hover:bg-white/20 transition-all border border-white/10"
+                          title="Посмотреть в полный экран"
+                        >
+                          <Eye className="w-4 h-4" />
+                        </button>
+                      </div>
                     </div>
 
-                    {/* Details Info */}
-                    <div className="p-6 space-y-4 flex-grow flex flex-col justify-between">
-                      <div className="space-y-4">
-                        {/* Title details */}
-                        <div className="space-y-1">
-                          <span className="text-[8px] font-bold text-gray-500 uppercase tracking-widest block">Заголовок</span>
-                          <h4 className="font-bold text-white text-sm leading-snug">{item.title_bg || "—"}</h4>
-                          <h5 className="text-xs text-[#D4AF37] italic leading-snug">{item.title_en || "—"}</h5>
+                    {/* Integrated Description Info */}
+                    <div className="p-6 flex-grow flex flex-col justify-between space-y-4">
+                      <div className="space-y-3">
+                        {/* Title details (Bulgarian and English) */}
+                        <div className="space-y-0.5">
+                          <span className="text-[8px] font-bold text-gray-500 uppercase tracking-widest block">Заголовки (БГ / EN)</span>
+                          <h4 className="font-bold text-white text-sm truncate">{item.title_bg || "—"}</h4>
+                          <h5 className="text-xs text-[#D4AF37] italic truncate">{item.title_en || "—"}</h5>
                         </div>
 
-                        {/* Descriptions details */}
-                        <div className="space-y-1.5">
-                          <span className="text-[8px] font-bold text-gray-500 uppercase tracking-widest block">Описание</span>
+                        {/* Description details (Bulgarian and English) */}
+                        <div className="space-y-1">
+                          <span className="text-[8px] font-bold text-gray-500 uppercase tracking-widest block">Описание (БГ / EN)</span>
                           <p className="text-xs text-gray-400 leading-relaxed line-clamp-3">{item.desc_bg || "—"}</p>
-                          <p className="text-[11px] text-gray-500 italic leading-relaxed line-clamp-3">{item.desc_en || "—"}</p>
+                          <p className="text-[11px] text-gray-500 italic leading-relaxed line-clamp-2">{item.desc_en || "—"}</p>
+                        </div>
+
+                        {/* Image link details */}
+                        <div className="space-y-0.5">
+                          <span className="text-[8px] font-bold text-gray-500 uppercase tracking-widest block">Ссылка на фото</span>
+                          <p className="text-[10px] text-gray-600 font-mono truncate">{item.image_url || "—"}</p>
                         </div>
 
                         {/* Extra tags */}
                         {item.extra_info && (
-                          <div className="bg-white/3 p-3 rounded-xl border border-white/5 text-[10px] text-gray-400">
-                            <span className="font-bold uppercase tracking-wider block text-[8px] text-gray-500 mb-0.5">Дополнительно (метки/фильтры)</span>
+                          <div className="bg-white/3 p-2.5 rounded-xl border border-white/5 text-[10px] text-gray-400">
+                            <span className="font-bold uppercase tracking-wider block text-[7px] text-gray-500 mb-0.5">Метка (дата/тег)</span>
                             {item.extra_info}
                           </div>
                         )}
                       </div>
 
-                      {/* Operations */}
+                      {/* Unified Edit/Delete buttons */}
                       <div className="flex gap-2 pt-4 border-t border-white/5">
                         <button
                           onClick={() => setEditingItem(item)}
                           className="flex-grow inline-flex items-center justify-center gap-1.5 text-xs font-bold py-2.5 rounded-xl border border-white/5 hover:border-white/10 text-gray-300 bg-white/5 hover:bg-white/10 transition-all cursor-pointer"
                         >
-                          <Edit2 className="w-3.5 h-3.5" />
-                          <span>Редактировать</span>
+                          <Edit2 className="w-3.5 h-3.5 text-[#D4AF37]" />
+                          <span>Редактировать пост</span>
                         </button>
 
                         {confirmDeleteCmsId === item.id ? (
@@ -922,20 +798,20 @@ export default function AdminDashboard() {
             )}
 
             {/* ======================================================== */}
-            {/* NEW CMS RECORD FORM / MODAL */}
+            {/* UNIFIED ADD POST MODAL */}
             {/* ======================================================== */}
             {isAddingNew && (
               <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
                 <div className="bg-[#121110] border border-white/5 rounded-3xl max-w-xl w-full p-6 sm:p-8 space-y-6 shadow-2xl relative animate-fade-in-up">
                   <button
                     onClick={() => setIsAddingNew(false)}
-                    className="absolute top-6 right-6 text-gray-500 hover:text-white transition-colors"
+                    className="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors"
                   >
                     <X className="w-6 h-6" />
                   </button>
 
                   <div className="space-y-1">
-                    <h3 className="text-xl font-serif font-bold text-white tracking-wide">Добавить новый элемент</h3>
+                    <h3 className="text-xl font-serif font-bold text-white tracking-wide">Добавить новый пост</h3>
                     <p className="text-[10px] text-[#D4AF37] uppercase tracking-widest font-semibold">
                       Категория: {cmsCategories.find(c=>c.key === selectedCategory)?.label}
                     </p>
@@ -1022,22 +898,22 @@ export default function AdminDashboard() {
             )}
 
             {/* ======================================================== */}
-            {/* EDIT CMS RECORD FORM / MODAL */}
+            {/* UNIFIED EDIT POST MODAL */}
             {/* ======================================================== */}
             {editingItem && (
               <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
                 <div className="bg-[#121110] border border-white/5 rounded-3xl max-w-xl w-full p-6 sm:p-8 space-y-6 shadow-2xl relative animate-fade-in-up">
                   <button
                     onClick={() => setEditingItem(null)}
-                    className="absolute top-6 right-6 text-gray-500 hover:text-white transition-colors"
+                    className="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors"
                   >
                     <X className="w-6 h-6" />
                   </button>
 
                   <div className="space-y-1">
-                    <h3 className="text-xl font-serif font-bold text-white tracking-wide">Редактирование элемента</h3>
+                    <h3 className="text-xl font-serif font-bold text-white tracking-wide">Редактировать запись</h3>
                     <p className="text-[10px] text-[#D4AF37] uppercase tracking-widest font-semibold">
-                      ID: {editingItem.id} | Категория: {cmsCategories.find(c=>c.key === editingItem.category)?.label}
+                      ID: {editingItem.id} | Раздел: {cmsCategories.find(c=>c.key === editingItem.category)?.label}
                     </p>
                   </div>
 
