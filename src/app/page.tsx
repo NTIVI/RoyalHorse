@@ -55,34 +55,32 @@ export default function HomeView() {
             <img
               src="/images/horses/bg_hero_horse.jpg"
               alt="Majestic Horse"
-              className="w-full h-full object-cover object-right md:object-center opacity-85"
+              className="w-full h-full object-cover object-right md:object-center opacity-100"
             />
-            {/* Subtle overlay to ensure text readability on the left side */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#E8D1A7]/85 via-[#E8D1A7]/50 to-transparent" />
           </div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-20 text-left">
-            <div className="max-w-2xl space-y-6">
+            <div className="max-w-2xl space-y-6 bg-[#E8D1A7]/30 backdrop-blur-md border border-[#442D1C]/20 rounded-[3rem] p-8 sm:p-12 shadow-2xl">
               <span className="hero-animate inline-block text-xs font-bold uppercase tracking-[0.25em] text-[#84592B] border-l-2 border-[#84592B] pl-3">
                 {t[lang].siteTitle}
               </span>
               <h1 className="hero-animate text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-[#442D1C] tracking-tight leading-tight drop-shadow-sm">
                 {t[lang].heroTitle}
               </h1>
-              <p className="hero-animate text-base sm:text-lg text-[#442D1C]/80 font-semibold leading-relaxed max-w-xl">
+              <p className="hero-animate text-base sm:text-lg text-[#442D1C]/90 font-semibold leading-relaxed max-w-xl">
                 {t[lang].heroSubtitle}
               </p>
               
               <div className="hero-animate pt-4 flex flex-wrap gap-4">
                 <Link
                   href="/contacts"
-                  className="btn-animate bg-[#84592B] hover:bg-[#9D9167] text-[#442D1C] font-semibold text-xs uppercase tracking-widest px-8 py-4 rounded-full shadow-lg transition-colors cursor-pointer"
+                  className="btn-animate bg-[#84592B] hover:bg-[#9D9167] text-[#E8D1A7] font-semibold text-xs uppercase tracking-widest px-8 py-4 rounded-full shadow-lg transition-colors cursor-pointer"
                 >
                   {t[lang].heroCTA1}
                 </Link>
                 <Link
                   href="/services"
-                  className="btn-animate border-2 border-[#442D1C]/30 hover:border-[#442D1C] hover:bg-[#442D1C]/5 text-[#442D1C] font-semibold text-xs uppercase tracking-widest px-8 py-4 rounded-full transition-all cursor-pointer"
+                  className="btn-animate border-2 border-[#442D1C]/40 hover:border-[#442D1C] hover:bg-[#442D1C]/10 text-[#442D1C] font-semibold text-xs uppercase tracking-widest px-8 py-4 rounded-full transition-all cursor-pointer bg-white/20"
                 >
                   {t[lang].heroCTA2}
                 </Link>
@@ -112,11 +110,11 @@ export default function HomeView() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               {/* Riding Promo */}
               <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
-                <div className="h-64 overflow-hidden relative">
+                <div className="h-64 overflow-hidden relative bg-[#E8D1A7]/20">
                   <img
                     src="/images/horses/horse_3.jpg"
                     alt="Horse riding lessons"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-700"
                   />
                 </div>
                 <div className="p-8 space-y-6">
@@ -140,11 +138,11 @@ export default function HomeView() {
 
               {/* Services Promo */}
               <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
-                <div className="h-64 overflow-hidden relative">
+                <div className="h-64 overflow-hidden relative bg-[#E8D1A7]/20">
                   <img
                     src="/images/horses/horse_4.jpg"
                     alt="Pet hotel and boarding services"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-700"
                   />
                 </div>
                 <div className="p-8 space-y-6">
