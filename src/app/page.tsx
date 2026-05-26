@@ -59,28 +59,28 @@ export default function HomeView() {
             />
           </div>
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-20 flex justify-end items-center">
-            <div className="max-w-lg lg:max-w-xl space-y-6 bg-[#E8D1A7]/30 backdrop-blur-md border border-white/40 rounded-[2rem] p-8 sm:p-12 shadow-2xl text-left">
-              <span className="hero-animate inline-block text-xs font-bold uppercase tracking-[0.25em] text-[#442D1C] border-l-2 border-[#442D1C] pl-3">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-20 text-left">
+            <div className="max-w-2xl space-y-6 bg-[#E8D1A7]/30 backdrop-blur-md border border-[#442D1C]/20 rounded-[3rem] p-8 sm:p-12 shadow-2xl">
+              <span className="hero-animate inline-block text-xs font-bold uppercase tracking-[0.25em] text-[#84592B] border-l-2 border-[#84592B] pl-3">
                 {t[lang].siteTitle}
               </span>
-              <h1 className="hero-animate text-4xl sm:text-5xl font-serif font-bold text-[#442D1C] tracking-tight leading-tight">
+              <h1 className="hero-animate text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-[#442D1C] tracking-tight leading-tight drop-shadow-sm">
                 {t[lang].heroTitle}
               </h1>
-              <p className="hero-animate text-sm sm:text-base text-[#442D1C]/90 font-medium leading-relaxed max-w-md">
+              <p className="hero-animate text-base sm:text-lg text-[#442D1C]/90 font-semibold leading-relaxed max-w-xl">
                 {t[lang].heroSubtitle}
               </p>
               
               <div className="hero-animate pt-4 flex flex-wrap gap-4">
                 <Link
                   href="/contacts"
-                  className="btn-animate bg-[#442D1C] hover:bg-[#2A1B10] text-[#E8D1A7] font-medium text-xs sm:text-sm tracking-wider px-8 py-3.5 rounded-full shadow-lg transition-colors cursor-pointer"
+                  className="btn-animate bg-[#84592B] hover:bg-[#9D9167] text-[#E8D1A7] font-semibold text-xs uppercase tracking-widest px-8 py-4 rounded-full shadow-lg transition-colors cursor-pointer"
                 >
                   {t[lang].heroCTA1}
                 </Link>
                 <Link
                   href="/services"
-                  className="btn-animate border border-[#442D1C] hover:bg-[#442D1C]/10 text-[#442D1C] font-medium text-xs sm:text-sm tracking-wider px-8 py-3.5 rounded-full transition-all cursor-pointer"
+                  className="btn-animate border-2 border-[#442D1C]/40 hover:border-[#442D1C] hover:bg-[#442D1C]/10 text-[#442D1C] font-semibold text-xs uppercase tracking-widest px-8 py-4 rounded-full transition-all cursor-pointer bg-white/20"
                 >
                   {t[lang].heroCTA2}
                 </Link>
