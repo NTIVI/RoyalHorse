@@ -53,9 +53,9 @@ export default function HomeView() {
           {/* Hero background image - made opacity-75 and lighter overlays for great visibility of the horse */}
           <div className="absolute inset-0 z-0">
             <img
-              src="/images/horses/horse_2.jpg"
-              alt="Majestic Horses"
-              className="w-full h-full object-cover opacity-90 object-center scale-105 transition-transform duration-10000"
+              src="/images/horses/sunset_rider.png"
+              alt="Majestic Sunset Rider"
+              className="w-full h-full object-cover opacity-90 object-center"
             />
             {/* Soft, warm overlay gradients that keep text highly readable while showing the horse background */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#442D1C]/80 via-[#442D1C]/40 to-transparent" />
