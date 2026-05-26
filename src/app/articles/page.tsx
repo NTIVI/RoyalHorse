@@ -65,12 +65,12 @@ Horse riding is no longer perceived simply as an elite sport, but as an accessib
       <Header />
       
       {/* Article Hero */}
-      <section className="relative h-[65vh] w-full flex items-end pb-20">
+      <section className="relative h-[45vh] sm:h-[50vh] w-full flex items-end pb-16">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/images/horses/horse_2.jpg" 
+            src="/images/horses/bg_hero_horse.jpg" 
             alt="Horse riding in nature" 
-            className="w-full h-full object-cover object-top"
+            className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#442D1C] via-[#442D1C]/60 to-transparent" />
         </div>
