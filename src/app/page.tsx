@@ -49,17 +49,16 @@ export default function HomeView() {
 
       <main className="flex-grow">
         {/* HERO SECTION */}
-        <section className="relative min-h-[85svh] flex items-center bg-[#442D1C] overflow-hidden">
-          {/* Hero background image - made opacity-75 and lighter overlays for great visibility of the horse */}
-          <div className="absolute inset-0 z-0">
+        <section className="relative min-h-[85svh] flex items-center bg-[#E8D1A7] overflow-hidden">
+          {/* Hero background image - object-contain prevents cropping, mix-blend-multiply blends its background with the section background */}
+          <div className="absolute inset-0 z-0 flex items-center justify-center">
             <img
-              src="/images/horses/sunset_rider.png"
-              alt="Majestic Sunset Rider"
-              className="w-full h-full object-cover opacity-90 object-center"
+              src="/images/horses/jumping_horse.jpg"
+              alt="Jumping Horse"
+              className="w-full h-full object-contain object-right md:object-center opacity-90 mix-blend-multiply"
             />
-            {/* Soft, warm overlay gradients that keep text highly readable while showing the horse background */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#442D1C]/80 via-[#442D1C]/40 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#442D1C]/20 via-transparent to-transparent" />
+            {/* Subtle overlay to ensure text readability on the left side */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#E8D1A7] via-[#E8D1A7]/70 to-transparent" />
           </div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-20 text-left">
@@ -67,10 +66,10 @@ export default function HomeView() {
               <span className="hero-animate inline-block text-xs font-bold uppercase tracking-[0.25em] text-[#84592B] border-l-2 border-[#84592B] pl-3">
                 {t[lang].siteTitle}
               </span>
-              <h1 className="hero-animate text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-white tracking-tight leading-tight">
+              <h1 className="hero-animate text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-[#442D1C] tracking-tight leading-tight drop-shadow-sm">
                 {t[lang].heroTitle}
               </h1>
-              <p className="hero-animate text-base sm:text-lg text-gray-300 font-light leading-relaxed max-w-xl">
+              <p className="hero-animate text-base sm:text-lg text-[#442D1C]/80 font-semibold leading-relaxed max-w-xl">
                 {t[lang].heroSubtitle}
               </p>
               
@@ -83,7 +82,7 @@ export default function HomeView() {
                 </Link>
                 <Link
                   href="/services"
-                  className="btn-animate border border-white/20 hover:border-white hover:bg-white/10 text-white font-semibold text-xs uppercase tracking-widest px-8 py-4 rounded-full transition-all cursor-pointer"
+                  className="btn-animate border-2 border-[#442D1C]/30 hover:border-[#442D1C] hover:bg-[#442D1C]/5 text-[#442D1C] font-semibold text-xs uppercase tracking-widest px-8 py-4 rounded-full transition-all cursor-pointer"
                 >
                   {t[lang].heroCTA2}
                 </Link>
