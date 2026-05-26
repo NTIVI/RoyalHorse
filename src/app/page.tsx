@@ -58,7 +58,7 @@ export default function HomeView() {
               className="w-full h-full object-cover object-right md:object-center opacity-85"
             />
             {/* Subtle overlay to ensure text readability on the left side */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#E8D1A7] via-[#E8D1A7]/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#E8D1A7]/85 via-[#E8D1A7]/50 to-transparent" />
           </div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-20 text-left">
