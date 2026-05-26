@@ -63,13 +63,13 @@ export default function HomeView() {
           {/* Hero background image - made opacity-75 and lighter overlays for great visibility of the horse */}
           <div className="absolute inset-0 z-0">
             <img
-              src="https://images.unsplash.com/photo-1536647492161-1d54f5904be2?auto=format&fit=crop&q=80&w=1920"
-              alt="Epic Cinematic Horse"
-              className="w-full h-full object-cover opacity-80 object-center scale-105 transition-transform duration-10000"
+              src="https://bipbap.ru/wp-content/uploads/2017/05/1358793764_loshadi-2.jpeg"
+              alt="Majestic Horses"
+              className="w-full h-full object-cover opacity-90 object-center scale-105 transition-transform duration-10000"
             />
             {/* Soft, warm overlay gradients that keep text highly readable while showing the horse background */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#090807]/90 via-[#090807]/60 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#090807]/30 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#090807]/80 via-[#090807]/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#090807]/20 via-transparent to-transparent" />
           </div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-20 text-left">
