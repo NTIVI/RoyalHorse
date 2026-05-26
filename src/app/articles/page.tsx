@@ -64,34 +64,24 @@ Horse riding is no longer perceived simply as an elite sport, but as an accessib
     <div className="min-h-screen flex flex-col bg-[#F3EFE9]">
       <Header />
       
-      {/* Article Hero */}
-      <section className="relative h-[45vh] sm:h-[50vh] w-full flex items-end pb-16">
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="/images/horses/bg_hero_horse.jpg" 
-            alt="Horse riding in nature" 
-            className="w-full h-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#442D1C] via-[#442D1C]/60 to-transparent" />
-        </div>
-        
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center">
-          <div className="flex items-center justify-center gap-6 text-[#E8D1A7] mb-6 text-xs sm:text-sm font-semibold tracking-widest uppercase">
-            <span className="flex items-center gap-2"><Clock className="w-4 h-4" /> {currentArticle.readTime}</span>
-            <span className="flex items-center gap-2"><User className="w-4 h-4" /> {currentArticle.author}</span>
-          </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight drop-shadow-xl">
-            {currentArticle.title}
-          </h1>
-          <p className="text-gray-300 tracking-widest uppercase text-xs font-bold">
-            {currentArticle.date}
-          </p>
-        </div>
-      </section>
-
       {/* Article Content */}
-      <main className="flex-grow w-full max-w-4xl mx-auto px-4 sm:px-6 -mt-16 relative z-20 pb-24">
-        <div className="bg-white/90 backdrop-blur-xl rounded-[2.5rem] p-8 sm:p-14 lg:p-20 shadow-2xl border border-white">
+      <main className="flex-grow w-full max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-24 relative z-20">
+        <div className="bg-white rounded-[2.5rem] p-8 sm:p-14 lg:p-20 shadow-xl border border-gray-100">
+          
+          {/* Article Header Inside Block */}
+          <div className="text-center mb-16 border-b border-gray-100 pb-12">
+            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-[#84592B] mb-6 text-xs sm:text-sm font-semibold tracking-widest uppercase">
+              <span className="flex items-center gap-2"><Clock className="w-4 h-4" /> {currentArticle.readTime}</span>
+              <span className="flex items-center gap-2"><User className="w-4 h-4" /> {currentArticle.author}</span>
+            </div>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-[#442D1C] mb-6 leading-tight">
+              {currentArticle.title}
+            </h1>
+            <p className="text-gray-400 tracking-widest uppercase text-xs font-bold">
+              {currentArticle.date}
+            </p>
+          </div>
+
           <div className="prose prose-lg md:prose-xl max-w-none text-gray-800 space-y-8 leading-loose font-serif">
             {currentArticle.content.split('\n\n').map((paragraph, idx) => {
               const p = paragraph.trim();
