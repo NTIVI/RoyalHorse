@@ -60,10 +60,10 @@ export default function GalleryPage() {
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h1 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-gray-900 mb-4 flex items-center justify-center gap-3">
-              <ImageIcon className="w-10 h-10 text-[#D4AF37]" />
+              <ImageIcon className="w-10 h-10 text-[#F97316]" />
               {t[lang].galleryTitle}
             </h1>
-            <p className="text-lg text-[#D4AF37] font-serif italic">
+            <p className="text-lg text-[#F97316] font-serif italic">
               {t[lang].gallerySub}
             </p>
           </div>
@@ -105,7 +105,7 @@ export default function GalleryPage() {
                   {/* Overlay on hover */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                     <div className="space-y-1">
-                      <p className="text-[10px] font-bold text-[#D4AF37] uppercase tracking-wider">
+                      <p className="text-[10px] font-bold text-[#F97316] uppercase tracking-wider">
                         {filterLabel}
                       </p>
                       <h3 className="font-serif text-lg font-bold text-white">

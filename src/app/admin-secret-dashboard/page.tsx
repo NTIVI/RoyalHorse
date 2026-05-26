@@ -580,7 +580,7 @@ export default function AdminDashboard() {
     return (
       <div className={`min-h-screen flex items-center justify-center transition-colors duration-300 ${isDark ? "bg-[#090807]" : "bg-gray-100"}`}>
         <div className="flex flex-col items-center gap-3">
-          <RefreshCw className="w-8 h-8 text-[#D4AF37] animate-spin" />
+          <RefreshCw className="w-8 h-8 text-[#F97316] animate-spin" />
           <p className={`text-xs tracking-widest font-mono ${isDark ? "text-gray-400" : "text-gray-500"}`}>LOADING PANEL...</p>
         </div>
       </div>
@@ -598,7 +598,7 @@ export default function AdminDashboard() {
                 key={langKey}
                 onClick={() => setAdminLang(langKey)}
                 className={`text-[10px] font-bold px-2 py-1 rounded-lg uppercase transition-all cursor-pointer ${adminLang === langKey
-                    ? "bg-[#D4AF37] text-black"
+                    ? "bg-[#F97316] text-black"
                     : "text-gray-400 hover:text-white"
                   }`}
               >
@@ -608,20 +608,20 @@ export default function AdminDashboard() {
           </div>
           <button
             onClick={() => setTheme(isDark ? "light" : "dark")}
-            className={`p-2.5 rounded-xl border transition-all cursor-pointer ${isDark ? "bg-black/20 border-white/5 hover:bg-black/30 text-[#D4AF37]" : "bg-white border-black/10 hover:bg-gray-50 text-yellow-800 shadow-sm"
+            className={`p-2.5 rounded-xl border transition-all cursor-pointer ${isDark ? "bg-black/20 border-white/5 hover:bg-black/30 text-[#F97316]" : "bg-white border-black/10 hover:bg-gray-50 text-orange-800 shadow-sm"
               }`}
           >
             {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </button>
         </div>
 
-        <div className="absolute top-[-10%] right-[-10%] w-96 h-96 bg-[#D4AF37]/5 rounded-full filter blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-96 h-96 bg-[#D4AF37]/3 rounded-full filter blur-[120px] pointer-events-none" />
+        <div className="absolute top-[-10%] right-[-10%] w-96 h-96 bg-[#F97316]/5 rounded-full filter blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-96 h-96 bg-[#F97316]/3 rounded-full filter blur-[120px] pointer-events-none" />
 
-        <div className={`max-w-md w-full backdrop-blur-md border rounded-3xl p-10 shadow-2xl space-y-8 relative z-10 transition-colors ${isDark ? "bg-[#121110]/80 border-[#D4AF37]/15" : "bg-white/95 border-black/5"}`}>
+        <div className={`max-w-md w-full backdrop-blur-md border rounded-3xl p-10 shadow-2xl space-y-8 relative z-10 transition-colors ${isDark ? "bg-[#121110]/80 border-[#F97316]/15" : "bg-white/95 border-black/5"}`}>
           <div className="text-center space-y-2">
             <span className={`font-serif text-2xl font-bold tracking-[0.2em] ${isDark ? "text-white" : "text-gray-900"}`}>
-              ROYAL<span className="text-[#D4AF37]">HORSE</span>
+              ROYAL<span className="text-[#F97316]">HORSE</span>
             </span>
             <p className="text-[10px] text-gray-500 uppercase tracking-[0.2em] font-semibold mt-1">{t.panelTitle}</p>
           </div>
@@ -635,7 +635,7 @@ export default function AdminDashboard() {
                   required
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className={`w-full border rounded-xl py-3.5 px-4 pl-11 text-sm focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/25 transition-all ${isDark ? "bg-[#1C1A18] border-[#D4AF37]/10 text-white focus:border-[#D4AF37]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#D4AF37]"}`}
+                  className={`w-full border rounded-xl py-3.5 px-4 pl-11 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/25 transition-all ${isDark ? "bg-[#1C1A18] border-[#F97316]/10 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
                   placeholder="admin"
                 />
                 <User className="absolute left-4 top-4 w-4 h-4 text-gray-500" />
@@ -650,7 +650,7 @@ export default function AdminDashboard() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className={`w-full border rounded-xl py-3.5 px-4 pl-11 text-sm focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/25 transition-all ${isDark ? "bg-[#1C1A18] border-[#D4AF37]/10 text-white focus:border-[#D4AF37]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#D4AF37]"}`}
+                  className={`w-full border rounded-xl py-3.5 px-4 pl-11 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/25 transition-all ${isDark ? "bg-[#1C1A18] border-[#F97316]/10 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
                   placeholder="••••••••"
                 />
                 <Lock className="absolute left-4 top-4 w-4 h-4 text-gray-500" />
@@ -665,7 +665,7 @@ export default function AdminDashboard() {
 
             <button
               type="submit"
-              className="w-full bg-[#D4AF37] hover:bg-[#F3E5AB] text-black font-bold py-4 px-4 rounded-xl transition-all text-xs tracking-widest uppercase shadow-lg shadow-[#D4AF37]/10 active:scale-[0.98] cursor-pointer"
+              className="w-full bg-[#F97316] hover:bg-[#FB923C] text-black font-bold py-4 px-4 rounded-xl transition-all text-xs tracking-widest uppercase shadow-lg shadow-[#F97316]/10 active:scale-[0.98] cursor-pointer"
             >
               {t.loginBtn}
             </button>
@@ -682,19 +682,19 @@ export default function AdminDashboard() {
       <aside className={`w-full lg:w-72 lg:h-screen lg:sticky lg:top-0 border-b lg:border-b-0 lg:border-r flex flex-col shrink-0 z-40 transition-colors ${isDark ? "bg-[#121110] border-white/5" : "bg-white border-gray-200/80 shadow-sm"}`}>
         <div className="p-4 lg:p-6 border-b border-white/5 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="bg-[#D4AF37] text-black w-8 h-8 rounded-lg font-serif font-bold flex items-center justify-center text-sm shadow-md shadow-[#D4AF37]/15">
+            <div className="bg-[#F97316] text-black w-8 h-8 rounded-lg font-serif font-bold flex items-center justify-center text-sm shadow-md shadow-[#F97316]/15">
               RH
             </div>
             <div>
               <h2 className={`text-sm font-serif font-bold tracking-wide leading-tight ${isDark ? "text-white" : "text-gray-900"}`}>RoyalHorse</h2>
-              <p className="text-[9px] text-[#D4AF37] font-semibold tracking-wider uppercase">{t.adminRole}</p>
+              <p className="text-[9px] text-[#F97316] font-semibold tracking-wider uppercase">{t.adminRole}</p>
             </div>
           </div>
           {/* Mobile Theme Toggle & Logout */}
           <div className="flex lg:hidden items-center gap-2">
             <button
               onClick={() => setTheme(isDark ? "light" : "dark")}
-              className={`p-2 rounded-xl border transition-all cursor-pointer ${isDark ? "bg-black/20 border-white/5 text-[#D4AF37]" : "bg-gray-100 border-black/5 text-yellow-800"}`}
+              className={`p-2 rounded-xl border transition-all cursor-pointer ${isDark ? "bg-black/20 border-white/5 text-[#F97316]" : "bg-gray-100 border-black/5 text-orange-800"}`}
             >
               {isDark ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
             </button>
@@ -716,7 +716,7 @@ export default function AdminDashboard() {
                   key={langKey}
                   onClick={() => setAdminLang(langKey)}
                   className={`text-[9px] font-bold px-2 py-1 rounded-lg uppercase transition-all cursor-pointer ${adminLang === langKey
-                      ? "bg-[#D4AF37] text-black shadow-sm"
+                      ? "bg-[#F97316] text-black shadow-sm"
                       : "text-gray-400 hover:text-white"
                     }`}
                 >
@@ -727,7 +727,7 @@ export default function AdminDashboard() {
 
             <button
               onClick={() => setTheme(isDark ? "light" : "dark")}
-              className={`p-2 rounded-xl border transition-all cursor-pointer ${isDark ? "bg-black/20 border-white/5 text-[#D4AF37] hover:bg-black/30" : "bg-gray-100 border-black/5 text-yellow-800 hover:bg-gray-200"
+              className={`p-2 rounded-xl border transition-all cursor-pointer ${isDark ? "bg-black/20 border-white/5 text-[#F97316] hover:bg-black/30" : "bg-gray-100 border-black/5 text-orange-800 hover:bg-gray-200"
                 }`}
               title={isDark ? "Светлая тема" : "Темная тема"}
             >
@@ -741,8 +741,8 @@ export default function AdminDashboard() {
             onClick={() => setActiveAdminTab("inquiries")}
             className={`whitespace-nowrap lg:w-full flex items-center gap-3 text-xs font-semibold px-4 py-3 rounded-xl transition-all cursor-pointer ${activeAdminTab === "inquiries"
                 ? isDark
-                  ? "bg-[#D4AF37]/10 text-[#D4AF37] lg:border-l-2 lg:border-[#D4AF37]"
-                  : "bg-[#D4AF37]/15 text-[#8a6800] lg:border-l-2 lg:border-[#D4AF37] font-bold"
+                  ? "bg-[#F97316]/10 text-[#F97316] lg:border-l-2 lg:border-[#F97316]"
+                  : "bg-[#F97316]/15 text-[#C2410C] lg:border-l-2 lg:border-[#F97316] font-bold"
                 : isDark
                   ? "text-gray-400 hover:bg-white/5 hover:text-white"
                   : "text-gray-600 hover:bg-gray-100 hover:text-black"
@@ -761,8 +761,8 @@ export default function AdminDashboard() {
             onClick={() => setActiveAdminTab("cms")}
             className={`whitespace-nowrap lg:w-full flex items-center gap-3 text-xs font-semibold px-4 py-3 rounded-xl transition-all cursor-pointer ${activeAdminTab === "cms"
                 ? isDark
-                  ? "bg-[#D4AF37]/10 text-[#D4AF37] lg:border-l-2 lg:border-[#D4AF37]"
-                  : "bg-[#D4AF37]/15 text-[#8a6800] lg:border-l-2 lg:border-[#D4AF37] font-bold"
+                  ? "bg-[#F97316]/10 text-[#F97316] lg:border-l-2 lg:border-[#F97316]"
+                  : "bg-[#F97316]/15 text-[#C2410C] lg:border-l-2 lg:border-[#F97316] font-bold"
                 : isDark
                   ? "text-gray-400 hover:bg-white/5 hover:text-white"
                   : "text-gray-600 hover:bg-gray-100 hover:text-black"
@@ -801,7 +801,7 @@ export default function AdminDashboard() {
                 onClick={fetchInquiries}
                 className={`inline-flex items-center gap-2 text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm transition-all border ${isDark ? "text-gray-300 bg-white/5 border-white/10 hover:bg-white/10" : "text-gray-700 bg-white border-gray-200 hover:bg-gray-50"}`}
               >
-                <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-[#D4AF37]" : ""}`} />
+                <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-[#F97316]" : ""}`} />
                 <span>{t.refreshBtn}</span>
               </button>
             </div>
@@ -809,7 +809,7 @@ export default function AdminDashboard() {
             {/* Quick Metrics */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {[
-                { label: t.statTotal, value: totalCount, icon: <Layers className="w-4.5 h-4.5" />, color: "bg-amber-500/10 text-[#D4AF37] border-amber-500/20" },
+                { label: t.statTotal, value: totalCount, icon: <Layers className="w-4.5 h-4.5" />, color: "bg-amber-500/10 text-[#F97316] border-amber-500/20" },
                 { label: t.statNew, value: newCount, icon: <Inbox className="w-4.5 h-4.5" />, color: "bg-red-500/10 text-red-400 border-red-500/20" },
                 { label: t.statActive, value: activeCount, icon: <Clock className="w-4.5 h-4.5" />, color: "bg-blue-500/10 text-blue-400 border-blue-500/20" },
                 { label: t.statCompleted, value: completedCount, icon: <CheckSquare className="w-4.5 h-4.5" />, color: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" },
@@ -836,7 +836,7 @@ export default function AdminDashboard() {
                   key={f.key}
                   onClick={() => setFilterStatus(f.key)}
                   className={`text-xs font-semibold px-4 py-2 rounded-xl transition-all border cursor-pointer ${filterStatus === f.key
-                      ? "bg-[#D4AF37] text-black border-transparent shadow-md"
+                      ? "bg-[#F97316] text-black border-transparent shadow-md"
                       : isDark
                         ? "bg-[#121110] text-gray-400 border-white/5 hover:border-white/10 hover:text-white"
                         : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50 shadow-sm"
@@ -862,7 +862,7 @@ export default function AdminDashboard() {
                   >
                     <div className="p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
                       <div className="flex items-start gap-4">
-                        <div className={`w-12 h-12 rounded-2xl border flex items-center justify-center text-[#D4AF37] font-serif font-bold text-lg shrink-0 ${isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"}`}>
+                        <div className={`w-12 h-12 rounded-2xl border flex items-center justify-center text-[#F97316] font-serif font-bold text-lg shrink-0 ${isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"}`}>
                           {inq.name.charAt(0).toUpperCase()}
                         </div>
                         <div className="space-y-1.5">
@@ -872,18 +872,18 @@ export default function AdminDashboard() {
                               {statusLabel[inq.status]}
                             </span>
                             {inq.service && (
-                              <span className="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-amber-500/5 text-[#D4AF37] border border-[#D4AF37]/20 uppercase tracking-wider">
+                              <span className="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-amber-500/5 text-[#F97316] border border-[#F97316]/20 uppercase tracking-wider">
                                 {inq.service}
                               </span>
                             )}
                             <span className="text-[10px] text-gray-400 font-mono">#{inq.id}</span>
                           </div>
                           <div className="flex flex-wrap gap-x-6 gap-y-1.5 text-xs text-gray-400">
-                            <a href={`tel:${inq.phone}`} className="flex items-center gap-1.5 hover:text-[#D4AF37] transition-colors">
-                              <Phone className="w-3.5 h-3.5 text-[#D4AF37]" /> {inq.phone}
+                            <a href={`tel:${inq.phone}`} className="flex items-center gap-1.5 hover:text-[#F97316] transition-colors">
+                              <Phone className="w-3.5 h-3.5 text-[#F97316]" /> {inq.phone}
                             </a>
-                            <a href={`mailto:${inq.email}`} className="flex items-center gap-1.5 hover:text-[#D4AF37] transition-colors">
-                              <Mail className="w-3.5 h-3.5 text-[#D4AF37]" /> {inq.email}
+                            <a href={`mailto:${inq.email}`} className="flex items-center gap-1.5 hover:text-[#F97316] transition-colors">
+                              <Mail className="w-3.5 h-3.5 text-[#F97316]" /> {inq.email}
                             </a>
                             <span className="flex items-center gap-1.5 text-gray-500">
                               <Calendar className="w-3.5 h-3.5" />
@@ -927,7 +927,7 @@ export default function AdminDashboard() {
                         {inq.message && (
                           <button
                             onClick={() => setExpandedId(expandedId === inq.id ? null : inq.id)}
-                            className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-[#D4AF37] border border-[#D4AF37]/20 transition-all cursor-pointer"
+                            className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-[#F97316] border border-[#F97316]/20 transition-all cursor-pointer"
                           >
                             <MessageSquare className="w-3.5 h-3.5" />
                             {adminLang === "bg" ? "Съобщение" : adminLang === "en" ? "Message" : "Текст"}
@@ -964,7 +964,7 @@ export default function AdminDashboard() {
                     {expandedId === inq.id && inq.message && (
                       <div className="px-6 pb-6 pt-2 border-t border-white/5">
                         <div className={`border rounded-2xl p-5 ${isDark ? "bg-black/20 border-white/5" : "bg-gray-50 border-gray-100"}`}>
-                          <p className="text-[9px] font-bold text-[#D4AF37] uppercase tracking-widest mb-2 pl-0.5">{adminLang === "bg" ? "Съобщение от клиента" : adminLang === "en" ? "Message from client" : "Сообщение от клиента"}</p>
+                          <p className="text-[9px] font-bold text-[#F97316] uppercase tracking-widest mb-2 pl-0.5">{adminLang === "bg" ? "Съобщение от клиента" : adminLang === "en" ? "Message from client" : "Сообщение от клиента"}</p>
                           <p className={`text-sm leading-relaxed font-light ${isDark ? "text-gray-300" : "text-gray-700"}`}>{inq.message}</p>
                         </div>
                       </div>
@@ -1003,7 +1003,7 @@ export default function AdminDashboard() {
                     });
                     setIsAddingNew(true);
                   }}
-                  className="inline-flex items-center gap-2 text-xs font-bold text-black bg-[#D4AF37] hover:bg-[#F3E5AB] px-4 py-2.5 rounded-xl shadow-md transition-all cursor-pointer"
+                  className="inline-flex items-center gap-2 text-xs font-bold text-black bg-[#F97316] hover:bg-[#FB923C] px-4 py-2.5 rounded-xl shadow-md transition-all cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>{t.addPostBtn}</span>
@@ -1025,7 +1025,7 @@ export default function AdminDashboard() {
                   key={cat.key}
                   onClick={() => setSelectedCategory(cat.key)}
                   className={`text-xs font-semibold px-4 py-2 rounded-xl transition-all border cursor-pointer ${selectedCategory === cat.key
-                      ? "bg-[#D4AF37] text-black border-transparent shadow-sm"
+                      ? "bg-[#F97316] text-black border-transparent shadow-sm"
                       : isDark
                         ? "bg-[#121110] text-gray-400 border-white/5 hover:border-white/10 hover:text-white"
                         : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50 shadow-sm"
@@ -1085,7 +1085,7 @@ export default function AdminDashboard() {
                         <div className="space-y-0.5">
                           <span className="text-[8px] font-bold text-gray-500 uppercase tracking-widest block">{adminLang === "bg" ? "Заглавия (БГ / EN)" : adminLang === "en" ? "Titles (BG / EN)" : "Заголовки (БГ / EN)"}</span>
                           <h4 className={`font-bold text-sm truncate ${isDark ? "text-white" : "text-gray-900"}`}>{item.title_bg || "—"}</h4>
-                          <h5 className="text-xs text-[#D4AF37] italic truncate">{item.title_en || "—"}</h5>
+                          <h5 className="text-xs text-[#F97316] italic truncate">{item.title_en || "—"}</h5>
                         </div>
 
                         <div className="space-y-1">
@@ -1113,7 +1113,7 @@ export default function AdminDashboard() {
                           onClick={() => setEditingItem(item)}
                           className={`flex-grow inline-flex items-center justify-center gap-1.5 text-xs font-bold py-2.5 rounded-xl border transition-all cursor-pointer ${isDark ? "border-white/5 text-gray-300 bg-white/5 hover:bg-white/10" : "border-gray-200 text-gray-700 bg-gray-50 hover:bg-gray-100"}`}
                         >
-                          <Edit2 className="w-3.5 h-3.5 text-[#D4AF37]" />
+                          <Edit2 className="w-3.5 h-3.5 text-[#F97316]" />
                           <span>{t.editCmsPost}</span>
                         </button>
 
@@ -1178,10 +1178,10 @@ export default function AdminDashboard() {
                               type="button"
                               onClick={() => setNewItem({ ...newItem, category: cat.key })}
                               className={`relative shrink-0 flex items-center gap-2 py-3 px-4.5 rounded-full border text-xs font-bold uppercase tracking-wider transition-all duration-300 active:scale-[0.96] cursor-pointer ${isSelected
-                                  ? "bg-[#D4AF37]/15 border-[#D4AF37] text-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.12)]"
+                                  ? "bg-[#F97316]/15 border-[#F97316] text-[#F97316] shadow-[0_0_15px_rgba(212,175,55,0.12)]"
                                   : isDark
-                                    ? "bg-[#1C1A18] border-white/5 text-gray-400 hover:border-[#D4AF37]/20 hover:text-white"
-                                    : "bg-gray-50 border-gray-200 text-gray-600 hover:border-[#D4AF37]/45 hover:text-black shadow-sm"
+                                    ? "bg-[#1C1A18] border-white/5 text-gray-400 hover:border-[#F97316]/20 hover:text-white"
+                                    : "bg-gray-50 border-gray-200 text-gray-600 hover:border-[#F97316]/45 hover:text-black shadow-sm"
                                 }`}
                             >
                               {cat.key === "about_place" && <MapPin className="w-3.5 h-3.5" />}
@@ -1207,7 +1207,7 @@ export default function AdminDashboard() {
                           type="text"
                           value={newItem.title_bg}
                           onChange={(e) => setNewItem({ ...newItem, title_bg: e.target.value })}
-                          className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#D4AF37]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#D4AF37]"}`}
+                          className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
                           placeholder="Заглавие"
                         />
                       </div>
@@ -1217,7 +1217,7 @@ export default function AdminDashboard() {
                           type="text"
                           value={newItem.title_en}
                           onChange={(e) => setNewItem({ ...newItem, title_en: e.target.value })}
-                          className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#D4AF37]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#D4AF37]"}`}
+                          className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
                           placeholder="Title"
                         />
                       </div>
@@ -1227,10 +1227,10 @@ export default function AdminDashboard() {
                       <label className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-1">
                         {t.postImage}
                       </label>
-                      <div className={`border-2 border-dashed rounded-2xl p-6 transition-all text-center relative flex flex-col items-center justify-center gap-2 group min-h-[140px] ${isDark ? "bg-[#1C1A18] border-white/10 hover:border-[#D4AF37]/50" : "bg-gray-50 border-gray-200 hover:border-[#D4AF37]/50"}`}>
+                      <div className={`border-2 border-dashed rounded-2xl p-6 transition-all text-center relative flex flex-col items-center justify-center gap-2 group min-h-[140px] ${isDark ? "bg-[#1C1A18] border-white/10 hover:border-[#F97316]/50" : "bg-gray-50 border-gray-200 hover:border-[#F97316]/50"}`}>
                         {compressing ? (
                           <div className="flex flex-col items-center gap-2">
-                            <RefreshCw className="w-6 h-6 text-[#D4AF37] animate-spin" />
+                            <RefreshCw className="w-6 h-6 text-[#F97316] animate-spin" />
                             <span className="text-xs text-gray-400">{t.compressing}</span>
                           </div>
                         ) : newItem.image_url ? (
@@ -1250,7 +1250,7 @@ export default function AdminDashboard() {
                           </div>
                         ) : (
                           <label className="cursor-pointer w-full h-full flex flex-col items-center justify-center py-4">
-                            <ImageIcon className="w-8 h-8 text-gray-500 group-hover:text-[#D4AF37] transition-colors mb-2" />
+                            <ImageIcon className="w-8 h-8 text-gray-500 group-hover:text-[#F97316] transition-colors mb-2" />
                             <span className="text-xs text-gray-400 font-semibold group-hover:text-white transition-colors">
                               {t.clickToUpload}
                             </span>
@@ -1274,7 +1274,7 @@ export default function AdminDashboard() {
                         rows={3}
                         value={newItem.desc_bg}
                         onChange={(e) => setNewItem({ ...newItem, desc_bg: e.target.value })}
-                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#D4AF37]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#D4AF37]"}`}
+                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
                         placeholder="Текст на български..."
                       />
                     </div>
@@ -1285,7 +1285,7 @@ export default function AdminDashboard() {
                         rows={3}
                         value={newItem.desc_en}
                         onChange={(e) => setNewItem({ ...newItem, desc_en: e.target.value })}
-                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#D4AF37]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#D4AF37]"}`}
+                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
                         placeholder="English details text..."
                       />
                     </div>
@@ -1296,7 +1296,7 @@ export default function AdminDashboard() {
                         type="text"
                         value={newItem.extra_info}
                         onChange={(e) => setNewItem({ ...newItem, extra_info: e.target.value })}
-                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#D4AF37]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#D4AF37]"}`}
+                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
                         placeholder="Например: opening, 12.05.2026, или пусто"
                       />
                     </div>
@@ -1304,7 +1304,7 @@ export default function AdminDashboard() {
                     <button
                       type="submit"
                       disabled={compressing}
-                      className="w-full bg-[#D4AF37] hover:bg-[#F3E5AB] text-black font-bold py-4 px-4 rounded-xl transition-all text-xs tracking-widest uppercase shadow-lg shadow-[#D4AF37]/10 active:scale-[0.98] disabled:opacity-50 cursor-pointer"
+                      className="w-full bg-[#F97316] hover:bg-[#FB923C] text-black font-bold py-4 px-4 rounded-xl transition-all text-xs tracking-widest uppercase shadow-lg shadow-[#F97316]/10 active:scale-[0.98] disabled:opacity-50 cursor-pointer"
                     >
                       {t.createBtn}
                     </button>
@@ -1341,7 +1341,7 @@ export default function AdminDashboard() {
                           type="text"
                           value={editingItem.title_bg}
                           onChange={(e) => setEditingItem({ ...editingItem, title_bg: e.target.value })}
-                          className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#D4AF37]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#D4AF37]"}`}
+                          className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
                         />
                       </div>
                       <div className="space-y-1.5">
@@ -1350,7 +1350,7 @@ export default function AdminDashboard() {
                           type="text"
                           value={editingItem.title_en}
                           onChange={(e) => setEditingItem({ ...editingItem, title_en: e.target.value })}
-                          className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#D4AF37]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#D4AF37]"}`}
+                          className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
                         />
                       </div>
                     </div>
@@ -1359,10 +1359,10 @@ export default function AdminDashboard() {
                       <label className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-1">
                         {t.postImage}
                       </label>
-                      <div className={`border-2 border-dashed rounded-2xl p-6 transition-all text-center relative flex flex-col items-center justify-center gap-2 group min-h-[140px] ${isDark ? "bg-[#1C1A18] border-white/10 hover:border-[#D4AF37]/50" : "bg-gray-50 border-gray-200 hover:border-[#D4AF37]/50"}`}>
+                      <div className={`border-2 border-dashed rounded-2xl p-6 transition-all text-center relative flex flex-col items-center justify-center gap-2 group min-h-[140px] ${isDark ? "bg-[#1C1A18] border-white/10 hover:border-[#F97316]/50" : "bg-gray-50 border-gray-200 hover:border-[#F97316]/50"}`}>
                         {compressing ? (
                           <div className="flex flex-col items-center gap-2">
-                            <RefreshCw className="w-6 h-6 text-[#D4AF37] animate-spin" />
+                            <RefreshCw className="w-6 h-6 text-[#F97316] animate-spin" />
                             <span className="text-xs text-gray-400">{t.compressing}</span>
                           </div>
                         ) : editingItem.image_url ? (
@@ -1382,7 +1382,7 @@ export default function AdminDashboard() {
                           </div>
                         ) : (
                           <label className="cursor-pointer w-full h-full flex flex-col items-center justify-center py-4">
-                            <ImageIcon className="w-8 h-8 text-gray-500 group-hover:text-[#D4AF37] transition-colors mb-2" />
+                            <ImageIcon className="w-8 h-8 text-gray-500 group-hover:text-[#F97316] transition-colors mb-2" />
                             <span className="text-xs text-gray-400 font-semibold group-hover:text-white transition-colors">
                               {t.clickToUpload}
                             </span>
@@ -1406,7 +1406,7 @@ export default function AdminDashboard() {
                         rows={3}
                         value={editingItem.desc_bg}
                         onChange={(e) => setEditingItem({ ...editingItem, desc_bg: e.target.value })}
-                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#D4AF37]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#D4AF37]"}`}
+                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
                       />
                     </div>
 
@@ -1416,7 +1416,7 @@ export default function AdminDashboard() {
                         rows={3}
                         value={editingItem.desc_en}
                         onChange={(e) => setEditingItem({ ...editingItem, desc_en: e.target.value })}
-                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#D4AF37]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#D4AF37]"}`}
+                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
                       />
                     </div>
 
@@ -1426,7 +1426,7 @@ export default function AdminDashboard() {
                         type="text"
                         value={editingItem.extra_info}
                         onChange={(e) => setEditingItem({ ...editingItem, extra_info: e.target.value })}
-                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#D4AF37]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#D4AF37]"}`}
+                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
                       />
                     </div>
 
@@ -1434,7 +1434,7 @@ export default function AdminDashboard() {
                       <button
                         type="submit"
                         disabled={compressing}
-                        className="flex-grow bg-[#D4AF37] hover:bg-[#F3E5AB] text-black font-bold py-3.5 px-4 rounded-xl transition-all text-xs tracking-widest uppercase shadow-md shadow-[#D4AF37]/10 active:scale-[0.98] disabled:opacity-50 cursor-pointer"
+                        className="flex-grow bg-[#F97316] hover:bg-[#FB923C] text-black font-bold py-3.5 px-4 rounded-xl transition-all text-xs tracking-widest uppercase shadow-md shadow-[#F97316]/10 active:scale-[0.98] disabled:opacity-50 cursor-pointer"
                       >
                         {t.saveBtn}
                       </button>

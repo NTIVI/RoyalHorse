@@ -30,7 +30,7 @@ export default function ContactsPage() {
             <h1 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-gray-900 mb-4">
               {t[lang].contactsTitle}
             </h1>
-            <p className="text-lg text-[#D4AF37] font-serif italic">
+            <p className="text-lg text-[#F97316] font-serif italic">
               {t[lang].contactsSub}
             </p>
           </div>
@@ -41,7 +41,7 @@ export default function ContactsPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 {/* Phone */}
                 <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm space-y-4">
-                  <div className="w-10 h-10 rounded-2xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37]">
+                  <div className="w-10 h-10 rounded-2xl bg-[#F97316]/10 flex items-center justify-center text-[#F97316]">
                     <Phone className="w-5 h-5" />
                   </div>
                   <div className="space-y-1">
@@ -52,7 +52,7 @@ export default function ContactsPage() {
 
                 {/* Email */}
                 <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm space-y-4">
-                  <div className="w-10 h-10 rounded-2xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37]">
+                  <div className="w-10 h-10 rounded-2xl bg-[#F97316]/10 flex items-center justify-center text-[#F97316]">
                     <Mail className="w-5 h-5" />
                   </div>
                   <div className="space-y-1">
@@ -63,7 +63,7 @@ export default function ContactsPage() {
 
                 {/* Location */}
                 <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm space-y-4 sm:col-span-2">
-                  <div className="w-10 h-10 rounded-2xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37]">
+                  <div className="w-10 h-10 rounded-2xl bg-[#F97316]/10 flex items-center justify-center text-[#F97316]">
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div className="space-y-1">
@@ -78,7 +78,7 @@ export default function ContactsPage() {
 
                 {/* Working Hours */}
                 <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm space-y-4 sm:col-span-2">
-                  <div className="w-10 h-10 rounded-2xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37]">
+                  <div className="w-10 h-10 rounded-2xl bg-[#F97316]/10 flex items-center justify-center text-[#F97316]">
                     <Clock className="w-5 h-5" />
                   </div>
                   <div className="space-y-1">

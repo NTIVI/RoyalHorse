@@ -23,12 +23,12 @@ export default function Header() {
   ];
 
   return (
-    <nav className="sticky top-0 z-45 bg-[#FCFBF9]/90 backdrop-blur-lg border-b border-[#D4AF37]/15 py-4 px-4 sm:px-6 lg:px-8">
+    <nav className="sticky top-0 z-45 bg-[#FCFBF9]/90 backdrop-blur-lg border-b border-[#F97316]/15 py-4 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <span className="font-serif text-2xl font-bold tracking-[0.15em] text-[#111111] group-hover:text-gold transition-colors duration-300">
-            ROYAL<span className="text-[#D4AF37] group-hover:text-black transition-colors duration-300">HORSE</span>
+          <span className="font-serif text-2xl font-bold tracking-[0.15em] text-[#111111] group-hover:text-orange-500 transition-colors duration-300">
+            ROYAL<span className="text-[#F97316] group-hover:text-black transition-colors duration-300">HORSE</span>
           </span>
         </Link>
 
@@ -40,7 +40,7 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`transition-colors hover:text-gold ${isActive ? "text-[#D4AF37] font-bold" : ""}`}
+                className={`transition-colors hover:text-orange-500 ${isActive ? "text-[#F97316] font-bold" : ""}`}
               >
                 {link.label}
               </Link>
@@ -51,7 +51,7 @@ export default function Header() {
         {/* Right side controls (Language & CTA) */}
         <div className="hidden md:flex items-center gap-6">
           {/* Language Switcher */}
-          <div className="flex bg-[#111111]/5 p-1 rounded-full text-xs font-bold border border-[#D4AF37]/10">
+          <div className="flex bg-[#111111]/5 p-1 rounded-full text-xs font-bold border border-[#F97316]/10">
             <button
               onClick={() => setLang("bg")}
               className={`px-3 py-1.5 rounded-full transition-all ${
@@ -81,7 +81,7 @@ export default function Header() {
           {/* CRM Booking CTA */}
           <Link
             href="/contacts"
-            className="bg-[#111111] hover:bg-[#D4AF37] hover:text-[#111111] text-[#FCFBF9] font-sans text-xs uppercase tracking-[0.15em] font-semibold px-6 py-3 rounded-full transition-all duration-300 shadow-md border border-[#D4AF37]/20 hover:border-transparent active:scale-95"
+            className="bg-[#111111] hover:bg-[#F97316] hover:text-[#111111] text-[#FCFBF9] font-sans text-xs uppercase tracking-[0.15em] font-semibold px-6 py-3 rounded-full transition-all duration-300 shadow-md border border-[#F97316]/20 hover:border-transparent active:scale-95"
           >
             {t[lang].navBookBtn}
           </Link>
@@ -98,7 +98,7 @@ export default function Header() {
           </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="text-black p-1 hover:text-[#D4AF37] transition-colors cursor-pointer"
+            className="text-black p-1 hover:text-[#F97316] transition-colors cursor-pointer"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -115,7 +115,7 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block text-base font-semibold transition-colors hover:text-gold ${isActive ? "text-[#D4AF37] font-bold" : "text-gray-800"}`}
+                className={`block text-base font-semibold transition-colors hover:text-orange-500 ${isActive ? "text-[#F97316] font-bold" : "text-gray-800"}`}
               >
                 {link.label}
               </Link>

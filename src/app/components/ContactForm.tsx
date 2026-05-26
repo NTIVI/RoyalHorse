@@ -106,7 +106,7 @@ export default function ContactForm({ initialMessage = "", initialService = "" }
   };
 
   return (
-    <div className="bg-gradient-to-br from-[#FCFBF9] to-white border border-[#D4AF37]/15 rounded-3xl p-6 sm:p-10 shadow-xl relative overflow-hidden">
+    <div className="bg-gradient-to-br from-[#FCFBF9] to-white border border-[#F97316]/15 rounded-3xl p-6 sm:p-10 shadow-xl relative overflow-hidden">
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-gold/5 to-transparent rounded-full filter blur-2xl pointer-events-none" />
 
       <h3 className="text-2xl font-serif font-bold text-gray-900 mb-8 tracking-wide relative z-10">{t[lang].formTitle}</h3>
@@ -216,7 +216,7 @@ export default function ContactForm({ initialMessage = "", initialService = "" }
             className="w-full bg-[#111111] hover:bg-gradient-to-r hover:from-gold-dark hover:via-gold hover:to-gold-light hover:text-[#111111] text-white font-semibold text-xs uppercase tracking-widest py-4.5 rounded-xl shadow-lg transition-all duration-500 flex items-center justify-center gap-2 active:scale-98 cursor-pointer"
           >
             {isSubmitting ? (
-              <RefreshCw className="w-4 h-4 animate-spin text-gold" />
+              <RefreshCw className="w-4 h-4 animate-spin text-orange-500" />
             ) : (
               <span>{t[lang].formSubmit}</span>
             )}

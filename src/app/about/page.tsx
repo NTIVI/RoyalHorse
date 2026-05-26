@@ -71,7 +71,7 @@ export default function AboutPage() {
             <h1 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-gray-900 mb-4">
               {t[lang].aboutTitle}
             </h1>
-            <p className="text-lg text-[#D4AF37] font-serif italic">
+            <p className="text-lg text-[#F97316] font-serif italic">
               {t[lang].aboutSub}
             </p>
           </div>
@@ -83,7 +83,7 @@ export default function AboutPage() {
                 onClick={() => setActiveTab("place")}
                 className={`pb-4 text-sm font-semibold tracking-wider uppercase border-b-2 transition-all duration-300 ${
                   activeTab === "place"
-                    ? "border-[#D4AF37] text-gray-900"
+                    ? "border-[#F97316] text-gray-900"
                     : "border-transparent text-gray-500 hover:text-gray-900"
                 }`}
               >
@@ -93,7 +93,7 @@ export default function AboutPage() {
                 onClick={() => setActiveTab("team")}
                 className={`pb-4 text-sm font-semibold tracking-wider uppercase border-b-2 transition-all duration-300 ${
                   activeTab === "team"
-                    ? "border-[#D4AF37] text-gray-900"
+                    ? "border-[#F97316] text-gray-900"
                     : "border-transparent text-gray-500 hover:text-gray-900"
                 }`}
               >
@@ -103,7 +103,7 @@ export default function AboutPage() {
                 onClick={() => setActiveTab("horses")}
                 className={`pb-4 text-sm font-semibold tracking-wider uppercase border-b-2 transition-all duration-300 ${
                   activeTab === "horses"
-                    ? "border-[#D4AF37] text-gray-900"
+                    ? "border-[#F97316] text-gray-900"
                     : "border-transparent text-gray-500 hover:text-gray-900"
                 }`}
               >
@@ -191,7 +191,7 @@ export default function AboutPage() {
                         <h4 className="font-serif text-lg font-bold text-gray-900">
                           {lang === "bg" ? member.title_bg : lang === "ru" ? translate(member.title_bg, "ru") : member.title_en}
                         </h4>
-                        <p className="text-xs uppercase tracking-widest text-[#D4AF37] font-semibold mt-1">
+                        <p className="text-xs uppercase tracking-widest text-[#F97316] font-semibold mt-1">
                           {lang === "bg" ? member.desc_bg : lang === "ru" ? translate(member.desc_bg, "ru") : member.desc_en}
                         </p>
                       </div>

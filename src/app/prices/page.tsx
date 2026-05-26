@@ -83,7 +83,7 @@ export default function PricesPage() {
             <h1 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-gray-900 mb-4">
               {t[lang].pricesTitle}
             </h1>
-            <p className="text-lg text-[#D4AF37] font-serif italic">
+            <p className="text-lg text-[#F97316] font-serif italic">
               {t[lang].pricesSub}
             </p>
           </div>
@@ -97,7 +97,7 @@ export default function PricesPage() {
                   onClick={() => setActiveTab("riding")}
                   className={`pb-4 text-xs sm:text-sm font-semibold tracking-wider uppercase border-b-2 px-4 transition-all duration-300 ${
                     activeTab === "riding"
-                      ? "border-[#D4AF37] text-gray-900"
+                      ? "border-[#F97316] text-gray-900"
                       : "border-transparent text-gray-400 hover:text-gray-900"
                   }`}
                 >
@@ -107,7 +107,7 @@ export default function PricesPage() {
                   onClick={() => setActiveTab("services")}
                   className={`pb-4 text-xs sm:text-sm font-semibold tracking-wider uppercase border-b-2 px-4 transition-all duration-300 ${
                     activeTab === "services"
-                      ? "border-[#D4AF37] text-gray-900"
+                      ? "border-[#F97316] text-gray-900"
                       : "border-transparent text-gray-400 hover:text-gray-900"
                   }`}
                 >
@@ -117,7 +117,7 @@ export default function PricesPage() {
                   onClick={() => setActiveTab("tours")}
                   className={`pb-4 text-xs sm:text-sm font-semibold tracking-wider uppercase border-b-2 px-4 transition-all duration-300 ${
                     activeTab === "tours"
-                      ? "border-[#D4AF37] text-gray-900"
+                      ? "border-[#F97316] text-gray-900"
                       : "border-transparent text-gray-400 hover:text-gray-900"
                   }`}
                 >
@@ -138,7 +138,7 @@ export default function PricesPage() {
                         <h4 className="font-semibold text-gray-900 text-sm sm:text-base">
                           {lang === "bg" ? item.nameBg : lang === "ru" ? item.nameRu : item.nameEn}
                         </h4>
-                        <p className="text-xs text-[#D4AF37] font-semibold">
+                        <p className="text-xs text-[#F97316] font-semibold">
                           {item.price} € / {lang === "bg" ? item.unitBg : lang === "ru" ? item.unitRu : item.unitEn}
                         </p>
                       </div>
@@ -157,7 +157,7 @@ export default function PricesPage() {
                         )}
                         <button
                           onClick={() => handleAdd(item)}
-                          className="w-8 h-8 rounded-full bg-[#111111] hover:bg-[#D4AF37] text-white hover:text-black flex items-center justify-center transition-colors"
+                          className="w-8 h-8 rounded-full bg-[#111111] hover:bg-[#F97316] text-white hover:text-black flex items-center justify-center transition-colors"
                         >
                           <Plus className="w-4 h-4" />
                         </button>
@@ -169,9 +169,9 @@ export default function PricesPage() {
             </div>
 
             {/* Cart Calculator Widget Column */}
-            <div className="bg-white border border-[#D4AF37]/15 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6 lg:sticky lg:top-28">
+            <div className="bg-white border border-[#F97316]/15 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6 lg:sticky lg:top-28">
               <div className="flex items-center gap-3 pb-4 border-b border-gray-100">
-                <Calculator className="w-6 h-6 text-[#D4AF37]" />
+                <Calculator className="w-6 h-6 text-[#F97316]" />
                 <h3 className="text-lg font-serif font-bold text-gray-900">{t[lang].calcSelected}</h3>
               </div>
 
@@ -208,7 +208,7 @@ export default function PricesPage() {
                   <div className="border-t border-gray-100 pt-6 space-y-4">
                     <div className="flex justify-between text-base font-bold text-gray-900">
                       <span>{t[lang].calcTotal}</span>
-                      <span className="text-xl text-[#D4AF37]">{getTotalPrice()} €</span>
+                      <span className="text-xl text-[#F97316]">{getTotalPrice()} €</span>
                     </div>
 
                     <div className="grid grid-cols-5 gap-2.5">
@@ -221,7 +221,7 @@ export default function PricesPage() {
                       </button>
                       <button
                         onClick={handleBook}
-                        className="col-span-4 bg-[#111111] hover:bg-[#D4AF37] hover:text-black text-white font-semibold text-xs uppercase tracking-widest py-4 rounded-xl shadow-md transition-colors duration-300 text-center cursor-pointer"
+                        className="col-span-4 bg-[#111111] hover:bg-[#F97316] hover:text-black text-white font-semibold text-xs uppercase tracking-widest py-4 rounded-xl shadow-md transition-colors duration-300 text-center cursor-pointer"
                       >
                         {t[lang].calcBookNow}
                       </button>

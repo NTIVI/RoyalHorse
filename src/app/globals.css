@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --color-gold: #D4AF37;
-  --color-gold-light: #F3E5AB;
-  --color-gold-dark: #AA820A;
+  --color-gold: #F97316;
+  --color-gold-light: #FB923C;
+  --color-gold-dark: #EA580C;
   --color-rich-black: #111111;
   --color-leather: #2B1D12;
   --color-cream: #FCFBF9;
@@ -31,11 +31,11 @@ body {
   background: #0f0e0d;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #AA820A, #D4AF37);
+  background: linear-gradient(180deg, #EA580C, #F97316);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #F3E5AB;
+  background: #FB923C;
 }
 
 /* Lenis smooth scrolling */
@@ -71,8 +71,8 @@ html.lenis, html.lenis body {
 }
 
 /* Luxury Text Gradient */
-.text-gold-gradient {
-  background: linear-gradient(135deg, #AA820A 0%, #D4AF37 50%, #F3E5AB 100%);
+.text-orange-500-gradient {
+  background: linear-gradient(135deg, #EA580C 0%, #F97316 50%, #FB923C 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

@@ -74,7 +74,7 @@ export default function HomeView() {
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-20 text-left">
             <div className="max-w-2xl space-y-6">
-              <span className="hero-animate inline-block text-xs font-bold uppercase tracking-[0.25em] text-[#D4AF37] border-l-2 border-[#D4AF37] pl-3">
+              <span className="hero-animate inline-block text-xs font-bold uppercase tracking-[0.25em] text-[#F97316] border-l-2 border-[#F97316] pl-3">
                 {t[lang].siteTitle}
               </span>
               <h1 className="hero-animate text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-white tracking-tight leading-tight">
@@ -87,7 +87,7 @@ export default function HomeView() {
               <div className="hero-animate pt-4 flex flex-wrap gap-4">
                 <Link
                   href="/contacts"
-                  className="bg-[#D4AF37] hover:bg-[#F3E5AB] text-[#090807] font-semibold text-xs uppercase tracking-widest px-8 py-4 rounded-full shadow-lg transition-colors cursor-pointer"
+                  className="bg-[#F97316] hover:bg-[#FB923C] text-[#090807] font-semibold text-xs uppercase tracking-widest px-8 py-4 rounded-full shadow-lg transition-colors cursor-pointer"
                 >
                   {t[lang].heroCTA1}
                 </Link>
@@ -106,7 +106,7 @@ export default function HomeView() {
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-100">
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="flex flex-col items-center text-center p-6 space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37]">
+              <div className="w-12 h-12 rounded-2xl bg-[#F97316]/10 flex items-center justify-center text-[#F97316]">
                 <Compass className="w-6 h-6" />
               </div>
               <h3 className="font-serif text-lg font-bold text-gray-900">
@@ -122,7 +122,7 @@ export default function HomeView() {
             </div>
 
             <div className="flex flex-col items-center text-center p-6 space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37]">
+              <div className="w-12 h-12 rounded-2xl bg-[#F97316]/10 flex items-center justify-center text-[#F97316]">
                 <ShieldCheck className="w-6 h-6" />
               </div>
               <h3 className="font-serif text-lg font-bold text-gray-900">
@@ -138,7 +138,7 @@ export default function HomeView() {
             </div>
 
             <div className="flex flex-col items-center text-center p-6 space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37]">
+              <div className="w-12 h-12 rounded-2xl bg-[#F97316]/10 flex items-center justify-center text-[#F97316]">
                 <Heart className="w-6 h-6" />
               </div>
               <h3 className="font-serif text-lg font-bold text-gray-900">
@@ -192,7 +192,7 @@ export default function HomeView() {
                   </p>
                   <Link
                     href="/riding"
-                    className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#D4AF37] hover:text-[#111111] transition-colors"
+                    className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#F97316] hover:text-[#111111] transition-colors"
                   >
                     <span>{lang === "bg" ? "Виж детайли за ездата" : lang === "ru" ? "Подробнее о верховой езде" : "View Riding Details"}</span>
                     <ArrowRight className="w-4 h-4" />
@@ -220,7 +220,7 @@ export default function HomeView() {
                   </p>
                   <Link
                     href="/services"
-                    className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#D4AF37] hover:text-[#111111] transition-colors"
+                    className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#F97316] hover:text-[#111111] transition-colors"
                   >
                     <span>{lang === "bg" ? "Виж всички услуги" : lang === "ru" ? "Все услуги" : "View All Services"}</span>
                     <ArrowRight className="w-4 h-4" />
