@@ -19,16 +19,17 @@ export default function Header() {
     { href: "/services", label: t[lang].navServices },
     { href: "/prices", label: t[lang].navPrices },
     { href: "/gallery", label: t[lang].navGallery },
+    { href: "/articles", label: t[lang].navArticles },
     { href: "/contacts", label: t[lang].navContacts },
   ];
 
   return (
-    <nav className="sticky top-0 z-45 bg-[#FCFBF9]/90 backdrop-blur-lg border-b border-[#F97316]/15 py-4 px-4 sm:px-6 lg:px-8">
+    <nav className="sticky top-0 z-45 bg-[#E8D1A7]/90 backdrop-blur-lg border-b border-[#84592B]/15 py-4 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <span className="font-serif text-2xl font-bold tracking-[0.15em] text-[#111111] group-hover:text-orange-500 transition-colors duration-300">
-            ROYAL<span className="text-[#F97316] group-hover:text-black transition-colors duration-300">HORSE</span>
+          <span className="font-serif text-2xl font-bold tracking-[0.15em] text-[#442D1C] group-hover:text-orange-500 transition-colors duration-300">
+            ROYAL<span className="text-[#84592B] group-hover:text-black transition-colors duration-300">HORSE</span>
           </span>
         </Link>
 
@@ -40,7 +41,7 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`transition-colors hover:text-orange-500 ${isActive ? "text-[#F97316] font-bold" : ""}`}
+                className={`transition-colors hover:text-orange-500 ${isActive ? "text-[#84592B] font-bold" : ""}`}
               >
                 {link.label}
               </Link>
@@ -51,11 +52,11 @@ export default function Header() {
         {/* Right side controls (Language & CTA) */}
         <div className="hidden md:flex items-center gap-6">
           {/* Language Switcher */}
-          <div className="flex bg-[#111111]/5 p-1 rounded-full text-xs font-bold border border-[#F97316]/10">
+          <div className="flex bg-[#442D1C]/5 p-1 rounded-full text-xs font-bold border border-[#84592B]/10">
             <button
               onClick={() => setLang("bg")}
               className={`px-3 py-1.5 rounded-full transition-all ${
-                lang === "bg" ? "bg-[#111111] text-[#FCFBF9] shadow-sm" : "text-gray-500 hover:text-black cursor-pointer"
+                lang === "bg" ? "bg-[#442D1C] text-[#E8D1A7] shadow-sm" : "text-gray-500 hover:text-black cursor-pointer"
               }`}
             >
               BG
@@ -63,7 +64,7 @@ export default function Header() {
             <button
               onClick={() => setLang("ru")}
               className={`px-3 py-1.5 rounded-full transition-all ${
-                lang === "ru" ? "bg-[#111111] text-[#FCFBF9] shadow-sm" : "text-gray-500 hover:text-black cursor-pointer"
+                lang === "ru" ? "bg-[#442D1C] text-[#E8D1A7] shadow-sm" : "text-gray-500 hover:text-black cursor-pointer"
               }`}
             >
               RU
@@ -71,7 +72,7 @@ export default function Header() {
             <button
               onClick={() => setLang("en")}
               className={`px-3 py-1.5 rounded-full transition-all ${
-                lang === "en" ? "bg-[#111111] text-[#FCFBF9] shadow-sm" : "text-gray-500 hover:text-black cursor-pointer"
+                lang === "en" ? "bg-[#442D1C] text-[#E8D1A7] shadow-sm" : "text-gray-500 hover:text-black cursor-pointer"
               }`}
             >
               EN
@@ -81,7 +82,7 @@ export default function Header() {
           {/* CRM Booking CTA */}
           <Link
             href="/contacts"
-            className="bg-[#111111] hover:bg-[#F97316] hover:text-[#111111] text-[#FCFBF9] font-sans text-xs uppercase tracking-[0.15em] font-semibold px-6 py-3 rounded-full transition-all duration-300 shadow-md border border-[#F97316]/20 hover:border-transparent active:scale-95"
+            className="btn-animate bg-[#442D1C] hover:bg-[#84592B] hover:text-[#442D1C] text-[#E8D1A7] font-sans text-xs uppercase tracking-[0.15em] font-semibold px-6 py-3 rounded-full shadow-md border border-[#84592B]/20 hover:border-transparent"
           >
             {t[lang].navBookBtn}
           </Link>
@@ -98,7 +99,7 @@ export default function Header() {
           </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="text-black p-1 hover:text-[#F97316] transition-colors cursor-pointer"
+            className="text-black p-1 hover:text-[#84592B] transition-colors cursor-pointer"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -115,7 +116,7 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block text-base font-semibold transition-colors hover:text-orange-500 ${isActive ? "text-[#F97316] font-bold" : "text-gray-800"}`}
+                className={`block text-base font-semibold transition-colors hover:text-orange-500 ${isActive ? "text-[#84592B] font-bold" : "text-gray-800"}`}
               >
                 {link.label}
               </Link>
@@ -124,7 +125,7 @@ export default function Header() {
           <Link
             href="/contacts"
             onClick={() => setMobileMenuOpen(false)}
-            className="block bg-[#111111] text-white text-center py-3 rounded-xl font-semibold text-sm"
+            className="btn-animate block bg-[#442D1C] text-white text-center py-3 rounded-xl font-semibold text-sm"
           >
             {t[lang].navBookBtn}
           </Link>

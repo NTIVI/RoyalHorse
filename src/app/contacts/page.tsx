@@ -23,14 +23,14 @@ export default function ContactsPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[#FCFBF9] text-gray-900 py-16 px-4 sm:px-6 lg:px-8">
+      <main className="min-h-screen bg-[#E8D1A7] text-gray-900 py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-20">
             <h1 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-gray-900 mb-4">
               {t[lang].contactsTitle}
             </h1>
-            <p className="text-lg text-[#F97316] font-serif italic">
+            <p className="text-lg text-[#84592B] font-serif italic">
               {t[lang].contactsSub}
             </p>
           </div>
@@ -41,7 +41,7 @@ export default function ContactsPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 {/* Phone */}
                 <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm space-y-4">
-                  <div className="w-10 h-10 rounded-2xl bg-[#F97316]/10 flex items-center justify-center text-[#F97316]">
+                  <div className="w-10 h-10 rounded-2xl bg-[#84592B]/10 flex items-center justify-center text-[#84592B]">
                     <Phone className="w-5 h-5" />
                   </div>
                   <div className="space-y-1">
@@ -52,7 +52,7 @@ export default function ContactsPage() {
 
                 {/* Email */}
                 <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm space-y-4">
-                  <div className="w-10 h-10 rounded-2xl bg-[#F97316]/10 flex items-center justify-center text-[#F97316]">
+                  <div className="w-10 h-10 rounded-2xl bg-[#84592B]/10 flex items-center justify-center text-[#84592B]">
                     <Mail className="w-5 h-5" />
                   </div>
                   <div className="space-y-1">
@@ -63,7 +63,7 @@ export default function ContactsPage() {
 
                 {/* Location */}
                 <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm space-y-4 sm:col-span-2">
-                  <div className="w-10 h-10 rounded-2xl bg-[#F97316]/10 flex items-center justify-center text-[#F97316]">
+                  <div className="w-10 h-10 rounded-2xl bg-[#84592B]/10 flex items-center justify-center text-[#84592B]">
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div className="space-y-1">
@@ -78,7 +78,7 @@ export default function ContactsPage() {
 
                 {/* Working Hours */}
                 <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm space-y-4 sm:col-span-2">
-                  <div className="w-10 h-10 rounded-2xl bg-[#F97316]/10 flex items-center justify-center text-[#F97316]">
+                  <div className="w-10 h-10 rounded-2xl bg-[#84592B]/10 flex items-center justify-center text-[#84592B]">
                     <Clock className="w-5 h-5" />
                   </div>
                   <div className="space-y-1">

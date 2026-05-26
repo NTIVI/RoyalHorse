@@ -61,25 +61,25 @@ export default function RidingPage() {
 
   const getIcon = (titleBg: string) => {
     if (titleBg.includes("деца") || titleBg.includes("Kids") || titleBg.includes("pony")) {
-      return <GraduationCap className="w-8 h-8 text-[#F97316]" />;
+      return <GraduationCap className="w-8 h-8 text-[#84592B]" />;
     }
     if (titleBg.includes("преходи") || titleBg.includes("Разходки") || titleBg.includes("Trails") || titleBg.includes("excursion")) {
-      return <Trees className="w-8 h-8 text-[#F97316]" />;
+      return <Trees className="w-8 h-8 text-[#84592B]" />;
     }
-    return <Compass className="w-8 h-8 text-[#F97316]" />;
+    return <Compass className="w-8 h-8 text-[#84592B]" />;
   };
 
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[#FCFBF9] text-gray-900 py-16 px-4 sm:px-6 lg:px-8">
+      <main className="min-h-screen bg-[#E8D1A7] text-gray-900 py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-20">
             <h1 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-gray-900 mb-4">
               {t[lang].ridingTitle}
             </h1>
-            <p className="text-lg text-[#F97316] font-serif italic">
+            <p className="text-lg text-[#84592B] font-serif italic">
               {t[lang].ridingSub}
             </p>
           </div>
@@ -100,7 +100,7 @@ export default function RidingPage() {
                 >
                   {/* Text Column */}
                   <div className="w-full lg:w-1/2 space-y-6">
-                    <div className="inline-flex p-3 bg-white border border-[#F97316]/20 rounded-2xl shadow-md">
+                    <div className="inline-flex p-3 bg-white border border-[#84592B]/20 rounded-2xl shadow-md">
                       {getIcon(item.title_bg)}
                     </div>
                     <h2 className="text-3xl font-serif font-bold text-gray-900">{title}</h2>
@@ -109,7 +109,7 @@ export default function RidingPage() {
                     <div className="pt-4">
                       <Link
                         href={`/contacts?service=${encodeURIComponent(title)}`}
-                        className="inline-flex bg-[#111111] hover:bg-[#F97316] hover:text-[#111111] text-white text-xs uppercase tracking-widest font-semibold px-8 py-4 rounded-full transition-all duration-300 border border-transparent shadow-md hover:shadow-lg active:scale-95 cursor-pointer"
+                        className="inline-flex bg-[#442D1C] hover:bg-[#84592B] hover:text-[#442D1C] text-white text-xs uppercase tracking-widest font-semibold px-8 py-4 rounded-full transition-all duration-300 border border-transparent shadow-md hover:shadow-lg active:scale-95 cursor-pointer"
                       >
                         {lang === "bg" ? "Заяви час за тази услуга" : lang === "ru" ? "Забронировать эту услугу" : "Book this service"}
                       </Link>

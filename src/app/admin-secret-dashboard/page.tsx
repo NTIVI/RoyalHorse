@@ -578,9 +578,9 @@ export default function AdminDashboard() {
 
   if (isAuthenticated === null) {
     return (
-      <div className={`min-h-screen flex items-center justify-center transition-colors duration-300 ${isDark ? "bg-[#090807]" : "bg-gray-100"}`}>
+      <div className={`min-h-screen flex items-center justify-center transition-colors duration-300 ${isDark ? "bg-[#442D1C]" : "bg-gray-100"}`}>
         <div className="flex flex-col items-center gap-3">
-          <RefreshCw className="w-8 h-8 text-[#F97316] animate-spin" />
+          <RefreshCw className="w-8 h-8 text-[#84592B] animate-spin" />
           <p className={`text-xs tracking-widest font-mono ${isDark ? "text-gray-400" : "text-gray-500"}`}>LOADING PANEL...</p>
         </div>
       </div>
@@ -589,7 +589,7 @@ export default function AdminDashboard() {
 
   if (!isAuthenticated) {
     return (
-      <div className={`min-h-screen flex items-center justify-center px-4 font-sans relative overflow-hidden transition-colors duration-300 ${isDark ? "bg-[#090807]" : "bg-gray-100"}`}>
+      <div className={`min-h-screen flex items-center justify-center px-4 font-sans relative overflow-hidden transition-colors duration-300 ${isDark ? "bg-[#442D1C]" : "bg-gray-100"}`}>
         {/* Header Language & Theme Toggles for Login Screen */}
         <div className="absolute top-6 right-6 flex items-center gap-3 z-20">
           <div className={`flex items-center p-1 rounded-xl border ${isDark ? "bg-black/20 border-white/5" : "bg-white border-black/10 shadow-sm"}`}>
@@ -598,7 +598,7 @@ export default function AdminDashboard() {
                 key={langKey}
                 onClick={() => setAdminLang(langKey)}
                 className={`text-[10px] font-bold px-2 py-1 rounded-lg uppercase transition-all cursor-pointer ${adminLang === langKey
-                    ? "bg-[#F97316] text-black"
+                    ? "bg-[#84592B] text-black"
                     : "text-gray-400 hover:text-white"
                   }`}
               >
@@ -608,20 +608,20 @@ export default function AdminDashboard() {
           </div>
           <button
             onClick={() => setTheme(isDark ? "light" : "dark")}
-            className={`p-2.5 rounded-xl border transition-all cursor-pointer ${isDark ? "bg-black/20 border-white/5 hover:bg-black/30 text-[#F97316]" : "bg-white border-black/10 hover:bg-gray-50 text-orange-800 shadow-sm"
+            className={`p-2.5 rounded-xl border transition-all cursor-pointer ${isDark ? "bg-black/20 border-white/5 hover:bg-black/30 text-[#84592B]" : "bg-white border-black/10 hover:bg-gray-50 text-orange-800 shadow-sm"
               }`}
           >
             {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </button>
         </div>
 
-        <div className="absolute top-[-10%] right-[-10%] w-96 h-96 bg-[#F97316]/5 rounded-full filter blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-96 h-96 bg-[#F97316]/3 rounded-full filter blur-[120px] pointer-events-none" />
+        <div className="absolute top-[-10%] right-[-10%] w-96 h-96 bg-[#84592B]/5 rounded-full filter blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-96 h-96 bg-[#84592B]/3 rounded-full filter blur-[120px] pointer-events-none" />
 
-        <div className={`max-w-md w-full backdrop-blur-md border rounded-3xl p-10 shadow-2xl space-y-8 relative z-10 transition-colors ${isDark ? "bg-[#121110]/80 border-[#F97316]/15" : "bg-white/95 border-black/5"}`}>
+        <div className={`max-w-md w-full backdrop-blur-md border rounded-3xl p-10 shadow-2xl space-y-8 relative z-10 transition-colors ${isDark ? "bg-[#121110]/80 border-[#84592B]/15" : "bg-white/95 border-black/5"}`}>
           <div className="text-center space-y-2">
             <span className={`font-serif text-2xl font-bold tracking-[0.2em] ${isDark ? "text-white" : "text-gray-900"}`}>
-              ROYAL<span className="text-[#F97316]">HORSE</span>
+              ROYAL<span className="text-[#84592B]">HORSE</span>
             </span>
             <p className="text-[10px] text-gray-500 uppercase tracking-[0.2em] font-semibold mt-1">{t.panelTitle}</p>
           </div>
@@ -635,7 +635,7 @@ export default function AdminDashboard() {
                   required
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className={`w-full border rounded-xl py-3.5 px-4 pl-11 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/25 transition-all ${isDark ? "bg-[#1C1A18] border-[#F97316]/10 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
+                  className={`w-full border rounded-xl py-3.5 px-4 pl-11 text-sm focus:outline-none focus:ring-1 focus:ring-[#84592B]/25 transition-all ${isDark ? "bg-[#1C1A18] border-[#84592B]/10 text-white focus:border-[#84592B]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#84592B]"}`}
                   placeholder="admin"
                 />
                 <User className="absolute left-4 top-4 w-4 h-4 text-gray-500" />
@@ -650,7 +650,7 @@ export default function AdminDashboard() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className={`w-full border rounded-xl py-3.5 px-4 pl-11 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/25 transition-all ${isDark ? "bg-[#1C1A18] border-[#F97316]/10 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
+                  className={`w-full border rounded-xl py-3.5 px-4 pl-11 text-sm focus:outline-none focus:ring-1 focus:ring-[#84592B]/25 transition-all ${isDark ? "bg-[#1C1A18] border-[#84592B]/10 text-white focus:border-[#84592B]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#84592B]"}`}
                   placeholder="••••••••"
                 />
                 <Lock className="absolute left-4 top-4 w-4 h-4 text-gray-500" />
@@ -665,7 +665,7 @@ export default function AdminDashboard() {
 
             <button
               type="submit"
-              className="w-full bg-[#F97316] hover:bg-[#FB923C] text-black font-bold py-4 px-4 rounded-xl transition-all text-xs tracking-widest uppercase shadow-lg shadow-[#F97316]/10 active:scale-[0.98] cursor-pointer"
+              className="w-full bg-[#84592B] hover:bg-[#9D9167] text-black font-bold py-4 px-4 rounded-xl transition-all text-xs tracking-widest uppercase shadow-lg shadow-[#84592B]/10 active:scale-[0.98] cursor-pointer"
             >
               {t.loginBtn}
             </button>
@@ -682,19 +682,19 @@ export default function AdminDashboard() {
       <aside className={`w-full lg:w-72 lg:h-screen lg:sticky lg:top-0 border-b lg:border-b-0 lg:border-r flex flex-col shrink-0 z-40 transition-colors ${isDark ? "bg-[#121110] border-white/5" : "bg-white border-gray-200/80 shadow-sm"}`}>
         <div className="p-4 lg:p-6 border-b border-white/5 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="bg-[#F97316] text-black w-8 h-8 rounded-lg font-serif font-bold flex items-center justify-center text-sm shadow-md shadow-[#F97316]/15">
+            <div className="bg-[#84592B] text-black w-8 h-8 rounded-lg font-serif font-bold flex items-center justify-center text-sm shadow-md shadow-[#84592B]/15">
               RH
             </div>
             <div>
               <h2 className={`text-sm font-serif font-bold tracking-wide leading-tight ${isDark ? "text-white" : "text-gray-900"}`}>RoyalHorse</h2>
-              <p className="text-[9px] text-[#F97316] font-semibold tracking-wider uppercase">{t.adminRole}</p>
+              <p className="text-[9px] text-[#84592B] font-semibold tracking-wider uppercase">{t.adminRole}</p>
             </div>
           </div>
           {/* Mobile Theme Toggle & Logout */}
           <div className="flex lg:hidden items-center gap-2">
             <button
               onClick={() => setTheme(isDark ? "light" : "dark")}
-              className={`p-2 rounded-xl border transition-all cursor-pointer ${isDark ? "bg-black/20 border-white/5 text-[#F97316]" : "bg-gray-100 border-black/5 text-orange-800"}`}
+              className={`p-2 rounded-xl border transition-all cursor-pointer ${isDark ? "bg-black/20 border-white/5 text-[#84592B]" : "bg-gray-100 border-black/5 text-orange-800"}`}
             >
               {isDark ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
             </button>
@@ -716,7 +716,7 @@ export default function AdminDashboard() {
                   key={langKey}
                   onClick={() => setAdminLang(langKey)}
                   className={`text-[9px] font-bold px-2 py-1 rounded-lg uppercase transition-all cursor-pointer ${adminLang === langKey
-                      ? "bg-[#F97316] text-black shadow-sm"
+                      ? "bg-[#84592B] text-black shadow-sm"
                       : "text-gray-400 hover:text-white"
                     }`}
                 >
@@ -727,7 +727,7 @@ export default function AdminDashboard() {
 
             <button
               onClick={() => setTheme(isDark ? "light" : "dark")}
-              className={`p-2 rounded-xl border transition-all cursor-pointer ${isDark ? "bg-black/20 border-white/5 text-[#F97316] hover:bg-black/30" : "bg-gray-100 border-black/5 text-orange-800 hover:bg-gray-200"
+              className={`p-2 rounded-xl border transition-all cursor-pointer ${isDark ? "bg-black/20 border-white/5 text-[#84592B] hover:bg-black/30" : "bg-gray-100 border-black/5 text-orange-800 hover:bg-gray-200"
                 }`}
               title={isDark ? "Светлая тема" : "Темная тема"}
             >
@@ -741,8 +741,8 @@ export default function AdminDashboard() {
             onClick={() => setActiveAdminTab("inquiries")}
             className={`whitespace-nowrap lg:w-full flex items-center gap-3 text-xs font-semibold px-4 py-3 rounded-xl transition-all cursor-pointer ${activeAdminTab === "inquiries"
                 ? isDark
-                  ? "bg-[#F97316]/10 text-[#F97316] lg:border-l-2 lg:border-[#F97316]"
-                  : "bg-[#F97316]/15 text-[#C2410C] lg:border-l-2 lg:border-[#F97316] font-bold"
+                  ? "bg-[#84592B]/10 text-[#84592B] lg:border-l-2 lg:border-[#84592B]"
+                  : "bg-[#84592B]/15 text-[#C2410C] lg:border-l-2 lg:border-[#84592B] font-bold"
                 : isDark
                   ? "text-gray-400 hover:bg-white/5 hover:text-white"
                   : "text-gray-600 hover:bg-gray-100 hover:text-black"
@@ -761,8 +761,8 @@ export default function AdminDashboard() {
             onClick={() => setActiveAdminTab("cms")}
             className={`whitespace-nowrap lg:w-full flex items-center gap-3 text-xs font-semibold px-4 py-3 rounded-xl transition-all cursor-pointer ${activeAdminTab === "cms"
                 ? isDark
-                  ? "bg-[#F97316]/10 text-[#F97316] lg:border-l-2 lg:border-[#F97316]"
-                  : "bg-[#F97316]/15 text-[#C2410C] lg:border-l-2 lg:border-[#F97316] font-bold"
+                  ? "bg-[#84592B]/10 text-[#84592B] lg:border-l-2 lg:border-[#84592B]"
+                  : "bg-[#84592B]/15 text-[#C2410C] lg:border-l-2 lg:border-[#84592B] font-bold"
                 : isDark
                   ? "text-gray-400 hover:bg-white/5 hover:text-white"
                   : "text-gray-600 hover:bg-gray-100 hover:text-black"
@@ -801,7 +801,7 @@ export default function AdminDashboard() {
                 onClick={fetchInquiries}
                 className={`inline-flex items-center gap-2 text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm transition-all border ${isDark ? "text-gray-300 bg-white/5 border-white/10 hover:bg-white/10" : "text-gray-700 bg-white border-gray-200 hover:bg-gray-50"}`}
               >
-                <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-[#F97316]" : ""}`} />
+                <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-[#84592B]" : ""}`} />
                 <span>{t.refreshBtn}</span>
               </button>
             </div>
@@ -809,7 +809,7 @@ export default function AdminDashboard() {
             {/* Quick Metrics */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {[
-                { label: t.statTotal, value: totalCount, icon: <Layers className="w-4.5 h-4.5" />, color: "bg-amber-500/10 text-[#F97316] border-amber-500/20" },
+                { label: t.statTotal, value: totalCount, icon: <Layers className="w-4.5 h-4.5" />, color: "bg-amber-500/10 text-[#84592B] border-amber-500/20" },
                 { label: t.statNew, value: newCount, icon: <Inbox className="w-4.5 h-4.5" />, color: "bg-red-500/10 text-red-400 border-red-500/20" },
                 { label: t.statActive, value: activeCount, icon: <Clock className="w-4.5 h-4.5" />, color: "bg-blue-500/10 text-blue-400 border-blue-500/20" },
                 { label: t.statCompleted, value: completedCount, icon: <CheckSquare className="w-4.5 h-4.5" />, color: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" },
@@ -836,7 +836,7 @@ export default function AdminDashboard() {
                   key={f.key}
                   onClick={() => setFilterStatus(f.key)}
                   className={`text-xs font-semibold px-4 py-2 rounded-xl transition-all border cursor-pointer ${filterStatus === f.key
-                      ? "bg-[#F97316] text-black border-transparent shadow-md"
+                      ? "bg-[#84592B] text-black border-transparent shadow-md"
                       : isDark
                         ? "bg-[#121110] text-gray-400 border-white/5 hover:border-white/10 hover:text-white"
                         : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50 shadow-sm"
@@ -862,7 +862,7 @@ export default function AdminDashboard() {
                   >
                     <div className="p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
                       <div className="flex items-start gap-4">
-                        <div className={`w-12 h-12 rounded-2xl border flex items-center justify-center text-[#F97316] font-serif font-bold text-lg shrink-0 ${isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"}`}>
+                        <div className={`w-12 h-12 rounded-2xl border flex items-center justify-center text-[#84592B] font-serif font-bold text-lg shrink-0 ${isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"}`}>
                           {inq.name.charAt(0).toUpperCase()}
                         </div>
                         <div className="space-y-1.5">
@@ -872,18 +872,18 @@ export default function AdminDashboard() {
                               {statusLabel[inq.status]}
                             </span>
                             {inq.service && (
-                              <span className="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-amber-500/5 text-[#F97316] border border-[#F97316]/20 uppercase tracking-wider">
+                              <span className="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-amber-500/5 text-[#84592B] border border-[#84592B]/20 uppercase tracking-wider">
                                 {inq.service}
                               </span>
                             )}
                             <span className="text-[10px] text-gray-400 font-mono">#{inq.id}</span>
                           </div>
                           <div className="flex flex-wrap gap-x-6 gap-y-1.5 text-xs text-gray-400">
-                            <a href={`tel:${inq.phone}`} className="flex items-center gap-1.5 hover:text-[#F97316] transition-colors">
-                              <Phone className="w-3.5 h-3.5 text-[#F97316]" /> {inq.phone}
+                            <a href={`tel:${inq.phone}`} className="flex items-center gap-1.5 hover:text-[#84592B] transition-colors">
+                              <Phone className="w-3.5 h-3.5 text-[#84592B]" /> {inq.phone}
                             </a>
-                            <a href={`mailto:${inq.email}`} className="flex items-center gap-1.5 hover:text-[#F97316] transition-colors">
-                              <Mail className="w-3.5 h-3.5 text-[#F97316]" /> {inq.email}
+                            <a href={`mailto:${inq.email}`} className="flex items-center gap-1.5 hover:text-[#84592B] transition-colors">
+                              <Mail className="w-3.5 h-3.5 text-[#84592B]" /> {inq.email}
                             </a>
                             <span className="flex items-center gap-1.5 text-gray-500">
                               <Calendar className="w-3.5 h-3.5" />
@@ -927,7 +927,7 @@ export default function AdminDashboard() {
                         {inq.message && (
                           <button
                             onClick={() => setExpandedId(expandedId === inq.id ? null : inq.id)}
-                            className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-[#F97316] border border-[#F97316]/20 transition-all cursor-pointer"
+                            className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-[#84592B] border border-[#84592B]/20 transition-all cursor-pointer"
                           >
                             <MessageSquare className="w-3.5 h-3.5" />
                             {adminLang === "bg" ? "Съобщение" : adminLang === "en" ? "Message" : "Текст"}
@@ -964,7 +964,7 @@ export default function AdminDashboard() {
                     {expandedId === inq.id && inq.message && (
                       <div className="px-6 pb-6 pt-2 border-t border-white/5">
                         <div className={`border rounded-2xl p-5 ${isDark ? "bg-black/20 border-white/5" : "bg-gray-50 border-gray-100"}`}>
-                          <p className="text-[9px] font-bold text-[#F97316] uppercase tracking-widest mb-2 pl-0.5">{adminLang === "bg" ? "Съобщение от клиента" : adminLang === "en" ? "Message from client" : "Сообщение от клиента"}</p>
+                          <p className="text-[9px] font-bold text-[#84592B] uppercase tracking-widest mb-2 pl-0.5">{adminLang === "bg" ? "Съобщение от клиента" : adminLang === "en" ? "Message from client" : "Сообщение от клиента"}</p>
                           <p className={`text-sm leading-relaxed font-light ${isDark ? "text-gray-300" : "text-gray-700"}`}>{inq.message}</p>
                         </div>
                       </div>
@@ -1003,7 +1003,7 @@ export default function AdminDashboard() {
                     });
                     setIsAddingNew(true);
                   }}
-                  className="inline-flex items-center gap-2 text-xs font-bold text-black bg-[#F97316] hover:bg-[#FB923C] px-4 py-2.5 rounded-xl shadow-md transition-all cursor-pointer"
+                  className="inline-flex items-center gap-2 text-xs font-bold text-black bg-[#84592B] hover:bg-[#9D9167] px-4 py-2.5 rounded-xl shadow-md transition-all cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>{t.addPostBtn}</span>
@@ -1025,7 +1025,7 @@ export default function AdminDashboard() {
                   key={cat.key}
                   onClick={() => setSelectedCategory(cat.key)}
                   className={`text-xs font-semibold px-4 py-2 rounded-xl transition-all border cursor-pointer ${selectedCategory === cat.key
-                      ? "bg-[#F97316] text-black border-transparent shadow-sm"
+                      ? "bg-[#84592B] text-black border-transparent shadow-sm"
                       : isDark
                         ? "bg-[#121110] text-gray-400 border-white/5 hover:border-white/10 hover:text-white"
                         : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50 shadow-sm"
@@ -1085,7 +1085,7 @@ export default function AdminDashboard() {
                         <div className="space-y-0.5">
                           <span className="text-[8px] font-bold text-gray-500 uppercase tracking-widest block">{adminLang === "bg" ? "Заглавия (БГ / EN)" : adminLang === "en" ? "Titles (BG / EN)" : "Заголовки (БГ / EN)"}</span>
                           <h4 className={`font-bold text-sm truncate ${isDark ? "text-white" : "text-gray-900"}`}>{item.title_bg || "—"}</h4>
-                          <h5 className="text-xs text-[#F97316] italic truncate">{item.title_en || "—"}</h5>
+                          <h5 className="text-xs text-[#84592B] italic truncate">{item.title_en || "—"}</h5>
                         </div>
 
                         <div className="space-y-1">
@@ -1113,7 +1113,7 @@ export default function AdminDashboard() {
                           onClick={() => setEditingItem(item)}
                           className={`flex-grow inline-flex items-center justify-center gap-1.5 text-xs font-bold py-2.5 rounded-xl border transition-all cursor-pointer ${isDark ? "border-white/5 text-gray-300 bg-white/5 hover:bg-white/10" : "border-gray-200 text-gray-700 bg-gray-50 hover:bg-gray-100"}`}
                         >
-                          <Edit2 className="w-3.5 h-3.5 text-[#F97316]" />
+                          <Edit2 className="w-3.5 h-3.5 text-[#84592B]" />
                           <span>{t.editCmsPost}</span>
                         </button>
 
@@ -1178,10 +1178,10 @@ export default function AdminDashboard() {
                               type="button"
                               onClick={() => setNewItem({ ...newItem, category: cat.key })}
                               className={`relative shrink-0 flex items-center gap-2 py-3 px-4.5 rounded-full border text-xs font-bold uppercase tracking-wider transition-all duration-300 active:scale-[0.96] cursor-pointer ${isSelected
-                                  ? "bg-[#F97316]/15 border-[#F97316] text-[#F97316] shadow-[0_0_15px_rgba(212,175,55,0.12)]"
+                                  ? "bg-[#84592B]/15 border-[#84592B] text-[#84592B] shadow-[0_0_15px_rgba(212,175,55,0.12)]"
                                   : isDark
-                                    ? "bg-[#1C1A18] border-white/5 text-gray-400 hover:border-[#F97316]/20 hover:text-white"
-                                    : "bg-gray-50 border-gray-200 text-gray-600 hover:border-[#F97316]/45 hover:text-black shadow-sm"
+                                    ? "bg-[#1C1A18] border-white/5 text-gray-400 hover:border-[#84592B]/20 hover:text-white"
+                                    : "bg-gray-50 border-gray-200 text-gray-600 hover:border-[#84592B]/45 hover:text-black shadow-sm"
                                 }`}
                             >
                               {cat.key === "about_place" && <MapPin className="w-3.5 h-3.5" />}
@@ -1207,7 +1207,7 @@ export default function AdminDashboard() {
                           type="text"
                           value={newItem.title_bg}
                           onChange={(e) => setNewItem({ ...newItem, title_bg: e.target.value })}
-                          className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
+                          className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#84592B]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#84592B]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#84592B]"}`}
                           placeholder="Заглавие"
                         />
                       </div>
@@ -1217,7 +1217,7 @@ export default function AdminDashboard() {
                           type="text"
                           value={newItem.title_en}
                           onChange={(e) => setNewItem({ ...newItem, title_en: e.target.value })}
-                          className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
+                          className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#84592B]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#84592B]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#84592B]"}`}
                           placeholder="Title"
                         />
                       </div>
@@ -1227,10 +1227,10 @@ export default function AdminDashboard() {
                       <label className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-1">
                         {t.postImage}
                       </label>
-                      <div className={`border-2 border-dashed rounded-2xl p-6 transition-all text-center relative flex flex-col items-center justify-center gap-2 group min-h-[140px] ${isDark ? "bg-[#1C1A18] border-white/10 hover:border-[#F97316]/50" : "bg-gray-50 border-gray-200 hover:border-[#F97316]/50"}`}>
+                      <div className={`border-2 border-dashed rounded-2xl p-6 transition-all text-center relative flex flex-col items-center justify-center gap-2 group min-h-[140px] ${isDark ? "bg-[#1C1A18] border-white/10 hover:border-[#84592B]/50" : "bg-gray-50 border-gray-200 hover:border-[#84592B]/50"}`}>
                         {compressing ? (
                           <div className="flex flex-col items-center gap-2">
-                            <RefreshCw className="w-6 h-6 text-[#F97316] animate-spin" />
+                            <RefreshCw className="w-6 h-6 text-[#84592B] animate-spin" />
                             <span className="text-xs text-gray-400">{t.compressing}</span>
                           </div>
                         ) : newItem.image_url ? (
@@ -1250,7 +1250,7 @@ export default function AdminDashboard() {
                           </div>
                         ) : (
                           <label className="cursor-pointer w-full h-full flex flex-col items-center justify-center py-4">
-                            <ImageIcon className="w-8 h-8 text-gray-500 group-hover:text-[#F97316] transition-colors mb-2" />
+                            <ImageIcon className="w-8 h-8 text-gray-500 group-hover:text-[#84592B] transition-colors mb-2" />
                             <span className="text-xs text-gray-400 font-semibold group-hover:text-white transition-colors">
                               {t.clickToUpload}
                             </span>
@@ -1274,7 +1274,7 @@ export default function AdminDashboard() {
                         rows={3}
                         value={newItem.desc_bg}
                         onChange={(e) => setNewItem({ ...newItem, desc_bg: e.target.value })}
-                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
+                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#84592B]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#84592B]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#84592B]"}`}
                         placeholder="Текст на български..."
                       />
                     </div>
@@ -1285,7 +1285,7 @@ export default function AdminDashboard() {
                         rows={3}
                         value={newItem.desc_en}
                         onChange={(e) => setNewItem({ ...newItem, desc_en: e.target.value })}
-                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
+                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#84592B]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#84592B]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#84592B]"}`}
                         placeholder="English details text..."
                       />
                     </div>
@@ -1296,7 +1296,7 @@ export default function AdminDashboard() {
                         type="text"
                         value={newItem.extra_info}
                         onChange={(e) => setNewItem({ ...newItem, extra_info: e.target.value })}
-                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
+                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#84592B]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#84592B]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#84592B]"}`}
                         placeholder="Например: opening, 12.05.2026, или пусто"
                       />
                     </div>
@@ -1304,7 +1304,7 @@ export default function AdminDashboard() {
                     <button
                       type="submit"
                       disabled={compressing}
-                      className="w-full bg-[#F97316] hover:bg-[#FB923C] text-black font-bold py-4 px-4 rounded-xl transition-all text-xs tracking-widest uppercase shadow-lg shadow-[#F97316]/10 active:scale-[0.98] disabled:opacity-50 cursor-pointer"
+                      className="w-full bg-[#84592B] hover:bg-[#9D9167] text-black font-bold py-4 px-4 rounded-xl transition-all text-xs tracking-widest uppercase shadow-lg shadow-[#84592B]/10 active:scale-[0.98] disabled:opacity-50 cursor-pointer"
                     >
                       {t.createBtn}
                     </button>
@@ -1341,7 +1341,7 @@ export default function AdminDashboard() {
                           type="text"
                           value={editingItem.title_bg}
                           onChange={(e) => setEditingItem({ ...editingItem, title_bg: e.target.value })}
-                          className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
+                          className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#84592B]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#84592B]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#84592B]"}`}
                         />
                       </div>
                       <div className="space-y-1.5">
@@ -1350,7 +1350,7 @@ export default function AdminDashboard() {
                           type="text"
                           value={editingItem.title_en}
                           onChange={(e) => setEditingItem({ ...editingItem, title_en: e.target.value })}
-                          className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
+                          className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#84592B]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#84592B]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#84592B]"}`}
                         />
                       </div>
                     </div>
@@ -1359,10 +1359,10 @@ export default function AdminDashboard() {
                       <label className="block text-[9px] font-bold text-gray-400 uppercase tracking-widest pl-1">
                         {t.postImage}
                       </label>
-                      <div className={`border-2 border-dashed rounded-2xl p-6 transition-all text-center relative flex flex-col items-center justify-center gap-2 group min-h-[140px] ${isDark ? "bg-[#1C1A18] border-white/10 hover:border-[#F97316]/50" : "bg-gray-50 border-gray-200 hover:border-[#F97316]/50"}`}>
+                      <div className={`border-2 border-dashed rounded-2xl p-6 transition-all text-center relative flex flex-col items-center justify-center gap-2 group min-h-[140px] ${isDark ? "bg-[#1C1A18] border-white/10 hover:border-[#84592B]/50" : "bg-gray-50 border-gray-200 hover:border-[#84592B]/50"}`}>
                         {compressing ? (
                           <div className="flex flex-col items-center gap-2">
-                            <RefreshCw className="w-6 h-6 text-[#F97316] animate-spin" />
+                            <RefreshCw className="w-6 h-6 text-[#84592B] animate-spin" />
                             <span className="text-xs text-gray-400">{t.compressing}</span>
                           </div>
                         ) : editingItem.image_url ? (
@@ -1382,7 +1382,7 @@ export default function AdminDashboard() {
                           </div>
                         ) : (
                           <label className="cursor-pointer w-full h-full flex flex-col items-center justify-center py-4">
-                            <ImageIcon className="w-8 h-8 text-gray-500 group-hover:text-[#F97316] transition-colors mb-2" />
+                            <ImageIcon className="w-8 h-8 text-gray-500 group-hover:text-[#84592B] transition-colors mb-2" />
                             <span className="text-xs text-gray-400 font-semibold group-hover:text-white transition-colors">
                               {t.clickToUpload}
                             </span>
@@ -1406,7 +1406,7 @@ export default function AdminDashboard() {
                         rows={3}
                         value={editingItem.desc_bg}
                         onChange={(e) => setEditingItem({ ...editingItem, desc_bg: e.target.value })}
-                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
+                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#84592B]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#84592B]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#84592B]"}`}
                       />
                     </div>
 
@@ -1416,7 +1416,7 @@ export default function AdminDashboard() {
                         rows={3}
                         value={editingItem.desc_en}
                         onChange={(e) => setEditingItem({ ...editingItem, desc_en: e.target.value })}
-                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
+                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#84592B]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#84592B]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#84592B]"}`}
                       />
                     </div>
 
@@ -1426,7 +1426,7 @@ export default function AdminDashboard() {
                         type="text"
                         value={editingItem.extra_info}
                         onChange={(e) => setEditingItem({ ...editingItem, extra_info: e.target.value })}
-                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#F97316]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#F97316]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#F97316]"}`}
+                        className={`w-full border rounded-xl py-3 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#84592B]/20 transition-all ${isDark ? "bg-[#1C1A18] border-white/5 text-white focus:border-[#84592B]" : "bg-gray-50 border-gray-200 text-gray-900 focus:border-[#84592B]"}`}
                       />
                     </div>
 
@@ -1434,7 +1434,7 @@ export default function AdminDashboard() {
                       <button
                         type="submit"
                         disabled={compressing}
-                        className="flex-grow bg-[#F97316] hover:bg-[#FB923C] text-black font-bold py-3.5 px-4 rounded-xl transition-all text-xs tracking-widest uppercase shadow-md shadow-[#F97316]/10 active:scale-[0.98] disabled:opacity-50 cursor-pointer"
+                        className="flex-grow bg-[#84592B] hover:bg-[#9D9167] text-black font-bold py-3.5 px-4 rounded-xl transition-all text-xs tracking-widest uppercase shadow-md shadow-[#84592B]/10 active:scale-[0.98] disabled:opacity-50 cursor-pointer"
                       >
                         {t.saveBtn}
                       </button>

@@ -33,11 +33,11 @@ export default function AboutPage() {
   ]);
 
   const [horses, setHorses] = useState<any[]>([
-    { title_bg: "Силвър", title_en: "Silver", desc_bg: "Спокоен и величествен сив жребец, идеален за напреднали ездачи.", desc_en: "A calm and majestic grey stallion, ideal for advanced riders.", image_url: "/images/about_horses_image_1.jpg" },
-    { title_bg: "Барон", title_en: "Baron", desc_bg: "Опитен и кротък кон за обучение на деца и възрастни.", desc_en: "Experienced and gentle horse for teaching kids and adults.", image_url: "/images/about_horses_image_2.jpg" },
-    { title_bg: "Карина", title_en: "Karina", desc_bg: "Темпераментна и изящна кобила, любимка на спортните ездачи.", desc_en: "A spirited and elegant mare, a favorite of sport riders.", image_url: "/images/about_horses_image_3.jpg" },
-    { title_bg: "Звезда", title_en: "Zvezda", desc_bg: "Изключително нежна кобила, използвана основно за хипотерапия.", desc_en: "An exceptionally gentle mare, used primarily for hippotherapy.", image_url: "/images/about_horses_image_4.jpg" },
-    { title_bg: "Шоколад", title_en: "Chocolate", desc_bg: "Очарователно и дружелюбно пони, любимец на най-малките гости.", desc_en: "Charming and friendly pony, a favorite of our youngest guests.", image_url: "/images/about_horses_image_5.jpg" },
+    { title_bg: "Силвър", title_en: "Silver", desc_bg: "Спокоен и величествен сив жребец, идеален за напреднали ездачи.", desc_en: "A calm and majestic grey stallion, ideal for advanced riders.", image_url: "/images/horses/horse_5.jpg" },
+    { title_bg: "Барон", title_en: "Baron", desc_bg: "Опитен и кротък кон за обучение на деца и възрастни.", desc_en: "Experienced and gentle horse for teaching kids and adults.", image_url: "/images/horses/horse_6.jpg" },
+    { title_bg: "Карина", title_en: "Karina", desc_bg: "Темпераментна и изящна кобила, любимка на спортните ездачи.", desc_en: "A spirited and elegant mare, a favorite of sport riders.", image_url: "/images/horses/horse_7.jpg" },
+    { title_bg: "Звезда", title_en: "Zvezda", desc_bg: "Изключително нежна кобила, използвана основно за хипотерапия.", desc_en: "An exceptionally gentle mare, used primarily for hippotherapy.", image_url: "/images/horses/horse_8.jpg" },
+    { title_bg: "Шоколад", title_en: "Chocolate", desc_bg: "Очарователно и дружелюбно пони, любимец на най-малките гости.", desc_en: "Charming and friendly pony, a favorite of our youngest guests.", image_url: "/images/horses/horse_1.jpg" },
   ]);
 
   useEffect(() => {
@@ -64,14 +64,14 @@ export default function AboutPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[#FCFBF9] text-gray-900 py-16 px-4 sm:px-6 lg:px-8">
+      <main className="min-h-screen bg-[#E8D1A7] text-gray-900 py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h1 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-gray-900 mb-4">
               {t[lang].aboutTitle}
             </h1>
-            <p className="text-lg text-[#F97316] font-serif italic">
+            <p className="text-lg text-[#84592B] font-serif italic">
               {t[lang].aboutSub}
             </p>
           </div>
@@ -83,7 +83,7 @@ export default function AboutPage() {
                 onClick={() => setActiveTab("place")}
                 className={`pb-4 text-sm font-semibold tracking-wider uppercase border-b-2 transition-all duration-300 ${
                   activeTab === "place"
-                    ? "border-[#F97316] text-gray-900"
+                    ? "border-[#84592B] text-gray-900"
                     : "border-transparent text-gray-500 hover:text-gray-900"
                 }`}
               >
@@ -93,7 +93,7 @@ export default function AboutPage() {
                 onClick={() => setActiveTab("team")}
                 className={`pb-4 text-sm font-semibold tracking-wider uppercase border-b-2 transition-all duration-300 ${
                   activeTab === "team"
-                    ? "border-[#F97316] text-gray-900"
+                    ? "border-[#84592B] text-gray-900"
                     : "border-transparent text-gray-500 hover:text-gray-900"
                 }`}
               >
@@ -103,7 +103,7 @@ export default function AboutPage() {
                 onClick={() => setActiveTab("horses")}
                 className={`pb-4 text-sm font-semibold tracking-wider uppercase border-b-2 transition-all duration-300 ${
                   activeTab === "horses"
-                    ? "border-[#F97316] text-gray-900"
+                    ? "border-[#84592B] text-gray-900"
                     : "border-transparent text-gray-500 hover:text-gray-900"
                 }`}
               >
@@ -169,9 +169,9 @@ export default function AboutPage() {
                   </div>
                   <div className="relative h-[320px] rounded-3xl overflow-hidden shadow-2xl border border-gray-100">
                     <img
-                      src="/images/about_place_image_8.jpg"
+                      src="/images/horses/horse_6.jpg"
                       alt="Team Work"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-top"
                     />
                   </div>
                 </div>
@@ -191,7 +191,7 @@ export default function AboutPage() {
                         <h4 className="font-serif text-lg font-bold text-gray-900">
                           {lang === "bg" ? member.title_bg : lang === "ru" ? translate(member.title_bg, "ru") : member.title_en}
                         </h4>
-                        <p className="text-xs uppercase tracking-widest text-[#F97316] font-semibold mt-1">
+                        <p className="text-xs uppercase tracking-widest text-[#84592B] font-semibold mt-1">
                           {lang === "bg" ? member.desc_bg : lang === "ru" ? translate(member.desc_bg, "ru") : member.desc_en}
                         </p>
                       </div>

@@ -68,14 +68,14 @@ export default function NewsPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[#FCFBF9] text-gray-900 py-16 px-4 sm:px-6 lg:px-8">
+      <main className="min-h-screen bg-[#E8D1A7] text-gray-900 py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h1 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-gray-900 mb-4">
               {lang === "bg" ? "Новини & Събития" : lang === "ru" ? "Новости & События" : "News & Events"}
             </h1>
-            <p className="text-lg text-[#F97316] font-serif italic">
+            <p className="text-lg text-[#84592B] font-serif italic">
               {lang === "bg" ? "Следете последните събития от живота на клуба" : lang === "ru" ? "Следите за последними событиями из жизни клуба" : "Follow the latest happenings from the stable life"}
             </p>
           </div>
@@ -104,10 +104,10 @@ export default function NewsPage() {
                   <div className="p-6 sm:p-8 flex flex-col justify-between w-full sm:w-3/5 space-y-4">
                     <div className="space-y-2">
                       <div className="flex items-center gap-2 text-xs font-semibold text-gray-400">
-                        <Calendar className="w-3.5 h-3.5 text-[#F97316]" />
+                        <Calendar className="w-3.5 h-3.5 text-[#84592B]" />
                         <span>{item.extra_info || "Today"}</span>
                       </div>
-                      <h3 className="font-serif text-lg font-bold text-gray-900 group-hover:text-[#F97316] transition-colors leading-snug">
+                      <h3 className="font-serif text-lg font-bold text-gray-900 group-hover:text-[#84592B] transition-colors leading-snug">
                         {title}
                       </h3>
                       <p className="text-xs text-gray-500 font-light leading-relaxed">

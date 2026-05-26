@@ -69,7 +69,7 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
           ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(212, 175, 55, ${alpha})`;
           ctx.shadowBlur = 10;
-          ctx.shadowColor = "#F97316";
+          ctx.shadowColor = "#84592B";
           ctx.fill();
         });
 
@@ -89,7 +89,7 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
               ctx.arc(bp.x, bp.y, bp.radius, 0, Math.PI * 2);
               ctx.fillStyle = `rgba(255, 225, 150, ${bp.alpha})`;
               ctx.shadowBlur = 15;
-              ctx.shadowColor = "#F97316";
+              ctx.shadowColor = "#84592B";
               ctx.fill();
             }
           });
@@ -393,7 +393,7 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
         preserveAspectRatio="none"
       >
         <path d="M0,500 L0,380 C180,320 320,440 550,290 C720,180 850,280 1100,210 C1280,160 1380,240 1440,210 L1440,500 Z" fill="#08070c" />
-        <path d="M0,380 C180,320 320,440 550,290 C720,180 850,280 1100,210 C1280,160 1380,240 1440,210" stroke="#F97316" strokeWidth="1.2" strokeOpacity="0.2" fill="none" />
+        <path d="M0,380 C180,320 320,440 550,290 C720,180 850,280 1100,210 C1280,160 1380,240 1440,210" stroke="#84592B" strokeWidth="1.2" strokeOpacity="0.2" fill="none" />
       </svg>
 
       {/* Climbing & Rearing Majestic Horse Silhouette with joints */}
@@ -467,17 +467,17 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
             <svg width="60" height="34" viewBox="0 0 60 34" fill="none" className="drop-shadow-[0_0_12px_rgba(212,175,55,0.7)]">
               <defs>
                 <linearGradient id="goldIntroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#EA580C" />
-                  <stop offset="30%" stopColor="#F97316" />
-                  <stop offset="70%" stopColor="#FB923C" />
-                  <stop offset="100%" stopColor="#EA580C" />
+                  <stop offset="0%" stopColor="#743014" />
+                  <stop offset="30%" stopColor="#84592B" />
+                  <stop offset="70%" stopColor="#9D9167" />
+                  <stop offset="100%" stopColor="#743014" />
                 </linearGradient>
               </defs>
               <path d="M4 30 L12 10 L22 20 L30 4 L38 20 L48 10 L56 30 Z" fill="url(#goldIntroGrad)" />
-              <circle cx="30" cy="4" r="2.5" fill="#FCFBF9" />
-              <circle cx="12" cy="10" r="2" fill="#FCFBF9" />
-              <circle cx="48" cy="10" r="2" fill="#FCFBF9" />
-              <line x1="4" y1="30" x2="56" y2="30" stroke="#F97316" strokeWidth="2.5" />
+              <circle cx="30" cy="4" r="2.5" fill="#E8D1A7" />
+              <circle cx="12" cy="10" r="2" fill="#E8D1A7" />
+              <circle cx="48" cy="10" r="2" fill="#E8D1A7" />
+              <line x1="4" y1="30" x2="56" y2="30" stroke="#84592B" strokeWidth="2.5" />
             </svg>
           </div>
           <h1
@@ -487,17 +487,17 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
               textShadow: "0 0 40px rgba(212,175,55,0.45), 0 2px 14px rgba(0,0,0,0.9)",
             }}
           >
-            ROYAL<span className="text-[#F97316]">HORSE</span>
+            ROYAL<span className="text-[#84592B]">HORSE</span>
           </h1>
           <div className="mt-4 flex items-center justify-center gap-4">
-            <div style={{ width: 50, height: 1.5, background: "linear-gradient(90deg, transparent, #F97316)" }} />
+            <div style={{ width: 50, height: 1.5, background: "linear-gradient(90deg, transparent, #84592B)" }} />
             <p
               className="text-xs uppercase tracking-[0.38em] font-light"
-              style={{ color: "#FB923C", letterSpacing: "0.38em" }}
+              style={{ color: "#9D9167", letterSpacing: "0.38em" }}
             >
               {lang === "bg" ? "Е Л И Т Е Н  К О Н Е Н  К Л У Б" : lang === "ru" ? "Э Л И Т Н Ы Й  К О Н Н Ы Й  К Л У Б" : "E L I T E  E Q U E S T R I A N  C L U B"}
             </p>
-            <div style={{ width: 50, height: 1.5, background: "linear-gradient(90deg, #F97316, transparent)" }} />
+            <div style={{ width: 50, height: 1.5, background: "linear-gradient(90deg, #84592B, transparent)" }} />
           </div>
         </div>
       </div>
@@ -516,7 +516,7 @@ export default function HorseIntro({ lang, onFinished }: HorseIntroProps) {
             backdropFilter: "blur(12px)",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.color = "#F97316";
+            e.currentTarget.style.color = "#84592B";
             e.currentTarget.style.borderColor = "rgba(212,175,55,0.7)";
             e.currentTarget.style.boxShadow = "0 0 15px rgba(212,175,55,0.2)";
           }}

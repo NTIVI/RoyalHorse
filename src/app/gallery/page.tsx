@@ -55,15 +55,15 @@ export default function GalleryPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[#FCFBF9] text-gray-900 py-16 px-4 sm:px-6 lg:px-8">
+      <main className="min-h-screen bg-[#E8D1A7] text-gray-900 py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h1 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-gray-900 mb-4 flex items-center justify-center gap-3">
-              <ImageIcon className="w-10 h-10 text-[#F97316]" />
+              <ImageIcon className="w-10 h-10 text-[#84592B]" />
               {t[lang].galleryTitle}
             </h1>
-            <p className="text-lg text-[#F97316] font-serif italic">
+            <p className="text-lg text-[#84592B] font-serif italic">
               {t[lang].gallerySub}
             </p>
           </div>
@@ -76,7 +76,7 @@ export default function GalleryPage() {
                 onClick={() => setFilter(cat.id)}
                 className={`px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 border cursor-pointer ${
                   filter === cat.id
-                    ? "bg-[#111111] border-transparent text-[#FCFBF9] shadow-md"
+                    ? "bg-[#442D1C] border-transparent text-[#E8D1A7] shadow-md"
                     : "bg-white border-gray-200 text-gray-600 hover:text-black hover:border-gray-400"
                 }`}
               >
@@ -105,7 +105,7 @@ export default function GalleryPage() {
                   {/* Overlay on hover */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                     <div className="space-y-1">
-                      <p className="text-[10px] font-bold text-[#F97316] uppercase tracking-wider">
+                      <p className="text-[10px] font-bold text-[#84592B] uppercase tracking-wider">
                         {filterLabel}
                       </p>
                       <h3 className="font-serif text-lg font-bold text-white">

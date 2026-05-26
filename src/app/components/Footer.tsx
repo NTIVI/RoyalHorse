@@ -8,12 +8,12 @@ export default function Footer() {
   const { lang } = useLanguage();
 
   return (
-    <footer className="bg-[#120E0A] text-gray-400 py-12 px-4 sm:px-6 lg:px-8 border-t border-[#F97316]/25 font-sans relative overflow-hidden mt-auto">
+    <footer className="bg-[#442D1C] text-gray-400 py-12 px-4 sm:px-6 lg:px-8 border-t border-[#84592B]/25 font-sans relative overflow-hidden mt-auto">
       <div className="max-w-7xl mx-auto space-y-8 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="text-center md:text-left space-y-2">
             <Link href="/" className="font-serif text-2xl font-bold tracking-[0.15em] text-white">
-              ROYAL<span className="text-[#F97316]">HORSE</span>
+              ROYAL<span className="text-[#84592B]">HORSE</span>
             </Link>
             <p className="text-xs text-gray-400 max-w-sm font-light leading-relaxed">
               {t[lang].footerText}
@@ -59,7 +59,7 @@ export default function Footer() {
               href="https://agile-business-pro.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4.5 py-1.5 rounded-full bg-[#F97316]/15 text-[#F97316] border border-[#F97316]/45 shadow-[0_0_12px_rgba(212,175,55,0.25)] hover:shadow-[0_0_22px_rgba(212,175,55,0.6)] hover:bg-[#F97316] hover:text-black transition-all duration-300 font-bold text-[11px] tracking-wider"
+              className="inline-flex items-center gap-1.5 px-4.5 py-1.5 rounded-full bg-[#84592B]/15 text-[#84592B] border border-[#84592B]/45 shadow-[0_0_12px_rgba(212,175,55,0.25)] hover:shadow-[0_0_22px_rgba(212,175,55,0.6)] hover:bg-[#84592B] hover:text-black transition-all duration-300 font-bold text-[11px] tracking-wider"
             >
               Agile Business
             </a>

@@ -43,28 +43,28 @@ export default function HomeView() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FCFBF9]">
+    <div className="min-h-screen flex flex-col bg-[#E8D1A7]">
       {/* Main Page Content */}
       <Header />
 
       <main className="flex-grow">
         {/* HERO SECTION */}
-        <section className="relative min-h-[85svh] flex items-center bg-[#090807] overflow-hidden">
+        <section className="relative min-h-[85svh] flex items-center bg-[#442D1C] overflow-hidden">
           {/* Hero background image - made opacity-75 and lighter overlays for great visibility of the horse */}
           <div className="absolute inset-0 z-0">
             <img
-              src="https://bipbap.ru/wp-content/uploads/2017/05/1358793764_loshadi-2.jpeg"
+              src="/images/horses/horse_2.jpg"
               alt="Majestic Horses"
               className="w-full h-full object-cover opacity-90 object-center scale-105 transition-transform duration-10000"
             />
             {/* Soft, warm overlay gradients that keep text highly readable while showing the horse background */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#090807]/80 via-[#090807]/40 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#090807]/20 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#442D1C]/80 via-[#442D1C]/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#442D1C]/20 via-transparent to-transparent" />
           </div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-20 text-left">
             <div className="max-w-2xl space-y-6">
-              <span className="hero-animate inline-block text-xs font-bold uppercase tracking-[0.25em] text-[#F97316] border-l-2 border-[#F97316] pl-3">
+              <span className="hero-animate inline-block text-xs font-bold uppercase tracking-[0.25em] text-[#84592B] border-l-2 border-[#84592B] pl-3">
                 {t[lang].siteTitle}
               </span>
               <h1 className="hero-animate text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-white tracking-tight leading-tight">
@@ -77,13 +77,13 @@ export default function HomeView() {
               <div className="hero-animate pt-4 flex flex-wrap gap-4">
                 <Link
                   href="/contacts"
-                  className="bg-[#F97316] hover:bg-[#FB923C] text-[#090807] font-semibold text-xs uppercase tracking-widest px-8 py-4 rounded-full shadow-lg transition-colors cursor-pointer"
+                  className="btn-animate bg-[#84592B] hover:bg-[#9D9167] text-[#442D1C] font-semibold text-xs uppercase tracking-widest px-8 py-4 rounded-full shadow-lg transition-colors cursor-pointer"
                 >
                   {t[lang].heroCTA1}
                 </Link>
                 <Link
                   href="/services"
-                  className="border border-white/20 hover:border-white hover:bg-white/10 text-white font-semibold text-xs uppercase tracking-widest px-8 py-4 rounded-full transition-all cursor-pointer"
+                  className="btn-animate border border-white/20 hover:border-white hover:bg-white/10 text-white font-semibold text-xs uppercase tracking-widest px-8 py-4 rounded-full transition-all cursor-pointer"
                 >
                   {t[lang].heroCTA2}
                 </Link>
@@ -92,58 +92,7 @@ export default function HomeView() {
           </div>
         </section>
 
-        {/* CORE VALUES / PROMO SECTION */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-100">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex flex-col items-center text-center p-6 space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#F97316]/10 flex items-center justify-center text-[#F97316]">
-                <Compass className="w-6 h-6" />
-              </div>
-              <h3 className="font-serif text-lg font-bold text-gray-900">
-                {lang === "bg" ? "Професионализъм" : lang === "ru" ? "Профессионализм" : "Professionalism"}
-              </h3>
-              <p className="text-sm text-gray-500 font-light leading-relaxed">
-                {lang === "bg" 
-                  ? "Нашите сертифицирани инструктори ще Ви преведат през всяка стъпка на обучението."
-                  : lang === "ru"
-                    ? "Наши сертифицированные инструкторы проведут вас через каждый этап обучения."
-                    : "Our certified instructors guide you through every stage of your riding journey."}
-              </p>
-            </div>
 
-            <div className="flex flex-col items-center text-center p-6 space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#F97316]/10 flex items-center justify-center text-[#F97316]">
-                <ShieldCheck className="w-6 h-6" />
-              </div>
-              <h3 className="font-serif text-lg font-bold text-gray-900">
-                {lang === "bg" ? "Безопасност" : lang === "ru" ? "Безопасность" : "Safety First"}
-              </h3>
-              <p className="text-sm text-gray-500 font-light leading-relaxed">
-                {lang === "bg" 
-                  ? "Разполагаме с най-високо ниво защитна екипировка и напълно спокойни, обучени коне."
-                  : lang === "ru"
-                    ? "Мы предоставляем защитное снаряжение высочайшего уровня и спокойных, обученных лошадей."
-                    : "We provide professional protective equipment and gentle, highly trained horses."}
-              </p>
-            </div>
-
-            <div className="flex flex-col items-center text-center p-6 space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#F97316]/10 flex items-center justify-center text-[#F97316]">
-                <Heart className="w-6 h-6" />
-              </div>
-              <h3 className="font-serif text-lg font-bold text-gray-900">
-                {lang === "bg" ? "Грижа & Любов" : lang === "ru" ? "Забота & Любовь" : "Care & Passion"}
-              </h3>
-              <p className="text-sm text-gray-500 font-light leading-relaxed">
-                {lang === "bg" 
-                  ? "Хранене, поддръжка и чисти падоци за конете, съчетани с любов към природата."
-                  : lang === "ru"
-                    ? "Качественное питание, чистые левады и абсолютная преданность заботе о наших лошадях."
-                    : "Quality feed, clean paddocks, and absolute devotion to the well-being of our horses."}
-              </p>
-            </div>
-          </div>
-        </section>
 
         {/* PROMO: RIDING & SERVICES SPLIT */}
         <section className="py-24 px-4 sm:px-6 lg:px-8">
@@ -166,7 +115,7 @@ export default function HomeView() {
               <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
                 <div className="h-64 overflow-hidden relative">
                   <img
-                    src="/images/riding_horse_image_2.jpg"
+                    src="/images/horses/horse_3.jpg"
                     alt="Horse riding lessons"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
@@ -182,7 +131,7 @@ export default function HomeView() {
                   </p>
                   <Link
                     href="/riding"
-                    className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#F97316] hover:text-[#111111] transition-colors"
+                    className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#84592B] hover:text-[#442D1C] transition-colors"
                   >
                     <span>{lang === "bg" ? "Виж детайли за ездата" : lang === "ru" ? "Подробнее о верховой езде" : "View Riding Details"}</span>
                     <ArrowRight className="w-4 h-4" />
@@ -194,7 +143,7 @@ export default function HomeView() {
               <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
                 <div className="h-64 overflow-hidden relative">
                   <img
-                    src="/images/services_pet_hotel_image_4.jpg"
+                    src="/images/horses/horse_4.jpg"
                     alt="Pet hotel and boarding services"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
@@ -210,7 +159,7 @@ export default function HomeView() {
                   </p>
                   <Link
                     href="/services"
-                    className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#F97316] hover:text-[#111111] transition-colors"
+                    className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#84592B] hover:text-[#442D1C] transition-colors"
                   >
                     <span>{lang === "bg" ? "Виж всички услуги" : lang === "ru" ? "Все услуги" : "View All Services"}</span>
                     <ArrowRight className="w-4 h-4" />

@@ -11,6 +11,7 @@ export const t = {
     navPrices: "Цени",
     navGallery: "Галерия",
     navContacts: "Контакти",
+    navArticles: "Статии",
     navBookBtn: "Заяви Час",
     
     heroTitle: "Елегантност и сила сред природата",
@@ -107,6 +108,7 @@ export const t = {
     navPrices: "Prices",
     navGallery: "Gallery",
     navContacts: "Contacts",
+    navArticles: "Articles",
     navBookBtn: "Book Now",
     
     heroTitle: "Elegance and power in nature",
@@ -203,6 +205,7 @@ export const t = {
     navPrices: "Цены",
     navGallery: "Галерея",
     navContacts: "Контакты",
+    navArticles: "Статьи",
     navBookBtn: "Забронировать",
     
     heroTitle: "Элегантность и сила на лоне природы",

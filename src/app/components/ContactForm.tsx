@@ -106,7 +106,7 @@ export default function ContactForm({ initialMessage = "", initialService = "" }
   };
 
   return (
-    <div className="bg-gradient-to-br from-[#FCFBF9] to-white border border-[#F97316]/15 rounded-3xl p-6 sm:p-10 shadow-xl relative overflow-hidden">
+    <div className="bg-gradient-to-br from-[#E8D1A7] to-white border border-[#84592B]/15 rounded-3xl p-6 sm:p-10 shadow-xl relative overflow-hidden">
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-gold/5 to-transparent rounded-full filter blur-2xl pointer-events-none" />
 
       <h3 className="text-2xl font-serif font-bold text-gray-900 mb-8 tracking-wide relative z-10">{t[lang].formTitle}</h3>
@@ -128,7 +128,7 @@ export default function ContactForm({ initialMessage = "", initialService = "" }
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className={`w-full bg-[#FCFBF9] border rounded-xl py-3.5 px-4 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/20 transition-all duration-300 ${
+                className={`w-full bg-[#E8D1A7] border rounded-xl py-3.5 px-4 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/20 transition-all duration-300 ${
                   formErrors.name ? "border-red-400" : "border-gray-200"
                 }`}
                 placeholder={lang === "bg" ? "Иван Петров" : lang === "ru" ? "Иван Петров" : "John Doe"}
@@ -147,7 +147,7 @@ export default function ContactForm({ initialMessage = "", initialService = "" }
                 required
                 value={formData.phone}
                 onChange={handlePhoneChange}
-                className={`w-full bg-[#FCFBF9] border rounded-xl py-3.5 px-4 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/20 transition-all duration-300 ${
+                className={`w-full bg-[#E8D1A7] border rounded-xl py-3.5 px-4 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/20 transition-all duration-300 ${
                   formErrors.phone ? "border-red-400" : "border-gray-200"
                 }`}
                 placeholder="+359 88 591 9788"
@@ -168,7 +168,7 @@ export default function ContactForm({ initialMessage = "", initialService = "" }
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className={`w-full bg-[#FCFBF9] border rounded-xl py-3.5 px-4 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/20 transition-all duration-300 ${
+                className={`w-full bg-[#E8D1A7] border rounded-xl py-3.5 px-4 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/20 transition-all duration-300 ${
                   formErrors.email ? "border-red-400" : "border-gray-200"
                 }`}
                 placeholder="example@mail.com"
@@ -185,7 +185,7 @@ export default function ContactForm({ initialMessage = "", initialService = "" }
               <select
                 value={formData.service}
                 onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                className="w-full bg-[#FCFBF9] border border-gray-200 rounded-xl py-3.5 px-4 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/20 transition-all duration-300"
+                className="w-full bg-[#E8D1A7] border border-gray-200 rounded-xl py-3.5 px-4 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/20 transition-all duration-300"
               >
                 <option value="">{t[lang].formServicePlaceholder}</option>
                 {formServicesList.map((srv) => (
@@ -205,7 +205,7 @@ export default function ContactForm({ initialMessage = "", initialService = "" }
               rows={4}
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              className="w-full bg-[#FCFBF9] border border-gray-200 rounded-xl py-3.5 px-4 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/20 transition-all duration-300"
+              className="w-full bg-[#E8D1A7] border border-gray-200 rounded-xl py-3.5 px-4 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/20 transition-all duration-300"
               placeholder="..."
             />
           </div>
@@ -213,7 +213,7 @@ export default function ContactForm({ initialMessage = "", initialService = "" }
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-[#111111] hover:bg-gradient-to-r hover:from-gold-dark hover:via-gold hover:to-gold-light hover:text-[#111111] text-white font-semibold text-xs uppercase tracking-widest py-4.5 rounded-xl shadow-lg transition-all duration-500 flex items-center justify-center gap-2 active:scale-98 cursor-pointer"
+            className="w-full bg-[#442D1C] hover:bg-gradient-to-r hover:from-gold-dark hover:via-gold hover:to-gold-light hover:text-[#442D1C] text-white font-semibold text-xs uppercase tracking-widest py-4.5 rounded-xl shadow-lg transition-all duration-500 flex items-center justify-center gap-2 active:scale-98 cursor-pointer"
           >
             {isSubmitting ? (
               <RefreshCw className="w-4 h-4 animate-spin text-orange-500" />

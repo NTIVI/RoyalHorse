@@ -42,25 +42,25 @@ export default function ServicesPage() {
 
   const getIcon = (titleBg: string) => {
     const text = titleBg.toLowerCase();
-    if (text.includes("любимци") || text.includes("куче") || text.includes("pet")) return <Dog className="w-6 h-6 text-[#F97316]" />;
-    if (text.includes("коне") || text.includes(" boarding") || text.includes("кон ")) return <ShieldCheck className="w-6 h-6 text-[#F97316]" />;
-    if (text.includes("рождени") || text.includes("birthday")) return <Cake className="w-6 h-6 text-[#F97316]" />;
-    if (text.includes("кухня") || text.includes("ресторант") || text.includes("kitchen") || text.includes("dining")) return <Utensils className="w-6 h-6 text-[#F97316]" />;
-    if (text.includes("атв") || text.includes("atv")) return <Zap className="w-6 h-6 text-[#F97316]" />;
-    return <Flame className="w-6 h-6 text-[#F97316]" />;
+    if (text.includes("любимци") || text.includes("куче") || text.includes("pet")) return <Dog className="w-6 h-6 text-[#84592B]" />;
+    if (text.includes("коне") || text.includes(" boarding") || text.includes("кон ")) return <ShieldCheck className="w-6 h-6 text-[#84592B]" />;
+    if (text.includes("рождени") || text.includes("birthday")) return <Cake className="w-6 h-6 text-[#84592B]" />;
+    if (text.includes("кухня") || text.includes("ресторант") || text.includes("kitchen") || text.includes("dining")) return <Utensils className="w-6 h-6 text-[#84592B]" />;
+    if (text.includes("атв") || text.includes("atv")) return <Zap className="w-6 h-6 text-[#84592B]" />;
+    return <Flame className="w-6 h-6 text-[#84592B]" />;
   };
 
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[#FCFBF9] text-gray-900 py-16 px-4 sm:px-6 lg:px-8">
+      <main className="min-h-screen bg-[#E8D1A7] text-gray-900 py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-20">
             <h1 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-gray-900 mb-4">
               {t[lang].servicesTitle}
             </h1>
-            <p className="text-lg text-[#F97316] font-serif italic">
+            <p className="text-lg text-[#84592B] font-serif italic">
               {t[lang].servicesSub}
             </p>
           </div>
@@ -83,7 +83,7 @@ export default function ServicesPage() {
                       alt={title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
-                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md p-3 rounded-2xl border border-[#F97316]/15 shadow-md">
+                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md p-3 rounded-2xl border border-[#84592B]/15 shadow-md">
                       {getIcon(service.title_bg)}
                     </div>
                   </div>
@@ -98,7 +98,7 @@ export default function ServicesPage() {
                     <div className="pt-4 mt-auto">
                       <Link
                         href={`/contacts?service=${encodeURIComponent(title)}`}
-                        className="block text-center w-full bg-[#111111] hover:bg-[#F97316] hover:text-[#111111] text-white text-xs font-semibold uppercase tracking-widest py-3.5 rounded-xl shadow-md transition-colors duration-300 cursor-pointer"
+                        className="block text-center w-full bg-[#442D1C] hover:bg-[#84592B] hover:text-[#442D1C] text-white text-xs font-semibold uppercase tracking-widest py-3.5 rounded-xl shadow-md transition-colors duration-300 cursor-pointer"
                       >
                         {lang === "bg" ? "Резервирай сега" : lang === "ru" ? "Забронировать" : "Book now"}
                       </Link>

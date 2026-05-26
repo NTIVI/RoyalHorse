@@ -53,7 +53,7 @@ export default function RootLayout({
       lang="bg"
       className={`${montserrat.variable} ${cormorantGaramond.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-[#FCFBF9] text-[#111111]">
+      <body className="min-h-full flex flex-col font-sans bg-[#E8D1A7] text-[#442D1C]">
         <LanguageProvider>
           {children}
         </LanguageProvider>
