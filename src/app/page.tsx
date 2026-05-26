@@ -63,8 +63,8 @@ export default function HomeView() {
           {/* Hero background image - made opacity-75 and lighter overlays for great visibility of the horse */}
           <div className="absolute inset-0 z-0">
             <img
-              src="https://images.unsplash.com/photo-1553649084-3e42773ff0e3?auto=format&fit=crop&q=80&w=1920"
-              alt="Majestic Dark Horse"
+              src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?auto=format&fit=crop&q=80&w=1920"
+              alt="Beautiful Classic Horse Galloping"
               className="w-full h-full object-cover opacity-80 object-center scale-105 transition-transform duration-10000"
             />
             {/* Soft, warm overlay gradients that keep text highly readable while showing the horse background */}
