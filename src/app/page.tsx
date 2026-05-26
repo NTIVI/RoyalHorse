@@ -110,11 +110,11 @@ export default function HomeView() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               {/* Riding Promo */}
               <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
-                <div className="h-64 overflow-hidden relative bg-[#E8D1A7]/20">
+                <div className="h-64 sm:h-72 overflow-hidden relative bg-black/5">
                   <img
-                    src="/images/horses/horse_3.jpg"
+                    src="/images/horses/promo_riding.png"
                     alt="Horse riding lessons"
-                    className="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                   />
                 </div>
                 <div className="p-8 space-y-6">
@@ -138,11 +138,11 @@ export default function HomeView() {
 
               {/* Services Promo */}
               <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
-                <div className="h-64 overflow-hidden relative bg-[#E8D1A7]/20">
+                <div className="h-64 sm:h-72 overflow-hidden relative bg-black/5">
                   <img
-                    src="/images/horses/horse_4.jpg"
+                    src="/images/horses/promo_services.png"
                     alt="Pet hotel and boarding services"
-                    className="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                   />
                 </div>
                 <div className="p-8 space-y-6">
