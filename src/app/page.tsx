@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useLanguage } from "@/lib/LanguageContext";
 import { t } from "@/lib/translations";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import ContactForm from "@/app/components/ContactForm";
-import HorseIntro from "./components/HorseIntro";
 import Link from "next/link";
 import gsap from "gsap";
 import Lenis from "lenis";
@@ -14,7 +13,6 @@ import { Compass, ShieldCheck, Heart, ArrowRight } from "lucide-react";
 
 export default function HomeView() {
   const { lang } = useLanguage();
-  const [introFinished, setIntroFinished] = useState(false);
 
   // Initialize Lenis for smooth scrolling
   useEffect(() => {
@@ -30,14 +28,7 @@ export default function HomeView() {
 
     requestAnimationFrame(raf);
 
-    return () => {
-      lenis.destroy();
-    };
-  }, []);
-
-  const handleIntroFinished = () => {
-    setIntroFinished(true);
-    // Animate hero text on enter
+    // Animate hero text on page load
     gsap.from(".hero-animate", {
       opacity: 0,
       y: 40,
@@ -45,16 +36,15 @@ export default function HomeView() {
       stagger: 0.25,
       ease: "power4.out",
     });
-  };
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FCFBF9]">
-      {/* 1. INTRO ANIMATION SCREEN */}
-      {!introFinished && (
-        <HorseIntro lang={lang} onFinished={handleIntroFinished} />
-      )}
-
-      {/* Main Page Content (visible after animation starts or finishes) */}
+      {/* Main Page Content */}
       <Header />
 
       <main className="flex-grow">
