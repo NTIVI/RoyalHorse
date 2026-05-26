@@ -53,12 +53,12 @@ export default function HomeView() {
           {/* Hero background image - object-contain prevents cropping, mix-blend-multiply blends its background with the section background */}
           <div className="absolute inset-0 z-0 flex items-center justify-center">
             <img
-              src="/images/horses/jumping_horse.jpg"
-              alt="Jumping Horse"
-              className="w-full h-full object-contain object-right md:object-center opacity-90 mix-blend-multiply"
+              src="/images/horses/bg_hero_horse.jpg"
+              alt="Majestic Horse"
+              className="w-full h-full object-cover object-right md:object-center opacity-85"
             />
             {/* Subtle overlay to ensure text readability on the left side */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#E8D1A7] via-[#E8D1A7]/70 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#E8D1A7] via-[#E8D1A7]/50 to-transparent" />
           </div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-20 text-left">
