@@ -24,7 +24,7 @@ export default function Header() {
   ];
 
   return (
-    <nav className="sticky top-0 z-45 bg-[#E8D1A7]/90 backdrop-blur-lg border-b border-[#84592B]/15 py-4 px-4 sm:px-6 lg:px-8">
+    <nav className="absolute top-0 left-0 right-0 w-full z-50 bg-transparent py-6 px-4 sm:px-8 lg:px-12">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-6 lg:gap-10">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
