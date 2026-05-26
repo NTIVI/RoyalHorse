@@ -679,8 +679,8 @@ export default function AdminDashboard() {
     <div className={`min-h-screen font-sans flex flex-col lg:flex-row transition-colors duration-300 ${isDark ? "bg-[#0E0D0C] text-gray-200" : "bg-gray-50 text-gray-900"}`}>
 
       {/* SIDEBAR NAVIGATION */}
-      <aside className={`w-full lg:w-72 border-b lg:border-b-0 lg:border-r flex flex-col shrink-0 transition-colors ${isDark ? "bg-[#121110] border-white/5" : "bg-white border-gray-200/80 shadow-sm"}`}>
-        <div className="p-6 border-b border-white/5 flex items-center justify-between">
+      <aside className={`w-full lg:w-72 lg:h-screen lg:sticky lg:top-0 border-b lg:border-b-0 lg:border-r flex flex-col shrink-0 z-40 transition-colors ${isDark ? "bg-[#121110] border-white/5" : "bg-white border-gray-200/80 shadow-sm"}`}>
+        <div className="p-4 lg:p-6 border-b border-white/5 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="bg-[#D4AF37] text-black w-8 h-8 rounded-lg font-serif font-bold flex items-center justify-center text-sm shadow-md shadow-[#D4AF37]/15">
               RH
@@ -690,10 +690,25 @@ export default function AdminDashboard() {
               <p className="text-[9px] text-[#D4AF37] font-semibold tracking-wider uppercase">{t.adminRole}</p>
             </div>
           </div>
+          {/* Mobile Theme Toggle & Logout */}
+          <div className="flex lg:hidden items-center gap-2">
+            <button
+              onClick={() => setTheme(isDark ? "light" : "dark")}
+              className={`p-2 rounded-xl border transition-all cursor-pointer ${isDark ? "bg-black/20 border-white/5 text-[#D4AF37]" : "bg-gray-100 border-black/5 text-yellow-800"}`}
+            >
+              {isDark ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+            </button>
+            <button
+              onClick={handleLogout}
+              className={`p-2 rounded-xl transition-all cursor-pointer border ${isDark ? "text-red-400 bg-red-950/20 border-red-900/30" : "text-red-600 bg-red-50 border-red-200"}`}
+            >
+              <LogOut className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
 
-        {/* Theme and Language toggles */}
-        <div className="px-6 py-4 border-b border-white/5 space-y-4">
+        {/* Theme and Language toggles (Desktop) */}
+        <div className="hidden lg:block px-6 py-4 border-b border-white/5 space-y-4">
           <div className="flex items-center justify-between gap-4">
             <div className={`flex items-center p-1 rounded-xl border ${isDark ? "bg-black/20 border-white/5" : "bg-gray-100 border-black/5"}`}>
               {(["bg", "ru", "en"] as const).map((langKey) => (
@@ -721,22 +736,22 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <nav className="p-4 flex-grow space-y-1">
+        <nav className="p-2 lg:p-4 flex-grow flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible gap-2 lg:gap-1 scrollbar-hide">
           <button
             onClick={() => setActiveAdminTab("inquiries")}
-            className={`w-full flex items-center gap-3 text-xs font-semibold px-4 py-3 rounded-xl transition-all cursor-pointer ${activeAdminTab === "inquiries"
+            className={`whitespace-nowrap lg:w-full flex items-center gap-3 text-xs font-semibold px-4 py-3 rounded-xl transition-all cursor-pointer ${activeAdminTab === "inquiries"
                 ? isDark
-                  ? "bg-[#D4AF37]/10 text-[#D4AF37] border-l-2 border-[#D4AF37]"
-                  : "bg-[#D4AF37]/15 text-[#8a6800] border-l-2 border-[#D4AF37] font-bold"
+                  ? "bg-[#D4AF37]/10 text-[#D4AF37] lg:border-l-2 lg:border-[#D4AF37]"
+                  : "bg-[#D4AF37]/15 text-[#8a6800] lg:border-l-2 lg:border-[#D4AF37] font-bold"
                 : isDark
                   ? "text-gray-400 hover:bg-white/5 hover:text-white"
                   : "text-gray-600 hover:bg-gray-100 hover:text-black"
               }`}
           >
-            <Inbox className="w-4 h-4" />
+            <Inbox className="w-4 h-4 shrink-0" />
             <span>{t.tabInquiries}</span>
             {newCount > 0 && (
-              <span className="ml-auto bg-red-500 text-white font-bold text-[9px] w-4.5 h-4.5 rounded-full flex items-center justify-center">
+              <span className="bg-red-500 text-white font-bold text-[9px] w-4.5 h-4.5 rounded-full flex items-center justify-center shrink-0 ml-1 lg:ml-auto">
                 {newCount}
               </span>
             )}
@@ -744,21 +759,21 @@ export default function AdminDashboard() {
 
           <button
             onClick={() => setActiveAdminTab("cms")}
-            className={`w-full flex items-center gap-3 text-xs font-semibold px-4 py-3 rounded-xl transition-all cursor-pointer ${activeAdminTab === "cms"
+            className={`whitespace-nowrap lg:w-full flex items-center gap-3 text-xs font-semibold px-4 py-3 rounded-xl transition-all cursor-pointer ${activeAdminTab === "cms"
                 ? isDark
-                  ? "bg-[#D4AF37]/10 text-[#D4AF37] border-l-2 border-[#D4AF37]"
-                  : "bg-[#D4AF37]/15 text-[#8a6800] border-l-2 border-[#D4AF37] font-bold"
+                  ? "bg-[#D4AF37]/10 text-[#D4AF37] lg:border-l-2 lg:border-[#D4AF37]"
+                  : "bg-[#D4AF37]/15 text-[#8a6800] lg:border-l-2 lg:border-[#D4AF37] font-bold"
                 : isDark
                   ? "text-gray-400 hover:bg-white/5 hover:text-white"
                   : "text-gray-600 hover:bg-gray-100 hover:text-black"
               }`}
           >
-            <FileText className="w-4 h-4" />
+            <FileText className="w-4 h-4 shrink-0" />
             <span>{t.tabCms}</span>
           </button>
         </nav>
 
-        <div className="p-4 border-t border-white/5">
+        <div className="hidden lg:block p-4 border-t border-white/5">
           <button
             onClick={handleLogout}
             className={`w-full flex items-center justify-center gap-2 text-xs font-bold py-3 rounded-xl transition-all cursor-pointer ${isDark ? "text-red-400 hover:text-red-300 bg-red-950/20 hover:bg-red-950/30 border border-red-900/30" : "text-red-600 hover:text-red-500 bg-red-50 hover:bg-red-100/80 border border-red-200"}`}
