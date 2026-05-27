@@ -98,14 +98,14 @@ export default function RidingPage() {
                     isEven ? "" : "lg:flex-row-reverse"
                   }`}
                 >
-                  {/* Text Column */}
-                  <div className="w-full lg:w-1/2 space-y-6">
+                  {/* Text Column wrapped in elegant oval outline container */}
+                  <div className="w-full lg:w-1/2 space-y-6 bg-white/40 backdrop-blur-md border border-[#84592B]/20 rounded-[3rem] p-8 sm:p-12 shadow-xl hover:shadow-2xl transition-all duration-300">
                     <div className="inline-flex p-3 bg-white border border-[#84592B]/20 rounded-2xl shadow-md">
                       {getIcon(item.title_bg)}
                     </div>
                     <h2 className="text-3xl font-serif font-bold text-gray-900">{title}</h2>
                     <p className="text-gray-600 leading-relaxed text-base">{desc}</p>
-
+ 
                     <div className="pt-4">
                       <Link
                         href={`/contacts?service=${encodeURIComponent(title)}`}
