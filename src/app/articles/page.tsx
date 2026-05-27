@@ -87,10 +87,10 @@ Horse riding is no longer perceived simply as an elite sport, but as an accessib
               const p = paragraph.trim();
               if (!p) return null;
               
-              {/* Drop cap for first paragraph */}
+              {/* First paragraph styled elegantly as a lead paragraph */}
               if (idx === 0) {
                 return (
-                  <p key={idx} className="first-letter:text-7xl first-letter:font-bold first-letter:text-[#84592B] first-letter:mr-2 first-letter:float-left first-letter:leading-[0.8] first-letter:mt-0 tracking-wide text-gray-900 text-justify">
+                  <p key={idx} className="tracking-wide text-gray-900 text-justify">
                     {p}
                   </p>
                 );
