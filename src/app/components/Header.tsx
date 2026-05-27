@@ -27,7 +27,12 @@ export default function Header() {
     <nav className="sticky top-0 z-45 bg-[#E8D1A7]/90 backdrop-blur-lg border-b border-[#84592B]/15 py-4 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-6 lg:gap-10">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
+        <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
+          <img 
+            src="/images/horse_logo.png" 
+            alt="RoyalHorse Logo" 
+            className="w-8 h-8 sm:w-9 sm:h-9 object-contain transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110"
+          />
           <span className="font-serif text-xl sm:text-2xl font-bold tracking-[0.15em] text-[#442D1C] group-hover:text-orange-500 transition-colors duration-300">
             ROYAL<span className="text-[#84592B] group-hover:text-black transition-colors duration-300">HORSE</span>
           </span>
