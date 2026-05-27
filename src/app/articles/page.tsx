@@ -115,7 +115,7 @@ Horse riding is no longer perceived simply as an elite sport, but as an accessib
               <img 
                 src="/images/horse_logo.png" 
                 alt="Author" 
-                className="w-14 h-14 rounded-full object-contain bg-[#442D1C] p-2.5 border-2 border-[#84592B]" 
+                className="w-12 h-12 object-contain" 
               />
               <div>
                 <p className="font-bold text-[#442D1C] font-serif">{currentArticle.author}</p>
