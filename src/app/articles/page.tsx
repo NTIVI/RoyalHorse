@@ -99,7 +99,7 @@ Horse riding is no longer perceived simply as an elite sport, but as an accessib
               {/* Pull quote for 3rd paragraph */}
               if (idx === 2) {
                 return (
-                  <blockquote key={idx} className="border-l-4 border-[#84592B] pl-8 my-14 italic text-2xl md:text-3xl text-[#442D1C] font-semibold bg-gradient-to-r from-[#E8D1A7]/30 to-transparent p-8 rounded-r-3xl">
+                  <blockquote key={idx} className="border-l-4 border-[#84592B] pl-8 my-14 italic text-lg md:text-xl text-[#442D1C] font-medium bg-gradient-to-r from-[#E8D1A7]/30 to-transparent p-8 rounded-r-3xl">
                     &ldquo;{p}&rdquo;
                   </blockquote>
                 );
