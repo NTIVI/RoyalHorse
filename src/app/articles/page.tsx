@@ -90,7 +90,7 @@ Horse riding is no longer perceived simply as an elite sport, but as an accessib
               {/* Drop cap for first paragraph */}
               if (idx === 0) {
                 return (
-                  <p key={idx} className="first-letter:text-7xl first-letter:font-bold first-letter:text-[#84592B] first-letter:mr-4 first-letter:float-left first-letter:leading-none first-letter:mt-1 tracking-wide text-gray-900">
+                  <p key={idx} className="first-letter:text-7xl first-letter:font-bold first-letter:text-[#84592B] first-letter:mr-4 first-letter:float-left first-letter:leading-none first-letter:mt-1 tracking-wide text-gray-900 text-justify">
                     {p}
                   </p>
                 );
@@ -99,13 +99,13 @@ Horse riding is no longer perceived simply as an elite sport, but as an accessib
               {/* Pull quote for 3rd paragraph */}
               if (idx === 2) {
                 return (
-                  <blockquote key={idx} className="border-l-4 border-[#84592B] pl-8 my-14 italic text-lg md:text-xl text-[#442D1C] font-medium bg-gradient-to-r from-[#E8D1A7]/30 to-transparent p-8 rounded-r-3xl">
+                  <blockquote key={idx} className="border-l-4 border-[#84592B] pl-8 my-14 italic text-lg md:text-xl text-[#442D1C] font-medium bg-gradient-to-r from-[#E8D1A7]/30 to-transparent p-8 rounded-r-3xl text-justify">
                     &ldquo;{p}&rdquo;
                   </blockquote>
                 );
               }
 
-              return <p key={idx} className="text-gray-700 tracking-wide">{p}</p>;
+              return <p key={idx} className="text-gray-700 tracking-wide text-justify">{p}</p>;
             })}
           </div>
 
