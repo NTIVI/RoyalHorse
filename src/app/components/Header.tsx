@@ -87,7 +87,7 @@ export default function Header() {
           {/* CRM Booking CTA */}
           <Link
             href="/contacts"
-            className="btn-animate bg-[#442D1C] hover:bg-[#84592B] hover:text-[#442D1C] text-[#E8D1A7] font-sans text-xs uppercase tracking-[0.15em] font-semibold px-6 py-3 rounded-full shadow-md border border-[#84592B]/20 hover:border-transparent"
+            className="btn-animate whitespace-nowrap flex-shrink-0 bg-[#442D1C] hover:bg-[#84592B] hover:text-[#442D1C] text-[#E8D1A7] font-sans text-xs uppercase tracking-[0.15em] font-semibold px-6 py-3 rounded-full shadow-md border border-[#84592B]/20 hover:border-transparent"
           >
             {t[lang].navBookBtn}
           </Link>
