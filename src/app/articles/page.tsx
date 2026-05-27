@@ -112,7 +112,11 @@ Horse riding is no longer perceived simply as an elite sport, but as an accessib
           {/* Social Share / Footer of Article */}
           <div className="mt-16 pt-10 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-4">
-              <img src="/images/horses/horse_1.jpg" alt="Author" className="w-14 h-14 rounded-full object-cover border-2 border-[#84592B]" />
+              <img 
+                src="/images/horse_logo.png" 
+                alt="Author" 
+                className="w-14 h-14 rounded-full object-contain bg-[#442D1C] p-2.5 border-2 border-[#84592B]" 
+              />
               <div>
                 <p className="font-bold text-[#442D1C] font-serif">{currentArticle.author}</p>
                 <p className="text-xs text-gray-500 uppercase tracking-widest">RoyalHorse Club</p>

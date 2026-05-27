@@ -598,7 +598,7 @@ export default function AdminDashboard() {
                 key={langKey}
                 onClick={() => setAdminLang(langKey)}
                 className={`text-[10px] font-bold px-2 py-1 rounded-lg uppercase transition-all cursor-pointer ${adminLang === langKey
-                    ? "bg-[#84592B] text-black"
+                    ? "bg-[#E8D1A7] text-[#442D1C] border border-[#84592B]/20 shadow-sm font-bold"
                     : "text-gray-400 hover:text-white"
                   }`}
               >
@@ -665,7 +665,7 @@ export default function AdminDashboard() {
 
             <button
               type="submit"
-              className="w-full bg-[#84592B] hover:bg-[#9D9167] text-black font-bold py-4 px-4 rounded-xl transition-all text-xs tracking-widest uppercase shadow-lg shadow-[#84592B]/10 active:scale-[0.98] cursor-pointer"
+              className="w-full bg-[#E8D1A7] hover:bg-[#E8D1A7]/80 text-[#442D1C] border border-[#84592B]/25 font-bold py-4 px-4 rounded-xl transition-all text-xs tracking-widest uppercase shadow-md active:scale-[0.98] cursor-pointer"
             >
               {t.loginBtn}
             </button>
@@ -716,7 +716,7 @@ export default function AdminDashboard() {
                   key={langKey}
                   onClick={() => setAdminLang(langKey)}
                   className={`text-[9px] font-bold px-2 py-1 rounded-lg uppercase transition-all cursor-pointer ${adminLang === langKey
-                      ? "bg-[#84592B] text-black shadow-sm"
+                      ? "bg-[#E8D1A7] text-[#442D1C] border border-[#84592B]/20 shadow-sm font-bold"
                       : "text-gray-400 hover:text-white"
                     }`}
                 >
@@ -836,7 +836,7 @@ export default function AdminDashboard() {
                   key={f.key}
                   onClick={() => setFilterStatus(f.key)}
                   className={`text-xs font-semibold px-4 py-2 rounded-xl transition-all border cursor-pointer ${filterStatus === f.key
-                      ? "bg-[#84592B] text-black border-transparent shadow-md"
+                      ? "bg-[#E8D1A7] text-[#442D1C] border-[#84592B]/35 shadow-md font-bold"
                       : isDark
                         ? "bg-[#121110] text-gray-400 border-white/5 hover:border-white/10 hover:text-white"
                         : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50 shadow-sm"
@@ -1003,7 +1003,7 @@ export default function AdminDashboard() {
                     });
                     setIsAddingNew(true);
                   }}
-                  className="inline-flex items-center gap-2 text-xs font-bold text-black bg-[#84592B] hover:bg-[#9D9167] px-4 py-2.5 rounded-xl shadow-md transition-all cursor-pointer"
+                  className="inline-flex items-center gap-2 text-xs font-bold text-[#442D1C] bg-[#E8D1A7] hover:bg-[#E8D1A7]/80 border border-[#84592B]/25 px-4 py-2.5 rounded-xl shadow-md transition-all cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>{t.addPostBtn}</span>
@@ -1025,7 +1025,7 @@ export default function AdminDashboard() {
                   key={cat.key}
                   onClick={() => setSelectedCategory(cat.key)}
                   className={`text-xs font-semibold px-4 py-2 rounded-xl transition-all border cursor-pointer ${selectedCategory === cat.key
-                      ? "bg-[#84592B] text-black border-transparent shadow-sm"
+                      ? "bg-[#E8D1A7] text-[#442D1C] border-[#84592B]/35 shadow-sm font-bold"
                       : isDark
                         ? "bg-[#121110] text-gray-400 border-white/5 hover:border-white/10 hover:text-white"
                         : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50 shadow-sm"
@@ -1304,7 +1304,7 @@ export default function AdminDashboard() {
                     <button
                       type="submit"
                       disabled={compressing}
-                      className="w-full bg-[#84592B] hover:bg-[#9D9167] text-black font-bold py-4 px-4 rounded-xl transition-all text-xs tracking-widest uppercase shadow-lg shadow-[#84592B]/10 active:scale-[0.98] disabled:opacity-50 cursor-pointer"
+                      className="w-full bg-[#E8D1A7] hover:bg-[#E8D1A7]/80 text-[#442D1C] border border-[#84592B]/25 font-bold py-4 px-4 rounded-xl transition-all text-xs tracking-widest uppercase shadow-md active:scale-[0.98] disabled:opacity-50 cursor-pointer"
                     >
                       {t.createBtn}
                     </button>
@@ -1434,7 +1434,7 @@ export default function AdminDashboard() {
                       <button
                         type="submit"
                         disabled={compressing}
-                        className="flex-grow bg-[#84592B] hover:bg-[#9D9167] text-black font-bold py-3.5 px-4 rounded-xl transition-all text-xs tracking-widest uppercase shadow-md shadow-[#84592B]/10 active:scale-[0.98] disabled:opacity-50 cursor-pointer"
+                        className="flex-grow bg-[#E8D1A7] hover:bg-[#E8D1A7]/80 text-[#442D1C] border border-[#84592B]/25 font-bold py-3.5 px-4 rounded-xl transition-all text-xs tracking-widest uppercase shadow-md active:scale-[0.98] disabled:opacity-50 cursor-pointer"
                       >
                         {t.saveBtn}
                       </button>
