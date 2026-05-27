@@ -31,7 +31,7 @@ export default function Header() {
           <img 
             src="/images/horse_logo.png" 
             alt="RoyalHorse Logo" 
-            className="w-8 h-8 sm:w-9 sm:h-9 object-contain transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110"
+            className="w-10 h-10 sm:w-12 sm:h-12 object-contain transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110"
           />
           <span className="font-serif text-xl sm:text-2xl font-bold tracking-[0.15em] text-[#442D1C] group-hover:text-orange-500 transition-colors duration-300">
             ROYAL<span className="text-[#84592B] group-hover:text-black transition-colors duration-300">HORSE</span>
