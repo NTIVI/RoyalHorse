@@ -599,7 +599,7 @@ export default function AdminDashboard() {
                 onClick={() => setAdminLang(langKey)}
                 className={`text-[10px] font-bold px-2 py-1 rounded-lg uppercase transition-all cursor-pointer ${adminLang === langKey
                     ? "bg-[#E8D1A7] text-[#442D1C] border border-[#84592B]/20 shadow-sm font-bold"
-                    : "text-gray-400 hover:text-white"
+                    : isDark ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-[#442D1C] font-semibold"
                   }`}
               >
                 {langKey}
@@ -717,7 +717,7 @@ export default function AdminDashboard() {
                   onClick={() => setAdminLang(langKey)}
                   className={`text-[9px] font-bold px-2 py-1 rounded-lg uppercase transition-all cursor-pointer ${adminLang === langKey
                       ? "bg-[#E8D1A7] text-[#442D1C] border border-[#84592B]/20 shadow-sm font-bold"
-                      : "text-gray-400 hover:text-white"
+                      : isDark ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-[#442D1C] font-semibold"
                     }`}
                 >
                   {langKey}

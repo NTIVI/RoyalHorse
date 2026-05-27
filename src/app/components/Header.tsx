@@ -61,7 +61,7 @@ export default function Header() {
             <button
               onClick={() => setLang("bg")}
               className={`px-3 py-1.5 rounded-full transition-all ${
-                lang === "bg" ? "bg-[#442D1C] text-[#E8D1A7] shadow-sm" : "text-gray-500 hover:text-black cursor-pointer"
+                lang === "bg" ? "bg-[#E8D1A7] text-[#442D1C] border border-[#84592B]/20 shadow-sm font-bold" : "text-gray-500 hover:text-[#442D1C] cursor-pointer"
               }`}
             >
               BG
@@ -69,7 +69,7 @@ export default function Header() {
             <button
               onClick={() => setLang("ru")}
               className={`px-3 py-1.5 rounded-full transition-all ${
-                lang === "ru" ? "bg-[#442D1C] text-[#E8D1A7] shadow-sm" : "text-gray-500 hover:text-black cursor-pointer"
+                lang === "ru" ? "bg-[#E8D1A7] text-[#442D1C] border border-[#84592B]/20 shadow-sm font-bold" : "text-gray-500 hover:text-[#442D1C] cursor-pointer"
               }`}
             >
               RU
@@ -77,7 +77,7 @@ export default function Header() {
             <button
               onClick={() => setLang("en")}
               className={`px-3 py-1.5 rounded-full transition-all ${
-                lang === "en" ? "bg-[#442D1C] text-[#E8D1A7] shadow-sm" : "text-gray-500 hover:text-black cursor-pointer"
+                lang === "en" ? "bg-[#E8D1A7] text-[#442D1C] border border-[#84592B]/20 shadow-sm font-bold" : "text-gray-500 hover:text-[#442D1C] cursor-pointer"
               }`}
             >
               EN
