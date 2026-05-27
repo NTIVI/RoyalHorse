@@ -75,13 +75,13 @@ export default function RidingPage() {
       <main className="min-h-screen bg-[#E8D1A7] text-gray-900 py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <h1 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-gray-900 mb-4">
+          <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
+            <span className="inline-block px-5 py-2 border border-[#84592B]/40 text-xs font-bold tracking-[0.2em] text-[#84592B] rounded-full uppercase bg-white/20 backdrop-blur-sm">
+              {t[lang].ridingSub}
+            </span>
+            <h1 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-gray-900">
               {t[lang].ridingTitle}
             </h1>
-            <p className="text-lg text-[#84592B] font-serif italic">
-              {t[lang].ridingSub}
-            </p>
           </div>
 
           {/* Service Sections */}

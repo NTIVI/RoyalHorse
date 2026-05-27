@@ -61,7 +61,7 @@ export default function HomeView() {
 
           <div className="max-w-7xl mx-auto pl-2 pr-4 sm:pl-3 sm:pr-6 lg:pl-4 lg:pr-8 relative z-10 w-full py-20 text-left">
             <div className="max-w-2xl space-y-6 bg-[#E8D1A7]/30 backdrop-blur-md border border-[#442D1C]/20 rounded-[3rem] p-8 sm:p-12 shadow-2xl">
-              <span className="hero-animate inline-block text-xs font-bold uppercase tracking-[0.25em] text-[#84592B] border-l-2 border-[#84592B] pl-3">
+              <span className="hero-animate inline-block text-xs font-bold uppercase tracking-[0.25em] text-[#84592B] border border-[#84592B]/40 px-5 py-2 rounded-full bg-[#E8D1A7]/20 backdrop-blur-sm">
                 {t[lang].siteTitle}
               </span>
               <h1 className="hero-animate text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-[#442D1C] tracking-tight leading-tight drop-shadow-sm">
